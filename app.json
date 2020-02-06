@@ -1,0 +1,12 @@
+{
+  "name": "Devrepublic Bn Backend",
+  "description": "Making company travel and accomodation easy and convinient.",
+  "repository": "https://github.com/andela/devrepublic-bn-backend",
+  "keywords": [
+    "devrepublic",
+    "andela",
+    "simulations"
+  ],
+  "addons": [],
+  "env": {}
+}
