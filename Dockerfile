@@ -1,6 +1,6 @@
 FROM node:13
 
-WORKDIR /Users/jim.ntare/Documents/work/devrepublic-bn-backend
+WORKDIR /usr/src/index
 
 COPY package*.json ./
 
