@@ -1,12 +1,12 @@
 FROM node:13
 
-WORKDIR /usr/src/index
+WORKDIR /home
 
-COPY package*.json ./
+COPY package*.json /home/
 
 RUN npm install
 
-COPY . .
+COPY . /home
 
 EXPOSE 3000
 
