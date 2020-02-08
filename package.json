@@ -11,7 +11,7 @@
     "create": "npx sequelize db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
     "drop": "npx sequelize db:migrate:undo:all",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Andela Simulations Programme",
   "license": "MIT",
