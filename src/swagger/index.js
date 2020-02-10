@@ -1,27 +1,28 @@
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerui from 'swagger-ui-express';
+import os from 'os';
 
 // Set up
 
 const swaggerDef = {
-  swaggerDef: {
+  definition: {
     info: {
-      title: 'Barefoot Nomad(DevRepublic)',
+      title: 'Barefoot Nomad - DevRepublic',
       version: '1.0.0',
       description:
             'A platform to make company global travel and accommodation easy and convenient for strongwork force of savvy member'
     },
-    host: process.env.BASE_URL,
-    basePath: '/'
+    servers: [
+      {
+        url: 'http://localhost:8000',
+        name: `${os.hostname()}`
+      },
+      {
+        url: `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`,
+        name: `${os.hostname()}`
+      }
+    ]
   },
   // apis list
-  apis: ['./src/routes/*.js']
+  apis: ['../routes/api/*.js']
 };
-const settings = {
-  swaggerDef,
-  apis: ['./src/swagger/*.swagger.js']
-};
-const swaggerDoc = swaggerJSDoc(settings);
-const regisSwagger = (app) => { app.use('/docs', swaggerui.serve, swaggerui.setup(swaggerDoc)); };
 
-export default regisSwagger;
+export default swaggerDef;

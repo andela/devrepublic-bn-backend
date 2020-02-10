@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import routes from './routes/api/index';
+
 
 dotenv.config();
 
@@ -10,9 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => res.status(200).send({
-  message: 'Welcome to Barefoot Nomad API',
-}));
+// console.log(index);
+app.use(routes);
 
 app.listen(port, () => `Server is running on PORT ${port}`);
 
