@@ -1,16 +1,23 @@
+  
 module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
     'Users',
     [
       {
-        name: 'Bien Aime',
+        id: "dgdhdghshgshs",
+        firstName: 'Bienjee',
+        lastName: 'Bieio',
         email: 'jean@andela.com',
+        password: 'Bien@BAR789',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: 'jean Baraka',
-        email: 'baraka@andela.com',
+        id: "jbubihyuebucbeceb",
+        firstName: 'devrepubli',
+        lastName: 'devrpo',
+        email: 'jdev@andela.com',
+        password: 'Bien@BAR789',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
