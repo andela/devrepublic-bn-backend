@@ -17,7 +17,7 @@ const swaggerDef = {
     },
     host: process.env.BASE_URL,
   },
-  apis: ['**/api/**/*.js']
+  apis: ['./src/swagger/*.swagger.js']
 };
 
 const swaggerDoc = swaggerJSDoc(swaggerDef);
