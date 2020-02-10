@@ -13,7 +13,9 @@ const router = Router();
  *       description: 'Welcome to Barefoot Nomad'
  */
 router.get('/', (req, res) => {
-  res.send('Welcome to devRepublic Barefoot Nomad API');
+  res.status(200).json({
+    message: 'Welcome to devRepublic Barefoot Nomad API'
+  });
 });
 
 export default router;
