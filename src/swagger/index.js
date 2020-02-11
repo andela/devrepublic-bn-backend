@@ -2,8 +2,12 @@ import os from 'os';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerui from 'swagger-ui-express';
 import { Router } from 'express';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const router = Router();
+
 
 // Set up
 
@@ -21,7 +25,7 @@ const swaggerDef = {
         name: `${os.hostname()}`
       },
       {
-        url: `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`,
+        url: 'devrepublic-bn.herokuapp.com',
         name: `${os.hostname()}`
       }
     ]

@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 
 // console.log(index);
 // console.log(welcome);
-app.use('/api/v1', welcome);
+app.use('/', welcome);
 // console.log(swagger);
 app.use('/', swagger);
 
