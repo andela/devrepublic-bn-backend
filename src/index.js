@@ -19,6 +19,6 @@ app.use('/api/v1', welcome);
 // console.log(swagger);
 app.use('/', swagger);
 
-app.listen(port, () => console.log(`Server is running on PORT ${port}`));
+app.listen(port, () => `Server is running on PORT ${port}`);
 
 export default app;
