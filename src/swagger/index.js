@@ -1,4 +1,9 @@
 import os from 'os';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerui from 'swagger-ui-express';
+import { Router } from 'express';
+
+const router = Router();
 
 // Set up
 
@@ -22,7 +27,16 @@ const swaggerDef = {
     ]
   },
   // apis list
-  apis: ['../routes/api/*.js']
+  apis: ['../**/api/*.js', 'welcome.js']
 };
 
-export default swaggerDef;
+const swaggerDoc = swaggerJSDoc(swaggerDef);
+
+router.get('/json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerDoc);
+});
+
+router.use('/api-doc', swaggerui.serve, swaggerui.setup(swaggerDoc));
+
+export default router;

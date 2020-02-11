@@ -1,15 +1,19 @@
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerui from 'swagger-ui-express';
-import { Router } from 'express';
-import swaggerDef from '../../swagger/index';
-import welcome from './welcome';
+// import swaggerJSDoc from 'swagger-jsdoc';
+// import swaggerui from 'swagger-ui-express';
+// import { Router } from 'express';
+// import swaggerDef from '../../swagger/index';
 
-const routes = Router();
 
-const swaggerDoc = swaggerJSDoc(swaggerDef);
+// const router = Router();
 
-routes.use('/devrepublic-api', swaggerui.serve, swaggerui.setup(swaggerDoc));
-// console.log(welcome);
-routes.use(welcome);
+// const swaggerDoc = swaggerJSDoc(swaggerDef);
 
-export default routes;
+// router.get('/json', (req, res) => {
+//   res.setHeader('Content-Type', 'application/json');
+//   res.send(swaggerDoc);
+// });
+
+// router.use('/', swaggerui.serve, swaggerui.setup(swaggerDoc));
+
+
+// export default router;

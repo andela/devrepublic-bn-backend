@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import routes from './routes/api/index';
+import welcome from './routes/api/welcome';
+import swagger from './swagger/index';
 
 
 dotenv.config();
@@ -13,8 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 
 // console.log(index);
-app.use(routes);
+// console.log(welcome);
+app.use('/api/v1', welcome);
+// console.log(swagger);
+app.use('/', swagger);
 
-app.listen(port, () => `Server is running on PORT ${port}`);
+app.listen(port, () => console.log(`Server is running on PORT ${port}`));
 
 export default app;

@@ -4,13 +4,14 @@ const router = Router();
 
 /**
  * @swagger
- *
  * /:
- *  get:
- *   description: Welcome message for users
- *   responses:
- *     '200':
- *       description: 'Welcome to Barefoot Nomad'
+ *   get:
+ *     description: Display welcome message
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Welcome to devRepublic Barefoot Nomad API
  */
 router.get('/', (req, res) => {
   res.status(200).json({

@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Testing index page ', () => {
   it('should return a message from index page.', (done) => {
     chai.request(app)
-      .get('/')
+      .get('/api/v1')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(200);
