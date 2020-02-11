@@ -10,3 +10,22 @@ Make company global travel and accommodation easy and convenient for the strong 
 
 ---
 Website: https://devrepublic-bn.herokuapp.com/ 
+___
+## FIRST STEPS TO FOLLOW IN ORDER TO USE OUR ENDPOINTS`
+
+- Clone the repository `https://github.com/andela/devrepublic-bn-backend.git`
+
+- Run `npm Install` in order to install all dependencies
+
+- Run `npm run dev` to start server
+
+## NEXT STEP
+
+- Create `.env` File and Add the following `DEV_DATABASE_URL=postgres://{db_user}:{db_password}@{host}}:{port}/{databaseName}`
+  specifiy your `Database username` , `database Password`, `host`, `port` and your created `database name`
+
+## Use the following scripts to create database Tables 
+
+   - Create a model first of all using `sequelize model:generate --name User --attributes firstName:string,email:string,lastName:string,password:string` 
+   
+   - Then create migration using this command `sequelize db:migrate` in order to be abble to insert data in database
