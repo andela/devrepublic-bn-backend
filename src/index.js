@@ -26,8 +26,6 @@ app.use('/api', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
 
-app.use('/api/v1/auth', authRouter);
-
 app.use(express.json());
 
 app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));

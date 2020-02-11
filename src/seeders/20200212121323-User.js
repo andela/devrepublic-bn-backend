@@ -1,4 +1,5 @@
-  
+const bcrypt = require('bcrypt')
+
 module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
     'Users',
@@ -8,7 +9,7 @@ module.exports = {
         firstName: 'Bienjee',
         lastName: 'Bieio',
         email: 'jean@andela.com',
-        password: 'Bien@BAR789',
+        password: bcrypt.hashSync('Bien@BAR789', Number(process.env.passwordHashSalt)),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -17,7 +18,7 @@ module.exports = {
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'jdev@andela.com',
-        password: 'Bien@BAR789',
+        password: bcrypt.hashSync('Bien@BAR789', Number(process.env.passwordHashSalt)),
         createdAt: new Date(),
         updatedAt: new Date(),
       },

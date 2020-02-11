@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  const VericationToken = sequelize.define('VericationToken', {
+  const VerificationToken = sequelize.define('VerificationToken', {
     userId: DataTypes.STRING,
     token: DataTypes.STRING
   }, {});
-  VericationToken.associate = (models) => {
-    VericationToken.belongsTo(models.User, {
+  VerificationToken.associate = (models) => {
+    VerificationToken.belongsTo(models.User, {
       foreignKey: 'id',
       foreignKeyConstraint: true
     });
   };
-  return VericationToken;
+  return VerificationToken;
 };

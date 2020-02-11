@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('VericationTokens', {
+    return queryInterface.createTable('VerificationTokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -32,9 +32,9 @@ module.exports = {
     }).then(() => { process.stdout.write('expireToken event created') });
   },
   down: (queryInterface) => {
-    return queryInterface.dropTable('VericationTokens')
+    return queryInterface.dropTable('VerificationTokens')
       .then(() => {
-        process.stdout.write('VericationTokens table dropped')
+        process.stdout.write('VerificationTokens table dropped')
     });
   }
 };
