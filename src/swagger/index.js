@@ -41,6 +41,6 @@ router.get('/json', (req, res) => {
   res.send(swaggerDoc);
 });
 
-router.use('/api-doc', swaggerui.serve, swaggerui.setup(swaggerDoc));
+router.use('/', swaggerui.serve, swaggerui.setup(swaggerDoc));
 
 export default router;

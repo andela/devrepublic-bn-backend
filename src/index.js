@@ -13,11 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 3000;
 
-// console.log(index);
-// console.log(welcome);
 app.use('/', welcome);
-// console.log(swagger);
-app.use('/', swagger);
+app.use('/api-doc', swagger);
 
 app.listen(port, () => `Server is running on PORT ${port}`);
 
