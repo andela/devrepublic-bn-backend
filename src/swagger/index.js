@@ -1,4 +1,3 @@
-import os from 'os';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerui from 'swagger-ui-express';
 import { Router } from 'express';
@@ -8,9 +7,6 @@ dotenv.config();
 
 const router = Router();
 
-
-// Set up
-
 const swaggerDef = {
   definition: {
     info: {
@@ -19,19 +15,9 @@ const swaggerDef = {
       description:
             'A platform to make company global travel and accommodation easy and convenient for strongwork force of savvy member'
     },
-    servers: [
-      {
-        url: 'http://localhost:8000',
-        name: `${os.hostname()}`
-      },
-      {
-        url: 'devrepublic-bn.herokuapp.com',
-        name: `${os.hostname()}`
-      }
-    ]
+    host: process.env.BASE_URL,
   },
-  // apis list
-  apis: ['../**/api/*.js', 'welcome.js']
+  apis: ['**/api/**/*.js']
 };
 
 const swaggerDoc = swaggerJSDoc(swaggerDef);
