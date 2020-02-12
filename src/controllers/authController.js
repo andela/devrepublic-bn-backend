@@ -45,6 +45,11 @@ export default class AuthController {
         password: hashedPassword,
       });
       const token = provideToken(user.id, email);
+      await db.VericationToken.create({
+        userId: user.id,
+        token
+      });
+      sendMsg(email, token, firstName);
       return Response.signupResponse(res, 201, 'User successfully registered', token);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);

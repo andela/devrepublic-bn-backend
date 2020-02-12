@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {});
   User.associate = () => {
-    // associations can be defined here
   };
   return User;
 };
