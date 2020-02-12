@@ -8,5 +8,20 @@
     "simulations"
   ],
   "addons": [],
-  "env": {}
+  "env": {
+    "BASE_URL": {
+      "required": true
+    }
+  },
+  "buildpacks" : [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-18",
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
 }
