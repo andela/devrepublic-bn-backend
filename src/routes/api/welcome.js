@@ -4,7 +4,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api:
+ * /:
  *   get:
  *     description: Display welcome message
  *     produces:
