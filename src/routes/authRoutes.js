@@ -1,8 +1,9 @@
 import express from 'express';
 import AuthController from '../controllers/authController';
+import verificationController from '../controllers/verificationController';
 import validationResult from '../validation/validationResult';
 import signupInputRules from '../validation/validationRules';
-import verificationController from '../controllers/verificationController';
+
 
 const authRouter = express.Router();
 

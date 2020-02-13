@@ -1,0 +1,2 @@
+export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcxMmNjMDEzLTI3NWQtNDg1NS1iMmFjLTc3YzA1NGFkM2QyOCIsImlzVmVyaWZpZWQiOmZhbHNlfQ.MlLRqH_BSv4mixIUTbYlg1-7juTvkR20YkcYctG_vnI';
+export const email = 'jean@andela.com';
