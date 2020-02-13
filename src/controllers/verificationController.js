@@ -32,7 +32,7 @@ export default class VerificationController {
         where: { id: unverifiedId }
       });
       newUser.update({ isVerified: true });
-      return Response.signupResponse(res, 403, `User with ${newUser.email} has been verified`);
+      return Response.signupResponse(res, 200, `User with ${newUser.email} has been verified`);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);
     }

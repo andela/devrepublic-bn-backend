@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-const provideToken = (userId, userEmail) => {
+const provideToken = (userId, isVerified) => {
   const token = jwt.sign({
     id: userId,
-    email: userEmail
+    isVerfied: isVerified
   }, process.env.JWTPRIVATEKEY, { expiresIn: '1d' });
   return token;
 };

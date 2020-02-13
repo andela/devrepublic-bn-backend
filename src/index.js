@@ -17,7 +17,6 @@ const port = process.env.PORT || 3000;
 app.use('/api', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
-app.use('/verification', verificationController.verifyAccount);
 
 app.use('/api/v1/auth', authRouter);
 
