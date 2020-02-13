@@ -17,9 +17,9 @@ export default class AuthController {
   /**
      * @description Sign up method
      * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} User
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User
      * @memberof authController
      */
   static async registerUser(req, res) {
@@ -46,7 +46,7 @@ export default class AuthController {
         password: hashedPassword,
       });
       const token = provideToken(user.id, user.isVerified);
-      await db.VericationToken.create({
+      await db.VerificationToken.create({
         userId: user.id,
         token
       });
@@ -54,6 +54,37 @@ export default class AuthController {
       return Response.signupResponse(res, 201, 'User successfully registered', token);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);
+    }
+  }
+
+  /**
+     * @description login method
+     * @static
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User
+     * @memberof authController
+     */
+  static async login(req, res) {
+    try {
+      const { email, password } = req.body;
+
+      const user = await db.User.findOne({
+        where: {
+          email,
+        },
+        attributes: ['id', 'email', 'password', 'isVerified'],
+      });
+      if (!user) {
+        return Response.errorResponse(res, 401, 'Incorrect email or password');
+      }
+      if (bcrypt.compareSync(password, user.password)) {
+        const token = provideToken(user.dataValues.id, user.dataValues.isVerified);
+        return Response.login(res, 200, 'User is successfully logged in', token);
+      }
+      return Response.errorResponse(res, 401, 'Incorrect email or password');
+    } catch (error) {
+      return Response.errorResponse(res, 500, error.message);
     }
   }
 }

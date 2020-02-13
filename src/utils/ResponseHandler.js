@@ -34,4 +34,20 @@ export default class ResponceHandler {
   static errorResponse(response, status, error) {
     return (response.status(status).json({ status, error }));
   }
+
+  /**
+   * @param  {Object} res
+   * @param  {Object} status
+   * @param  {String} message
+   * @param  {String} token
+   * @returns {Object} as response
+   * @param  {Object}} data
+   */
+  static login(res, status, message, token) {
+    return (res.status(status).json({
+      status,
+      message,
+      data: token
+    }));
+  }
 }

@@ -15,6 +15,6 @@ const signupInputRules = [
   check('email').trim().exists().withMessage('The email is required')
     .isEmail()
     .withMessage('The email field must contain a valid email address'),
-  check('password').exists().matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,30}/).withMessage('At least 8 characters are needed include symbols'),
+  check('password').exists().matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,30}/).withMessage('At least 8 characters include symbols, uppercase, lowercase and number'),
 ];
 export default signupInputRules;

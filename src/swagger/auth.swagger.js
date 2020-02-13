@@ -47,7 +47,7 @@
  *       - name: body
  *         in: body
  *         schema:
- *           $ref: '#/definitions/Signup'
+ *           $ref: '#/definitions/register'
  *           type: object
  *           properties:
  *             firstName:
@@ -72,3 +72,56 @@
  *       '409':
  *             description: User already exist.
  * */
+
+/**
+ * @swagger
+ * /api/v1/auth/login:
+ *   post:
+ *     tags:
+ *       - User
+ *     name: login
+ *     summary: login a user in a system
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           $ref: '#/definitions/login'
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *             password:
+ *               type: string
+ *               format: password
+ *         required:
+ *           - email
+ *           - password
+ *     responses:
+ *       '200':
+ *             description: User logged in.
+ *       '400':
+ *             description: Bad request.
+ *       '401':
+ *             description: Incorrect email or password.
+ * */
+
+/**
+ * @swagger
+ * definitions:
+ *   login:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *         format: email
+ *       password:
+ *         type: string
+ *         format: password
+ *       required:
+ *         - email
+ *         - password
+ */

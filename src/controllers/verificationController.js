@@ -5,15 +5,15 @@ import Response from '../utils/ResponseHandler';
 dotenv.config();
 /**
  * @description Verification Controller
- * @class VericationController
+ * @class VerificationController
  */
 export default class VerificationController {
   /**
      * @description Account verification method method
      * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} User
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User
      * @memberof verificationController
      */
   static async verifyAccount(req, res) {
@@ -24,7 +24,7 @@ export default class VerificationController {
       if (existingEmail.isVerified) {
         return Response.signupResponse(res, 202, 'User is Verified');
       }
-      const existingToken = await db.VericationToken.findOne({
+      const existingToken = await db.VerificationToken.findOne({
         where: { token: req.query.token }
       });
       const unverifiedId = existingToken.userId;
