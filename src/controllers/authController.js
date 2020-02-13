@@ -2,6 +2,7 @@ import uuid from 'uuid/v4';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import db from '../models';
+import sendMsg from '../utils/user-created-email';
 import provideToken from '../utils/provideToken';
 import Response from '../utils/ResponseHandler';
 
@@ -44,7 +45,12 @@ export default class AuthController {
         email,
         password: hashedPassword,
       });
-      const token = provideToken(user.id, email);
+      const token = provideToken(user.id, user.isVerified);
+      await db.VericationToken.create({
+        userId: user.id,
+        token
+      });
+      sendMsg(email, token, firstName);
       return Response.signupResponse(res, 201, 'User successfully registered', token);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);
