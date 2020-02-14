@@ -1,16 +1,16 @@
 import uuid from 'uuid/v4';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import localStorage from 'localStorage';
 import db from '../models';
 import sendMsg from '../utils/user-created-email';
 import provideToken from '../utils/provideToken';
 import Response from '../utils/ResponseHandler';
 
-
 dotenv.config();
 /**
  *
- * @description Authentication Controller
+ * @description AuthController Controller
  * @class AuthController
  */
 export default class AuthController {
@@ -46,6 +46,7 @@ export default class AuthController {
         password: hashedPassword,
       });
       const token = provideToken(user.id, user.isVerified, email);
+      localStorage.setItem('token', token);
       sendMsg(email, token, firstName);
       return Response.signupResponse(res, 201, 'User successfully registered', token);
     } catch (error) {
@@ -59,7 +60,7 @@ export default class AuthController {
      * @param {Object} req
      * @param {Object} res
      * @returns {Object} User
-     * @memberof authController
+     * @memberof AuthController
      */
   static async login(req, res) {
     try {
@@ -76,11 +77,25 @@ export default class AuthController {
       }
       if (bcrypt.compareSync(password, user.password)) {
         const token = provideToken(user.dataValues.id, user.dataValues.isVerified);
+        localStorage.setItem('token', token);
         return Response.login(res, 200, 'User is successfully logged in', token);
       }
       return Response.errorResponse(res, 401, 'Incorrect email or password');
     } catch (error) {
       return Response.errorResponse(res, 500, error.message);
     }
+  }
+
+  /**
+     * @description logout method
+     * @static
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User
+     * @memberof AuthController
+     */
+  static async logout(req, res) {
+    localStorage.removeItem('token');
+    return Response.login(res, 200, res.__('User is successfully logged out'));
   }
 }

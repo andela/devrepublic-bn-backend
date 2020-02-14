@@ -13,7 +13,6 @@ import provideToken from '../utils/provideToken';
 const token = provideToken(id, isVerified, email);
 const wrongToken = provideToken(wrongId, isVerified, wrongEmail);
 
-
 const {
   expect
 } = chai;

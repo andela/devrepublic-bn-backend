@@ -1,7 +1,9 @@
 {
-    "Welcome to devRepublic Barefoot Nomad API": "Welcome to devRepublic Barefoot Nomad API",
-    "register": "register",
-    "signup": "signup",
-    "login": "login",
-    "logout": "logout"
+	"Welcome to devRepublic Barefoot Nomad API": "Welcome to devRepublic Barefoot Nomad API",
+	"register": "register",
+	"signup": "signup",
+	"login": "login",
+	"logout": "logout",
+	"User is successfully logged out": "User is successfully logged out",
+	"Login first or create an account if you do not have one": "Login first or create an account if you do not have one"
 }
