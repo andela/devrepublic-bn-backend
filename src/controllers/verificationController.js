@@ -18,21 +18,15 @@ export default class VerificationController {
      */
   static async verifyAccount(req, res) {
     try {
-      const existingEmail = db.User.findOne({
+      const existingUser = await db.User.findOne({
         where: { email: req.query.email }
       });
-      if (existingEmail.isVerified) {
-        return Response.signupResponse(res, 202, 'User is Verified');
+      const unverifiedId = existingUser.isVerified;
+      if (unverifiedId === false) {
+        existingUser.update({ isVerified: true });
+        return Response.signupResponse(res, 200, `User with ${existingUser.email} has been verified`);
       }
-      const existingToken = await db.VerificationToken.findOne({
-        where: { token: req.query.token }
-      });
-      const unverifiedId = existingToken.userId;
-      const newUser = await db.User.findOne({
-        where: { id: unverifiedId }
-      });
-      newUser.update({ isVerified: true });
-      return Response.signupResponse(res, 200, `User with ${newUser.email} has been verified`);
+      return Response.signupResponse(res, 202, `${existingUser.email} is already verified`);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);
     }
