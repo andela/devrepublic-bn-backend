@@ -2,7 +2,11 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import index from '../index';
 import {
-  email, id, isVerified, wrongEmail, wrongId
+  email,
+  id,
+  isVerified,
+  wrongEmail,
+  wrongId
 } from './verifyAccountMock';
 import provideToken from '../utils/provideToken';
 
