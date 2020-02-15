@@ -4,7 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+<<<<<<< HEAD
     role: DataTypes.STRING,
+=======
+    signupMethod: DataTypes.STRING,
+>>>>>>> ft(Login with Facebook and Google):
     isVerified: DataTypes.BOOLEAN
   }, {});
   User.associate = () => {

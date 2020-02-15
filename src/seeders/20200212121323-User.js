@@ -5,8 +5,17 @@ module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
     'Users',
     [
+      // {
+      //   id: 'd0651d02-46e6-4b70-9c3b-8d378c178241',
+      //   firstName: 'bienaime',
+      //   lastName: 'jeanb',
+      //   email: 'aime@andela.com',
+      //   password: bcrypt.hashSync('Aime12&*', Number(process.env.passwordHashSalt)),
+      //   createdAt: new Date(),
+      //   updatedAt: new Date(),
+      // },
       {
-        id: uuid(),
+        id: "d0551d02-46e6-4b79-9c3b-8d378c178243",
         firstName: 'Bienjee',
         lastName: 'Bieio',
         email: 'jean@andela.com',
@@ -17,7 +26,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: "d0651d03-46e6-4b70-9c3b-8d3785178241",
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'jdev@andela.com',

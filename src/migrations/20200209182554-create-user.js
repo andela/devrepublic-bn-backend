@@ -18,8 +18,14 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+<<<<<<< HEAD
       role: {
         type: Sequelize.STRING
+=======
+      signupMethod: {
+        type: Sequelize.STRING,
+        defaultValue: 'none'
+>>>>>>> ft(Login with Facebook and Google):
       },
       isVerified: {
         allowNull: false,

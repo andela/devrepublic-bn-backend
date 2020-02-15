@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import AuthController from '../controllers/authController';
 import validationResult from '../validation/validationResult';
 import verificationController from '../controllers/verificationController';
@@ -6,6 +7,7 @@ import validateParams from '../validation/validateParams';
 import { signupInputRules, resetPasswordRules, forgotPasswordRules } from '../validation/validationRules';
 
 import verifyUser from '../middlewares/verifyUser';
+
 
 const authRouter = express.Router();
 
@@ -16,4 +18,21 @@ authRouter.get('/logout', AuthController.logout);
 
 authRouter.put('/forgotPassword', forgotPasswordRules, validationResult, AuthController.forgotPassword);
 authRouter.put('/resetpassword', verifyUser, resetPasswordRules, validationResult, AuthController.resetPassword);
+authRouter.get('/google', passport.authenticate('google', {
+  scope: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+  ]
+}));
+
+authRouter.get('/google/redirect', passport.authenticate('google'), AuthController.oAuthLogin);
+
+
+authRouter.get('/facebook', passport.authenticate('facebook', {
+  // scope: ['emails'],
+  cookieSession: false
+}));
+
+authRouter.get('/facebook/redirect', passport.authenticate('facebook'), AuthController.oAuthLogin);
+
 export default authRouter;
