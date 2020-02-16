@@ -1,5 +1,17 @@
 /**
  * @swagger
+ * /:
+ *   get:
+ *     description: Display welcome message
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Welcome to devRepublic Barefoot Nomad API
+ */
+
+/**
+ * @swagger
  * definitions:
  *   register:
  *     type: object
@@ -20,17 +32,7 @@
  *         - email
  *         - password
  */
-/**
- * @swagger
- * /:
- *   get:
- *     description: Display welcome message
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: Welcome to devRepublic Barefoot Nomad API
- */
+
 /**
  * @swagger
  * /api/v1/auth/register:
@@ -75,6 +77,23 @@
 
 /**
  * @swagger
+ * definitions:
+ *   login:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *         format: email
+ *       password:
+ *         type: string
+ *         format: password
+ *       required:
+ *         - email
+ *         - password
+ */
+
+/**
+ * @swagger
  * /api/v1/auth/login:
  *   post:
  *     tags:
@@ -111,17 +130,28 @@
 
 /**
  * @swagger
- * definitions:
- *   login:
- *     type: object
- *     properties:
- *       email:
- *         type: string
- *         format: email
- *       password:
- *         type: string
- *         format: password
- *       required:
- *         - email
- *         - password
- */
+ * /api/v1/auth/verification/token={token}&email={email}:
+ *   get:
+ *     tags:
+ *       - User
+ *     name: verify
+ *     summary: verify the email of the user
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: path
+ *         description: token of the user including their id no and their email
+ *       - name: email
+ *         in: path
+ *         description: email of the user
+ *     responses:
+ *       '200':
+ *             description: User with ${email} has been verified.
+ *       '202':
+ *             description: ${email} is already verifiedt.
+ *       '401':
+ *             description: Sorry, you are not authorized to access this page.
+ * */
