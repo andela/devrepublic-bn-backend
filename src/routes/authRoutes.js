@@ -8,7 +8,6 @@ import { signupInputRules, resetPasswordRules, forgotPasswordRules } from '../va
 
 import verifyUser from '../middlewares/verifyUser';
 
-
 const authRouter = express.Router();
 
 authRouter.post('/register', signupInputRules, validationResult, AuthController.registerUser);
@@ -30,7 +29,7 @@ authRouter.get('/google/redirect', passport.authenticate('google'), AuthControll
 
 authRouter.get('/facebook', passport.authenticate('facebook', {
   scope: ['email'],
-  // cookieSession: false
+  cookieSession: false
 }));
 
 authRouter.get('/facebook/redirect', passport.authenticate('facebook'), AuthController.oAuthLogin);

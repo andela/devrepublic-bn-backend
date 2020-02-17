@@ -17,7 +17,7 @@ passport.use(new FacebookStrategy({
   callbackURL: '/api/v1/auth/facebook/redirect',
   clientID: process.env.fbAppID,
   clientSecret: process.env.fbAppSecret,
-  profileFields: ['id', 'email', 'name', 'gender']
+  profileFields: ['id', 'name']
 }, getProfile));
 
 passport.serializeUser((user, done) => {
