@@ -7,15 +7,6 @@ import db from '../models';
 
 dotenv.config();
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser(async (id, done) => {
-  const user = await db.User.findOne({ where: { id } });
-  done(null, user);
-});
-
 passport.use(new GoogleStrategy({
   callbackURL: '/api/v1/auth/google/redirect',
   clientID: process.env.clientID,
@@ -26,7 +17,16 @@ passport.use(new FacebookStrategy({
   callbackURL: '/api/v1/auth/facebook/redirect',
   clientID: process.env.fbAppID,
   clientSecret: process.env.fbAppSecret,
-  profileFields: ['id', 'emails', 'name', 'gender']
+  profileFields: ['id', 'email', 'name', 'gender']
 }, getProfile));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const user = await db.User.findOne({ where: { id } });
+  done(null, user);
+});
 
 export default passport;
