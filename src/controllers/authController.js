@@ -45,11 +45,7 @@ export default class AuthController {
         email,
         password: hashedPassword,
       });
-      const token = provideToken(user.id, user.isVerified);
-      await db.VerificationToken.create({
-        userId: user.id,
-        token
-      });
+      const token = provideToken(user.id, user.isVerified, email);
       sendMsg(email, token, firstName);
       return Response.signupResponse(res, 201, 'User successfully registered', token);
     } catch (error) {
