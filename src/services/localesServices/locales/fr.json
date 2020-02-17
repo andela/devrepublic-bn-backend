@@ -1,7 +1,8 @@
 {
-    "Welcome to devRepublic Barefoot Nomad API": "Bienvenue au devRepublic Barefoot Nomad API",
-    "register": "enregistrer",
-    "signup": "enregistrer",
-    "login": "connecter",
-    "logout": "déconnecter"
+	"Welcome to devRepublic Barefoot Nomad API": "Bienvenue au devRepublic Barefoot Nomad API",
+	"register": "enregistrer",
+	"signup": "enregistrer",
+	"login": "connecter",
+	"logout": "déconnecter",
+	"User is successfully logged out": "l'utilisateur s'est déconnecté avec succès"
 }

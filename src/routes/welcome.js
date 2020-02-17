@@ -2,17 +2,6 @@ import { Router } from 'express';
 
 const router = Router();
 
-/**
- * @swagger
- * /api:
- *   get:
- *     description: Display welcome message
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: Welcome to devRepublic Barefoot Nomad API
- */
 router.get('/', (req, res) => {
   res.status(200).json({
     message: res.__('Welcome to devRepublic Barefoot Nomad API')

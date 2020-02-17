@@ -19,7 +19,6 @@ const app = express();
 app.use(i18n.init);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 const port = process.env.PORT || 3000;
 
 app.use('/api', welcome);
