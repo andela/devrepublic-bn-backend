@@ -7,7 +7,7 @@ const {
 } = chai;
 chai.use(chaiHttp);
 
-describe('Testing index page', () => {
+describe('Testing english index page ', () => {
   it('should return a message from index page.', (done) => {
     chai.request(app)
       .get('/api')
@@ -20,7 +20,7 @@ describe('Testing index page', () => {
   });
 });
 
-describe('Testing index page', () => {
+describe('Testing french index page ', () => {
   it('should return a message from index page in French.', (done) => {
     chai.request(app)
       .get('/api?lang=fr')

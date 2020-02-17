@@ -35,6 +35,27 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
+      language: {
+        type: Sequelize.STRING
+      },
+      currency: {
+        type: Sequelize.STRING
+      },
+      department: {
+        type: Sequelize.STRING
+      },
+      birthdate: {
+        type: Sequelize.STRING
+      },
+      gender: {
+        type: Sequelize.STRING
+      },
+      residence: {
+        type: Sequelize.STRING
+      },
+      image:{
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

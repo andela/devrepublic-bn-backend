@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import index from '../index';
+import { provideToken } from '../utils/tokenHandler';
 import {
   email,
   id,
@@ -8,7 +9,6 @@ import {
   wrongEmail,
   wrongId
 } from './verifyAccountMock';
-import { provideToken } from '../utils/tokenHandler';
 
 const token = provideToken(id, isVerified, email);
 const wrongToken = provideToken(wrongId, isVerified, wrongEmail);

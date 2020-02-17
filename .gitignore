@@ -98,4 +98,6 @@ dist/
 .DS_Store
 *.vscode
 settings.json
+.vscode
+.vscode/settings.json
 # End of https://www.gitignore.io/api/node

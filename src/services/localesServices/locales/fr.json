@@ -38,5 +38,7 @@
 	"email signature": "Votre sincèrement",
 	"verification email welcome": "Bienvenue sur devRepublic BareFoot Nomad",
 	"verification instruction email": "Cliquez sur ce lien ci-dessous pour vérifier votre compte",
-	"verification button": "Vérifier"
+	"verification button": "Vérifier",
+	"Profile updated successfully":"Mise à jour du profil réussie",
+	"User profile details": "Détails du profil utilisateur"
 }
