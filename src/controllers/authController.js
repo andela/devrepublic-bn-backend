@@ -4,10 +4,11 @@ import dotenv from 'dotenv';
 import localStorage from 'localStorage';
 import db from '../models';
 import sendMsg from '../utils/user-created-email';
-import provideToken from '../utils/provideToken';
+import { provideToken } from '../utils/tokenHandler';
 import Response from '../utils/ResponseHandler';
 
 dotenv.config();
+
 /**
  *
  * @description AuthController Controller
@@ -17,7 +18,7 @@ export default class AuthController {
   /**
      * @description Sign up method
      * @static
-     * @param {Object} req
+     * @param {Object} req`
      * @param {Object} res
      * @returns {Object} User
      * @memberof authController
@@ -35,7 +36,7 @@ export default class AuthController {
       });
 
       if (existingUser) {
-        return Response.errorResponse(res, 409, 'Email already exists');
+        return Response.errorResponse(res, 409, res.__('Email already exists'));
       }
       const hashedPassword = bcrypt.hashSync(password, Number(process.env.passwordHashSalt));
       const user = await db.User.create({
@@ -44,13 +45,14 @@ export default class AuthController {
         lastName,
         email,
         password: hashedPassword,
+        role: 'requester'
       });
-      const token = provideToken(user.id, user.isVerified, email);
+      const token = provideToken(user.id, user.isVerified, email, user.role);
       localStorage.setItem('token', token);
       sendMsg(email, token, firstName);
-      return Response.signupResponse(res, 201, 'User successfully registered', token);
+      return Response.signupResponse(res, 201, res.__('User is successfully registered'), token);
     } catch (error) {
-      return Response.errorResponse(res, 500, `${error.message}`);
+      return Response.errorResponse(res, 500, res.__(`${error.message}`));
     }
   }
 
@@ -70,19 +72,20 @@ export default class AuthController {
         where: {
           email,
         },
-        attributes: ['id', 'email', 'password', 'isVerified'],
+        attributes: ['id', 'email', 'password', 'isVerified', 'role'],
       });
       if (!user) {
-        return Response.errorResponse(res, 401, 'Incorrect email or password');
+        return Response.errorResponse(res, 401, res.__('Incorrect email or password'));
       }
       if (bcrypt.compareSync(password, user.password)) {
-        const token = provideToken(user.dataValues.id, user.dataValues.isVerified);
+        const { id, isVerified, role } = user.dataValues;
+        const token = provideToken(id, isVerified, email, role);
         localStorage.setItem('token', token);
-        return Response.login(res, 200, 'User is successfully logged in', token);
+        return Response.login(res, 200, res.__('User is successfully logged in'), token);
       }
-      return Response.errorResponse(res, 401, 'Incorrect email or password');
+      return Response.errorResponse(res, 401, res.__('Incorrect email or password'));
     } catch (error) {
-      return Response.errorResponse(res, 500, error.message);
+      return Response.errorResponse(res, 500, res.__(error.message));
     }
   }
 

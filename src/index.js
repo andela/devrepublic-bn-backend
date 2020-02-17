@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import welcome from './routes/welcome';
 import swagger from './swagger/index';
 import authRouter from './routes/authRoutes';
+import userRouter from './routes/userRoutes';
 
 dotenv.config();
 i18n.configure({
@@ -24,6 +25,7 @@ const port = process.env.PORT || 3000;
 app.use('/api', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
 
 app.use(express.json());
 
