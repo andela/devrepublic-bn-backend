@@ -1,7 +1,7 @@
 import { check } from 'express-validator';
 
 
-const signupInputRules = [
+export const signupInputRules = [
   check('firstName').exists().withMessage('The firstname is required')
     .isAlpha()
     .withMessage('First name should be only characters')
@@ -18,7 +18,7 @@ const signupInputRules = [
   check('password').exists().matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,30}/).withMessage('At least 8 characters include symbols, uppercase, lowercase and number'),
 ];
 
-const changeRoles = [
+export const changeRoles = [
   check('email').trim().exists().withMessage('The email is required')
     .isEmail()
     .withMessage('The email is required'),
@@ -26,4 +26,7 @@ const changeRoles = [
     .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator')
 ];
 
-export { signupInputRules, changeRoles };
+export const resetPasswordRules = [check('password').exists().matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,30}/).withMessage('At least 8 characters include symbols, uppercase, lowercase and number')];
+export const forgotPasswordRules = [check('email').trim().exists().withMessage('The email field must contain a valid email address')
+  .isEmail()
+  .withMessage('The email field must contain a valid email address')];
