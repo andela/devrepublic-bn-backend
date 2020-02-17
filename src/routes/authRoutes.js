@@ -32,6 +32,7 @@ authRouter.get('/facebook', passport.authenticate('facebook', {
   cookieSession: false
 }));
 
+
 authRouter.get('/facebook/redirect', passport.authenticate('facebook'), AuthController.oAuthLogin);
 
 export default authRouter;

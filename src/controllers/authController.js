@@ -113,9 +113,11 @@ export default class AuthController {
       const password = 'null';
       const id = uuid();
       const {
-        email, method, firstName, lastName
+        emails, method, firstName, lastName,
       } = req.user;
-      const existingUser = await db.User.findOne({ where: { email } });
+      const email = Array.isArray(emails) && emails[0] && emails[0].value;
+      const condition = { email: email || undefined };
+      const existingUser = await db.User.findOne({ where: condition });
       const token = provideToken(id, isVerified);
       if (existingUser) {
         return Response.login(res, 200, 'User is successfully logged in', token);
