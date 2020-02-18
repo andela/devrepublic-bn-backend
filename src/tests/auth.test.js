@@ -19,7 +19,7 @@ describe('Signup Tests', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(201);
-        expect(res.body.message).to.equal('User successfully registered');
+        expect(res.body.message).to.equal('User is successfully registered');
         done();
       });
   });

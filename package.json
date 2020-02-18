@@ -12,6 +12,7 @@
     "db:migrate": "npx sequelize db:migrate --env test",
     "db:reset": "npx sequelize db:migrate:undo:all --env test && npm run db:migrate --env test",
     "create": "npx sequelize db:migrate",
+    "reset:dev": "npm run drop && npm run create && npm run seed:dev && nodemon --exec babel-node src/index.js",
     "seed": "npx sequelize db:seed:all --env test",
     "seed:dev": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:migrate:undo:all",

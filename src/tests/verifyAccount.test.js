@@ -8,7 +8,7 @@ import {
   wrongEmail,
   wrongId
 } from './verifyAccountMock';
-import provideToken from '../utils/provideToken';
+import { provideToken } from '../utils/tokenHandler';
 
 const token = provideToken(id, isVerified, email);
 const wrongToken = provideToken(wrongId, isVerified, wrongEmail);

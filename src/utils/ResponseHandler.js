@@ -50,4 +50,20 @@ export default class ResponceHandler {
       data: token
     }));
   }
+
+  /**
+   * @param  {Object} res
+   * @param  {Object} status
+   * @param  {String} message
+   * @param  {Object} data
+   * @returns {Object} as response
+   * @param  {Object}} data
+   */
+  static success(res, status, message, data) {
+    return (res.status(status).json({
+      status,
+      message,
+      data
+    }));
+  }
 }

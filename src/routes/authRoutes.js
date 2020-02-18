@@ -1,7 +1,7 @@
 import express from 'express';
 import AuthController from '../controllers/authController';
 import validationResult from '../validation/validationResult';
-import signupInputRules from '../validation/validationRules';
+import { signupInputRules } from '../validation/validationRules';
 import verificationController from '../controllers/verificationController';
 import validateParams from '../validation/validateParams';
 
