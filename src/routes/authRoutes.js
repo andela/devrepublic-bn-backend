@@ -28,7 +28,7 @@ authRouter.get('/google/redirect', passport.authenticate('google'), AuthControll
 
 
 authRouter.get('/facebook', passport.authenticate('facebook', {
-  scope: ['email'],
+  scope: [],
   cookieSession: false
 }));
 

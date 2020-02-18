@@ -109,15 +109,21 @@ export default class AuthController {
      */
   static async oAuthLogin(req, res) {
     try {
+      const profile = { ...req.user };
+      const method = profile.provider;
+      const { id } = profile;
+      const firstName = profile.name.givenName;
+      const lastName = profile.name.familyName;
+      const email = profile.emails ? profile.emails[0].value : '';
+
+      const oAuthId = req.user.id;
       const isVerified = true;
       const password = 'null';
-      const id = uuid();
-      const {
-        emails, method, firstName, lastName,
-      } = req.user;
-      const email = Array.isArray(emails) && emails[0] && emails[0].value;
-      const condition = { email: email || undefined };
-      const existingUser = await db.User.findOne({ where: condition });
+
+      const condition = { email: email || null, method: 'google' || 'facebook' };
+      const existingUser = await db.User.findOne({
+        where: { condition } && { oAuthId }
+      });
       const token = provideToken(id, isVerified);
       if (existingUser) {
         return Response.login(res, 200, 'User is successfully logged in', token);
@@ -129,6 +135,7 @@ export default class AuthController {
         lastName,
         password,
         signupMethod: method,
+        oAuthId,
         isVerified: true
       });
       return Response.signupResponse(res, 200, 'User is successfully created', token);

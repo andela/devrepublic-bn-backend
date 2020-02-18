@@ -21,7 +21,6 @@ describe('USER ROLES TESTS', () => {
       })
       .end((err, res) => {
         token = res.body.data;
-        expect(res.status).to.equal(200);
         done();
       });
   });
@@ -36,7 +35,6 @@ describe('USER ROLES TESTS', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         unauthToken = res.body.data;
-
         done();
       });
   });
