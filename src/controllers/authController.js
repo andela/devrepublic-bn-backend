@@ -99,6 +99,52 @@ export default class AuthController {
   }
 
   /**
+     * @description Google and Facebook authentication method
+     * @static
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User is successfully logged in.
+     * @returns {Object} User is scucessfilly created
+     * @memberof authController
+     */
+  static async oAuthLogin(req, res) {
+    try {
+      const profile = { ...req.user };
+      const method = profile.provider;
+      const { id } = profile;
+      const firstName = profile.name.givenName;
+      const lastName = profile.name.familyName;
+      const email = profile.emails ? profile.emails[0].value : '';
+
+      const oAuthId = req.user.id;
+      const isVerified = true;
+      const password = 'null';
+
+      const condition = { email: email || null, method: 'google' || 'facebook' };
+      const existingUser = await db.User.findOne({
+        where: { condition } && { oAuthId }
+      });
+      const token = provideToken(id, isVerified);
+      if (existingUser) {
+        return Response.login(res, 200, 'User is successfully logged in', token);
+      }
+      await db.User.create({
+        id: uuid(),
+        email,
+        firstName,
+        lastName,
+        password,
+        signupMethod: method,
+        oAuthId,
+        isVerified: true
+      });
+      return Response.signupResponse(res, 200, 'User is successfully created', token);
+    } catch (error) {
+      return Response.errorResponse(res, 500, error.message);
+    }
+  }
+
+  /**
      * @description logout method
      * @static
      * @param {Object} req

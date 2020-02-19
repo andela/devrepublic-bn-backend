@@ -19,7 +19,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING 
+      },
+      signupMethod: {
+        type: Sequelize.STRING,
+        defaultValue: 'none',
+        allowNull: false
+      }, 
+      oAuthId: {
+        type: Sequelize.STRING,
+        defaultValue: 'none'
       },
       isVerified: {
         allowNull: false,

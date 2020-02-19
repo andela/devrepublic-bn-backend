@@ -283,6 +283,69 @@
 
 /**
  * @swagger
+ * /api/v1/auth/google:
+ *   get:
+ *     tags:
+ *       - User
+ *     name: google authentication
+ *     summary: login or signup using google authentication
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: firstName
+ *         in: path
+ *         description: first name of the user
+ *       - name: lastName
+ *         in: path
+ *         description: last name of the user
+ *       - name: email
+ *         in: path
+ *         description: google email of the user
+ *     responses:
+ *       '200':
+ *             description: User with ${email} has been verified.
+ *       '202':
+ *             description: ${email} is already verifiedt.
+ *       '401':
+ *             description: Sorry, you are not authorized to access this page.
+ * */
+
+/**
+ * @swagger
+ * /api/v1/auth/facebook:
+ *   get:
+ *     tags:
+ *       - User
+ *     name: google authentication
+ *     summary: login or signup using google authentication
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: firstName
+ *         in: path
+ *         description: first name of the user
+ *       - name: lastName
+ *         in: path
+ *         description: last name of the user
+ *       - name: email
+ *         in: path
+ *         description: email of the user
+ *     responses:
+ *       '200':
+ *             description: User with ${email} has been verified.
+ *       '202':
+ *             description: ${email} is already verifiedt.
+ *       '401':
+ *             description: Sorry, you are not authorized to access this page.
+ * */
+
+
+/**
+ * @swagger
  * definitions:
  *   logout:
  *     type: object

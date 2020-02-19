@@ -2,13 +2,12 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 
-
 const {
   expect
 } = chai;
 chai.use(chaiHttp);
 
-describe('Testing index page ', () => {
+describe('Testing index page', () => {
   it('should return a message from index page.', (done) => {
     chai.request(app)
       .get('/api')
@@ -21,7 +20,7 @@ describe('Testing index page ', () => {
   });
 });
 
-describe('Testing index page ', () => {
+describe('Testing index page', () => {
   it('should return a message from index page in French.', (done) => {
     chai.request(app)
       .get('/api?lang=fr')
