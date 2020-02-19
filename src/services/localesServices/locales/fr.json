@@ -23,5 +23,20 @@
 	"User is successfully registered": "L'utilisateur est enregistré avec succès",
 	"Email already exists": "l'email existe déjà",
 	"Lastname must be atleast 4 characters": "Le nom de famille doit contenir au moins 4 caractères",
-	"Firstname must be atleast 4 characters": "Le prénom doit contenir au moins 4 caractères"
+	"Firstname must be atleast 4 characters": "Le prénom doit contenir au moins 4 caractères",
+	"The email field must contain a valid email address": "Le champ e-mail doit contenir une adresse e-mail valide",
+	"At least 8 characters include symbols, uppercase, lowercase and number": "Au moins 8 caractères comprennent des symboles, des majuscules, des minuscules et des chiffres",
+  "user not found on reset": "utilisateur non trouvé, vérifiez votre saisie pour toute erreur",
+  "check your email to reset your password": "vérifiez votre e-mail pour réinitialiser votre mot de passe",
+  "password reset successfully": "réinitialisation du mot de passe réussie",
+	"server error": "erreur du serveur",
+	"you are not allowed to perform this action": "vous n'êtes pas autorisé à effectuer cette action",
+	"token must be provided and valid": "le jeton doit être fourni et valide",
+	"email intro": "bienvenue au nomade aux pieds nus",
+	"email instruction": "Pour réinitialiser votre mot de passe, cliquez ici:",
+	"button text": "réinitialiser",
+	"email signature": "Votre sincèrement",
+	"verification email welcome": "Bienvenue sur devRepublic BareFoot Nomad",
+	"verification instruction email": "Cliquez sur ce lien ci-dessous pour vérifier votre compte",
+	"verification button": "Vérifier"
 }

@@ -304,3 +304,88 @@
  *             description: User is successfully logged out
  * */
 
+/**
+ * @swagger
+ * definitions:
+ *   forgotPassword:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *         format: email
+ *       required:
+ *         - email
+ */
+
+/**
+ * @swagger
+ * /api/v1/auth/forgotpassword:
+ *   put:
+ *     tags:
+ *       - User
+ *     name: forgot password
+ *     summary: send email when user forgot password
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *               format: email
+ *         required:
+ *           - email
+ *     responses:
+ *       '200':
+ *             description: check your email to reset your password.
+ *       '400':
+ *             description: user not found, check your input for any mistake.
+ * */
+
+/**
+ * @swagger
+ * definitions:
+ *   resetpassword:
+ *     type: object
+ *     properties:
+ *       password:
+ *         type: string
+ *         format: password
+ *       required:
+ *         - password
+ */
+/**
+* @swagger
+* /api/v1/auth/resetpassword?token={token}:
+*   put:
+*     tags:
+*       - User
+*     name: reset password
+*     summary: reset user password
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: token
+*         in: path
+*         description: jwt token of the user
+*       - name: body
+*         in: body
+*         schema:
+*           type: object
+*           properties:
+*             password:
+*               type: string
+*               format: password
+*         required:
+*           - password
+*     responses:
+*       '200':
+*             description: password reset successfully.
+* */
