@@ -46,5 +46,18 @@
 	"User profile details": "User profile details",
 	"Your image has been uploded successfull": "Your image has been uploded successfull",
 	"Gender must either be Male or Female": "Gender must either be Male or Female",
-	"Your image has been uploded successfully": "Your image has been uploded successfully"
+	"Your image has been uploded successfully": "Your image has been uploded successfully",
+	"Facility created successfully": "Facility created successfully",
+	"Room created successfully": "Room created successfully",
+	"The firstname is required": "The firstname is required",
+	"WHERE parameter \"email\" has invalid \"undefined\" value": "WHERE parameter \"email\" has invalid \"undefined\" value",
+	"Cannot read property 'role' of undefined": "Cannot read property 'role' of undefined",
+	"Cannot read property 'originalname' of undefined": "Cannot read property 'originalname' of undefined",
+	"admin is not defined": "admin is not defined",
+	"Cannot read property 'facilityName' of undefined": "Cannot read property 'facilityName' of undefined",
+	"Cannot read property 'headers' of undefined": "Cannot read property 'headers' of undefined",
+	"column \"id\" of relation \"Facilities\" does not exist": "column \"id\" of relation \"Facilities\" does not exist",
+	"you have to be a travel admin to perform this action": "you have to be a travel admin to perform this action",
+	"column \"facilityId\" of relation \"Facilities\" does not exist": "column \"facilityId\" of relation \"Facilities\" does not exist",
+	"null value in column \"id\" violates not-null constraint": "null value in column \"id\" violates not-null constraint"
 }

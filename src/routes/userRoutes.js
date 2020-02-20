@@ -12,4 +12,7 @@ userRouter.patch('/setRoles', decode, changeRoles, validationResult, userControl
 userRouter.patch('/edit-profile', decode, editProfileValidationRules, validationResult, userController.editProfile);
 userRouter.get('/view-profile', decode, userController.viewProfile);
 userRouter.post('/edit-profile-image', decode, multerUploads, userController.uploadProfileImage);
+userRouter.post('/create/facility', decode, userController.createFacility);
+userRouter.post('/create/facility/room', decode, userController.createRoom);
+
 export default userRouter;
