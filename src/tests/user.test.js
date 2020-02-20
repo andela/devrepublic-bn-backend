@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 
 describe('USER ROLES TESTS', () => {
-  it('should login the user and return the token', (done) => {
+  before((done) => {
     chai
       .request(index)
       .post('/api/v1/auth/login')
@@ -27,6 +27,7 @@ describe('USER ROLES TESTS', () => {
         done();
       });
   });
+
   it('should login another user and return the token', (done) => {
     chai
       .request(index)
@@ -44,7 +45,7 @@ describe('USER ROLES TESTS', () => {
   it('should allow super admin to change someones\' role', (done) => {
     chai
       .request(index)
-      .patch('/api/v1/user/setroles')
+      .patch('/api/v1/users/setroles')
       .set('token', token)
       .send({
         email: 'jdev@andela.com',
@@ -60,7 +61,7 @@ describe('USER ROLES TESTS', () => {
   it('should not allow changing someones\' role if token is wrong', (done) => {
     chai
       .request(index)
-      .patch('/api/v1/user/setroles')
+      .patch('/api/v1/users/setroles')
       .set('token', 'hggjgjgjhgjgjgdjgjgdf')
       .send({
         email: 'jdev@andela.com',
@@ -76,7 +77,7 @@ describe('USER ROLES TESTS', () => {
   it('should not allow admin to changing someones\' role if no token provided', (done) => {
     chai
       .request(index)
-      .patch('/api/v1/user/setroles')
+      .patch('/api/v1/users/setroles')
       .set('token', '')
       .send({
         email: 'jdev@andela.com',
@@ -92,7 +93,7 @@ describe('USER ROLES TESTS', () => {
   it('should not allow another user to changing someones\' role', (done) => {
     chai
       .request(index)
-      .patch('/api/v1/user/setroles')
+      .patch('/api/v1/users/setroles')
       .set('token', unauthToken)
       .send({
         email: 'jdev@andela.com',
@@ -114,7 +115,7 @@ describe('USER PROFILE TESTS', () => {
   it('should allow user to edit his/her profile', (done) => {
     chai
       .request(index)
-      .patch('/api/v1/user/edit-profile')
+      .patch('/api/v1/users/edit-profile')
       .set('token', unauthToken)
       .send({
         language: 'English',
@@ -134,7 +135,7 @@ describe('USER PROFILE TESTS', () => {
   it('should allow user to view his/her profile', (done) => {
     chai
       .request(index)
-      .get('/api/v1/user/view-profile')
+      .get('/api/v1/users/view-profile')
       .set('token', unauthToken)
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -146,7 +147,7 @@ describe('USER PROFILE TESTS', () => {
   it('should allow user to upload profile image ', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/edit-profile-image')
+      .post('/api/v1/users/edit-profile-image')
       .set('token', unauthToken)
       .attach('image', 'src/tests/testFiles/barefoot.jpeg', 'barefoot.jpeg')
       .end((err, res) => {
@@ -160,7 +161,7 @@ describe('USER PROFILE TESTS', () => {
   it('should NOT allow user to upload profile image with selecting it first', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/edit-profile-image')
+      .post('/api/v1/users/edit-profile-image')
       .set('token', unauthToken)
       .attach('image', '', '')
       .end((err, res) => {
@@ -189,7 +190,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
   it('should allow travel admin to create a facility', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/create/facility')
+      .post('/api/v1/users/create/facility')
       .set('token', token)
       .send({
         facility: 'Marriot',
@@ -205,7 +206,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
   it('should allow travel admin to create a room', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/create/facility/room')
+      .post('/api/v1/users/create/facility/room')
       .set('token', token)
       .send({
         facilityId: '5be72db7-5510-4a50-9f15-e23f103116d5',
@@ -222,7 +223,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
   it('should not allow any other role to create a facility', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/create/facility')
+      .post('/api/v1/users/create/facility')
       .set('token', unauthToken)
       .send({
         facilityId: '5be72db7-5510-4a50-9f15-e23f103116d5',
@@ -238,7 +239,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
   it('should not allow any other role to create a room', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/create/facility')
+      .post('/api/v1/users/create/facility')
       .set('token', unauthToken)
       .send({
         facilityId: '463e2dfb-d0b7-447c-900b-7ee031412e76',
@@ -255,7 +256,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
   it('should not allow travel admin to create a room for a non-existing', (done) => {
     chai
       .request(index)
-      .post('/api/v1/user/create/facility/room')
+      .post('/api/v1/users/create/facility/room')
       .set('token', token)
       .send({
         facilityId: 'e806d6fd-23f4-40a9-aae8-922208db7fba',

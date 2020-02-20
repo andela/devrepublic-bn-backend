@@ -61,7 +61,7 @@ describe('Signup Tests', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('Lastname must be atleast 4 characters');
+        expect(res.body.error[0]).to.equal('Lastname must be atleast 4 characters');
         done();
       });
   });

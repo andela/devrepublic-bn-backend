@@ -37,3 +37,15 @@ export const resetPasswordRules = [check('password').exists().matches(/(?=.*\d)(
 export const forgotPasswordRules = [check('email').trim().exists().withMessage('The email field must contain a valid email address')
   .isEmail()
   .withMessage('The email field must contain a valid email address')];
+export const requestRules = [
+  check('location').exists().withMessage('location is required')
+    .isAlpha(),
+  check('destination').exists().withMessage('destination is required')
+    .isAlpha(),
+  check('reason').exists().withMessage('reason is required')
+    .isString(),
+  check('accomodation').exists().withMessage('accomodation is required')
+    .isString(),
+  check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+    .withMessage('enter valid date with YYYY-MM-DD format'),
+];

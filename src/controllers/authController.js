@@ -133,6 +133,7 @@ export default class AuthController {
         firstName,
         lastName,
         password,
+        role: 'requester',
         signupMethod: method,
         oAuthId,
         isVerified: true
@@ -182,10 +183,7 @@ export default class AuthController {
         signature: req.__('email signature')
       };
       AuthService.forgotPassword(user, content);
-      return res.status(200).json({
-        status: 200,
-        message: res.__('check your email to reset your password')
-      });
+      return Response.success(res, 200, res.__('check your email to reset your password'));
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
@@ -205,10 +203,7 @@ export default class AuthController {
       const { password } = req.body;
       const hashedPassword = hashPassword(password);
       AuthService.resetPassword(user.id, hashedPassword);
-      return res.status(200).json({
-        status: 200,
-        message: res.__('password reset successfully'),
-      });
+      return Response.success(res, 200, res.__('password reset successfully'));
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }

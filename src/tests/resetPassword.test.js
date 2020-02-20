@@ -19,7 +19,7 @@ describe('Forgot password feature', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('The email field must contain a valid email address');
+        expect(res.body.error[0]).to.equal('The email field must contain a valid email address');
         done();
       });
   });
@@ -76,7 +76,7 @@ describe('reset password feature', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('At least 8 characters include symbols, uppercase, lowercase and number');
+        expect(res.body.error[0]).to.equal('At least 8 characters include symbols, uppercase, lowercase and number');
         done();
       });
   });

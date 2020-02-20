@@ -9,8 +9,8 @@ import welcome from './routes/welcome';
 import swagger from './swagger/index';
 import authRouter from './routes/authRoutes';
 import userRouter from './routes/userRoutes';
+import tripsRouter from './routes/tripsRoutes';
 import './config/passport';
-
 
 dotenv.config();
 i18n.configure({
@@ -40,7 +40,8 @@ const port = process.env.PORT || 3000;
 app.use('/api', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/user', userRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/trips', tripsRouter);
 
 app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
 

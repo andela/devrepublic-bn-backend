@@ -16,7 +16,7 @@
 
 /**
  * @swagger
- * /api/v1/user/setRoles:
+ * /api/v1/users/setRoles:
  *   patch:
  *     tags:
  *       - User Roles
@@ -27,6 +27,8 @@
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - name: token
+ *         in: header
  *       - name: body
  *         in: body
  *         schema:
@@ -51,7 +53,7 @@
 
 /**
  * @swagger
- * /api/v1/user/create/facility:
+ * /api/v1/users/create/facility:
  *   post:
  *     tags:
  *       - User Roles
@@ -62,6 +64,8 @@
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - name: token
+ *         in: header
  *       - name: body
  *         in: body
  *         schema:
@@ -85,7 +89,7 @@
 
 /**
  * @swagger
- * /api/v1/user/create/facility/room:
+ * /api/v1/users/create/facility/room:
  *   post:
  *     tags:
  *       - User Roles
@@ -96,6 +100,8 @@
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - name: token
+ *         in: header
  *       - name: body
  *         in: body
  *         schema:
@@ -147,7 +153,7 @@
 
 /**
  * @swagger
- * /api/v1/user/edit-profile:
+ * /api/v1/users/edit-profile:
  *   patch:
  *     tags:
  *       - User Profile
@@ -204,7 +210,7 @@
 
 /**
  * @swagger
- * /api/v1/user/edit-profile-image:
+ * /api/v1/users/edit-profile-image:
  *   post:
  *     tags:
  *       - User Profile image
@@ -221,7 +227,6 @@
  *         name: image
  *         type: file
  *         schema:
- *           $ref: '#/definitions/edit-profile-image'
  *           type: file
  *           properties:
  *            image:
@@ -230,7 +235,7 @@
  *         - image
  *     responses:
  *       '200':
- *             description: Your image has been uploded successfull
+ *             description: Your image has been uploded successfully
  *       '401':
  *             description: No token provided.
  *       '400':
@@ -238,7 +243,7 @@
  * */
 /**
  * @swagger
- * /api/v1/user/view-profile:
+ * /api/v1/users/view-profile:
  *   get:
  *     tags:
  *       - User

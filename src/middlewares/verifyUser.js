@@ -23,4 +23,18 @@ const verifyUser = async (req, res, next) => {
     return Response.errorResponse(res, 500, res.__('server error'));
   }
 };
-export default verifyUser;
+
+const verifyRequester = async (req, res, next) => {
+  const { payload } = req;
+  const user = await db.User.findOne({
+    where: {
+      id: payload.id,
+      role: 'requester'
+    }
+  });
+  if (!user) Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+  req.user = user;
+  next();
+};
+
+export { verifyUser, verifyRequester };
