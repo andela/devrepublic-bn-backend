@@ -13,7 +13,7 @@ describe('Forgot password feature', () => {
   it('should not send an email to the user who didn\'t provide valid email', (done) => {
     chai
       .request(index)
-      .put('/api/v1/auth/forgotPassword')
+      .put('/api/v1/auth/password/forgot')
       .send({
         email: 'jeanandela.com',
       })
@@ -26,7 +26,7 @@ describe('Forgot password feature', () => {
   it('should not send an email to the user who isn\'t sign up', (done) => {
     chai
       .request(index)
-      .put('/api/v1/auth/forgotPassword')
+      .put('/api/v1/auth/password/forgot')
       .send({
         email: 'jean12@andela.com',
       })
@@ -39,7 +39,7 @@ describe('Forgot password feature', () => {
   it('should send an email to the user who  sign up', (done) => {
     chai
       .request(index)
-      .put('/api/v1/auth/forgotPassword')
+      .put('/api/v1/auth/password/forgot')
       .send({
         email: 'jean@andela.com',
       })
@@ -70,7 +70,8 @@ describe('reset password feature', () => {
   it('should  not reset password for user who didn\'t provide valid password', (done) => {
     chai
       .request(index)
-      .put(`/api/v1/auth/resetpassword?token=${token}`)
+      .put('/api/v1/auth/password/reset')
+      .set('token', token)
       .send({
         password: '@qwe',
       })
@@ -83,7 +84,8 @@ describe('reset password feature', () => {
   it('should reset password', (done) => {
     chai
       .request(index)
-      .put(`/api/v1/auth/resetpassword?token=${token}`)
+      .put('/api/v1/auth/password/reset')
+      .set('token', token)
       .send({
         password: '@WQWD123FRFs',
       })
@@ -96,20 +98,22 @@ describe('reset password feature', () => {
   it('should not reset password when the user is not signup', (done) => {
     chai
       .request(index)
-      .put(`/api/v1/auth/resetpassword?token=${notSignupToken}`)
+      .put('/api/v1/auth/password/reset')
+      .set('token', notSignupToken)
       .send({
         password: '@fnfrjfrA',
       })
       .end((err, res) => {
-        expect(res.status).to.equal(403);
-        expect(res.body.error).to.equal('you are not allowed to perform this action');
+        expect(res.status).to.equal(401);
+        expect(res.body.error).to.equal('you are not authorised for this operation');
         done();
       });
   });
   it('should not reset password when the user hasn\'t provided a valid token', (done) => {
     chai
       .request(index)
-      .put('/api/v1/auth/resetpassword?token=jfbejrbfje')
+      .put('/api/v1/auth/password/reset')
+      .set('token', 'efegvwvsrbw')
       .send({
         password: '@fnfrjfrA',
       })

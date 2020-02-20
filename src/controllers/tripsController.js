@@ -55,4 +55,52 @@ export default class requestController {
       return Response.errorResponse(res, 500, error.message);
     }
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} request
+   */
+  static async createReturnRequest(req, res) {
+    const { user } = req;
+    const {
+      location, destination, departureDate, returnDate, reason, accomodation
+    } = req.body;
+    if (Date.parse(departureDate) > Date.parse(returnDate)) {
+      return Response.errorResponse(res, 400, res.__('the return date must be greater than departure date'));
+    }
+    try {
+      const request = await db.Request.findOne({
+        where: {
+          email: user.email,
+          departureDate
+        }
+      });
+      if (request) return Response.errorResponse(res, 400, res.__('request with the same departure date exist'));
+      const facility = await db.Facilities.findOne({
+        where: {
+          id: accomodation,
+          location: destination
+        }
+      });
+      if (!facility) {
+        return Response.errorResponse(res, 404, res.__('the accomondation doesn\'t exist or it\'s not in your destination'));
+      }
+      const newRequest = await db.Request.create({
+        id: uuid(),
+        email: user.email,
+        location,
+        destination,
+        departureDate,
+        returnDate,
+        reason,
+        accomodation,
+        status: 'open'
+      });
+      return Response.success(res, 201, res.__('Request created successfully'), newRequest);
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
+    }
+  }
 }

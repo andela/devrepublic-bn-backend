@@ -53,13 +53,18 @@
 	"you have to be a travel admin to perform this action": "vous devez être un administrateur de voyage pour effectuer cette action",
 	"column \"facilityId\" of relation \"Facilities\" does not exist": "la colonne \"facilityId \" de la relation \"Facilities \" n'existe pas",
 	"null value in column \"id\" violates not-null constraint": "la valeur nulle dans la colonne \"id \" viole la contrainte non nulle",
+	"The firstname is required": "Le prénom est obligatoire",
+	"First name should be only characters": "Le prénom ne doit être composé que de caractères",
+	"Last name should be only characters": "Le nom de famille ne doit être composé que de caractères",
 	"location is required": "l'emplacement est requis",
 	"destination is required": "destination is required",
-	"reason is required": "la raison est requise",
+	"reason is required": "la destination est obligatoire",
 	"accomodation is required": "l'hébergement est requis",
 	"departureDate is required": "date de départ obligatoire",
 	"enter valid date with YYYY-MM-DD format": "entrez une date valide au format AAAA-MM-JJ",
-	"The firstname is required": "Le prénom est obligatoire",
-	"First name should be only characters": "Le prénom ne doit être composé que de caractères",
-	"Last name should be only characters": "Le nom de famille ne doit être composé que de caractères"
+	"No token provided": "Aucun jeton fourni",
+	"the return date must be greater than departure date": "la date de retour doit être supérieure à la date de départ",
+	"request with the same departure date exist": "demande avec la même date de départ existe",
+	"the accomondation doesn't exist or it's not in your destination": "le logement n'existe pas ou n'est pas dans votre destination",
+	"Request created successfully": "Demande créée avec succès"
 }

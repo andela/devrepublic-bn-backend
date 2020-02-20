@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { provideToken } from '../utils/tokenHandler';
 import sendMsg from '../utils/sendEmail';
 import Models from '../models';
 
@@ -17,8 +16,7 @@ export default class AuthService {
    * @returns {object} send resent password Email function
    */
   static async forgotPassword(user, content) {
-    const token = provideToken(user.id, user.isVerified);
-    const link = `http://${process.env.BASE_URL}/api/v1/auth/resetPassword?token=${token}`;
+    const link = `http://${process.env.BASE_URL}/api/v1/auth/password/reset`;
     return sendMsg(user.email, user.firstName, content, link);
   }
 

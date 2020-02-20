@@ -382,7 +382,7 @@
 
 /**
  * @swagger
- * /api/v1/auth/forgotpassword:
+ * /api/v1/auth/password/forgot:
  *   put:
  *     tags:
  *       - User
@@ -406,7 +406,7 @@
  *     responses:
  *       '200':
  *             description: check your email to reset your password.
- *       '400':
+ *       '404':
  *             description: user not found, check your input for any mistake.
  * */
 
@@ -424,7 +424,7 @@
  */
 /**
 * @swagger
-* /api/v1/auth/resetpassword?token={token}:
+* /api/v1/auth/password/reset:
 *   put:
 *     tags:
 *       - User
@@ -436,7 +436,7 @@
 *       - application/json
 *     parameters:
 *       - name: token
-*         in: path
+*         in: header
 *         description: jwt token of the user
 *       - name: body
 *         in: body

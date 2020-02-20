@@ -1,12 +1,11 @@
 import express from 'express';
 import tripsController from '../controllers/tripsController';
-import { requestRules } from '../validation/validationRules';
+import { requestRules, returnTripRules } from '../validation/validationRules';
 import validationResult from '../validation/validationResult';
-import { verifyRequester } from '../middlewares/verifyUser';
-import { decode } from '../utils/tokenHandler';
+import protectRoute from '../middlewares/protectRoute';
 
 const router = express.Router();
 
-router.post('/one-way', decode, verifyRequester, requestRules, validationResult, tripsController.createRequest);
-
+router.post('/one-way', protectRoute.verifyUser, protectRoute.verifyRequester, requestRules, validationResult, tripsController.createRequest);
+router.post('/return', protectRoute.verifyUser, protectRoute.verifyRequester, returnTripRules, validationResult, tripsController.createReturnRequest);
 export default router;

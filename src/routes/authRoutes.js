@@ -5,8 +5,7 @@ import validationResult from '../validation/validationResult';
 import verificationController from '../controllers/verificationController';
 import validateParams from '../validation/validateParams';
 import { signupInputRules, resetPasswordRules, forgotPasswordRules } from '../validation/validationRules';
-
-import { verifyUser } from '../middlewares/verifyUser';
+import protectRoute from '../middlewares/protectRoute';
 
 const authRouter = express.Router();
 
@@ -15,8 +14,8 @@ authRouter.get('/verification', validateParams.validateToken, verificationContro
 authRouter.post('/login', AuthController.login);
 authRouter.get('/logout', AuthController.logout);
 
-authRouter.put('/forgotPassword', forgotPasswordRules, validationResult, AuthController.forgotPassword);
-authRouter.put('/resetpassword', verifyUser, resetPasswordRules, validationResult, AuthController.resetPassword);
+authRouter.put('/password/forgot', forgotPasswordRules, validationResult, AuthController.forgotPassword);
+authRouter.put('/password/reset', protectRoute.verifyUser, resetPasswordRules, validationResult, AuthController.resetPassword);
 authRouter.get('/google', passport.authenticate('google', {
   scope: [
     'https://www.googleapis.com/auth/userinfo.profile',

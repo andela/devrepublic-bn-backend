@@ -49,3 +49,14 @@ export const requestRules = [
   check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
     .withMessage('enter valid date with YYYY-MM-DD format'),
 ];
+export const returnTripRules = [check('location').exists().withMessage('location is required').bail()
+  .isAlpha(),
+check('destination').exists().withMessage('destination is required').bail()
+  .isAlpha()
+  .withMessage('destination should  only be letter'),
+check('reason').exists().withMessage('reason is required'),
+check('accomodation').exists().withMessage('accomodation is required'),
+check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+  .withMessage('enter valid date with YYYY-MM-DD format'),
+check('returnDate').exists().withMessage('returnDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+  .withMessage('enter valid date with YYYY-MM-DD format')];
