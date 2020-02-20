@@ -6,7 +6,7 @@ import verificationController from '../controllers/verificationController';
 import validateParams from '../validation/validateParams';
 import { signupInputRules, resetPasswordRules, forgotPasswordRules } from '../validation/validationRules';
 
-import verifyUser from '../middlewares/verifyUser';
+import { verifyUser } from '../middlewares/verifyUser';
 
 const authRouter = express.Router();
 

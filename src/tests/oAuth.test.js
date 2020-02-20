@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import authController from '../controllers/authController';
-import getProfile from '../utils/getProfile';
 
 const {
   expect
@@ -17,15 +16,6 @@ chai.use(chaiHttp);
 describe('GOOGLE oAuthentication tests', () => {
   before(() => {
     sinon.stub(passport, 'authenticate').callsFake((strategy, scope, callback) => callback(null, { firstName: 'Jim', email: 'jim.ntare@gmail.com' }));
-  });
-  it('should return user profile', async () => {
-    // const doneMock = sinon.spy();
-    const results = await getProfile('accessToken', 'refreshToken', {
-      body: {
-        firstName: 'Jim', lastName: 'Ntare', email: 'jim.ntare@gmail.com', method: 'google'
-      }
-    });
-    expect(results.body).to.be.an('object');
   });
 
   it('should save signup gmail user and save in db', async () => {

@@ -59,7 +59,7 @@ export default class ResponceHandler {
    * @returns {Object} as response
    * @param  {Object}} data
    */
-  static success(res, status, message, data) {
+  static success(...[res, status, message, data]) {
     return (res.status(status).json({
       status,
       message,
