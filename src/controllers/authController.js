@@ -76,7 +76,6 @@ export default class AuthController {
   static async login(req, res) {
     try {
       const { email, password } = req.body;
-
       const user = await db.User.findOne({
         where: {
           email,

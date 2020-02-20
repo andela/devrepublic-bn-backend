@@ -22,11 +22,11 @@ export default class VerificationController {
         where: { email: req.query.email }
       });
       const unverifiedId = existingUser.isVerified;
-      if (unverifiedId === false) {
-        existingUser.update({ isVerified: true });
-        return Response.signupResponse(res, 200, `User with ${existingUser.email} has been verified`);
+      if (unverifiedId === true) {
+        return Response.signupResponse(res, 202, `${existingUser.email} is already verified`);
       }
-      return Response.signupResponse(res, 202, `${existingUser.email} is already verified`);
+      existingUser.update({ isVerified: true });
+      return Response.signupResponse(res, 200, `User with ${existingUser.email} has been verified`);
     } catch (error) {
       return Response.errorResponse(res, 500, `${error.message}`);
     }

@@ -3,25 +3,42 @@ import chaiHttp from 'chai-http';
 import index from '../index';
 import { provideToken } from '../utils/tokenHandler';
 import {
-  email,
-  id,
   isVerified,
   wrongEmail,
   wrongId
 } from './verifyAccountMock';
-
-const token = provideToken(id, isVerified, email);
-const wrongToken = provideToken(wrongId, isVerified, wrongEmail);
 
 const {
   expect
 } = chai;
 chai.use(chaiHttp);
 
-describe('Verification tests', () => {
-  it('should return account verified created sucessfully.', (done) => {
+const wrongToken = provideToken(wrongId, isVerified, wrongEmail);
+
+const newUser = {
+  firstName: 'Jean',
+  lastName: 'Ntare',
+  email: 'jamie@andela.com',
+  password: 'Bien@BAR789'
+};
+const { email } = newUser;
+let userToken;
+describe('VERIFICATION TESTS', () => {
+  it('should signup the user and return the token', (done) => {
+    chai
+      .request(index)
+      .post('/api/v1/auth/register')
+      .send(newUser)
+      .end((err, res) => {
+        // const { token } = res.body;
+        const { token } = res.body;
+        userToken = token;
+        done();
+      });
+  });
+  it('should return account verified sucessfully.', (done) => {
     chai.request(index)
-      .get(`/api/v1/auth/verification?token=${token}&email=${email}`)
+      .get(`/api/v1/auth/verification?token=${userToken}&email=${email}`)
       .end((err, res) => {
         expect(res.body).to.be.a('object');
         expect(res.status).to.equal(200);
@@ -31,7 +48,7 @@ describe('Verification tests', () => {
   });
   it('should return account is already verified.', (done) => {
     chai.request(index)
-      .get(`/api/v1/auth/verification?token=${token}&email=${email}`)
+      .get(`/api/v1/auth/verification?token=${userToken}&email=${email}`)
       .end((err, res) => {
         expect(res.body).to.be.a('object');
         expect(res.status).to.equal(202);
