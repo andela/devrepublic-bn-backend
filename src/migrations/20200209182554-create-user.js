@@ -21,6 +21,12 @@ module.exports = {
       role: {
         type: Sequelize.STRING 
       },
+      managerId: {
+        type: Sequelize.STRING
+      },
+      managerName: {
+        type: Sequelize.STRING
+      },
       signupMethod: {
         type: Sequelize.STRING,
         defaultValue: 'none',

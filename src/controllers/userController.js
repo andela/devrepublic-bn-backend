@@ -45,6 +45,47 @@ export default class UserController {
   }
 
   /**
+    * @description allows admin  to assign manager to Requester
+    * @static
+    * @param {Object} req
+    * @param {Object} res
+    * @returns {Object} User
+    * @memberof UserController
+    * @memberof userController
+  */
+  static async assignManager(req, res) {
+    try {
+      const { id, role, managerId } = req.body;
+      const admin = req.payload;
+      const avaiableAdmins = await db.User.findAll({
+        where: { role: 'super administrator' }
+      });
+      if (admin.role !== 'super administrator' || (avaiableAdmins.length === 2 && role === 'super administrator')) {
+        return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+      }
+      const existingUser = await db.User.findOne({
+        where: { id }
+      });
+      const existingManager = await db.User.findOne({
+        where: { managerId }
+      });
+      if (!existingUser) {
+        return Response.errorResponse(res, 401, res.__('User with this id does not exist'));
+      }
+      if (!existingManager) {
+        return Response.errorResponse(res, 401, res.__('Manager with this id does not exist'));
+      }
+      if (existingManager.role !== 'manager') {
+        return Response.errorResponse(res, 401, res.__('User with this Id is not a manager'));
+      }
+
+      return Response.success(res, 200, res.__('User roles updated successfully'));
+    } catch (error) {
+      return Response.errorResponse(res, 500, res.__(error.message));
+    }
+  }
+
+  /**
     * @description allows user to edit his profile
     * @static
     * @param {Object} req
