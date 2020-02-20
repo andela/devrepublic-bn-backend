@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    container_name: devrepublic-bn
+    restart: always
+    env_file: .env
+    environment:
+      DATABASE-URL: "${DEV_DATABASE_URL}"
+      NODE_ENV: development
+      PORT: 3000
+    build: .
+    depends_on: 
+      - postgres
+    ports:
+      - '3000:3000'
+    command: npm run dev
+    volumes: 
+      - .:/app/
+      - /app/node_modules
+
+  postgres:
+    container_name: barefoot-nomad
+    image: postgres:latest
+    ports:
+      - "5000:5432"
+    environment:
+      POSTGRES_USER: ${dbUser}
+      POSTGRES_PASSWORD: ${dbPassword}
+      POSTGRES_DB: ${databaseName}

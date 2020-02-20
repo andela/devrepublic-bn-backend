@@ -1,93 +1,48 @@
-const fs = require("fs"),
-    http = require("http"),
-    path = require("path"),
-    methods = require("methods"),
-    express = require("express"),
-    bodyParser = require("body-parser"),
-    session = require("express-session"),
-    cors = require("cors"),
-    passport = require("passport"),
-    errorhandler = require("errorhandler"),
-    mongoose = require("mongoose");
+import i18n from 'i18n';
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
+import welcome from './routes/welcome';
+import swagger from './swagger/index';
+import authRouter from './routes/authRoutes';
+import userRouter from './routes/userRoutes';
+import tripsRouter from './routes/tripsRoutes';
+import './config/passport';
 
-const isProduction = process.env.NODE_ENV === "production";
+dotenv.config();
+i18n.configure({
+  locales: ['fr', 'en'],
+  defaultLocale: 'en',
+  queryParameter: 'lang',
+  directory: path.join(__dirname, 'services/localesServices/locales'),
+});
 
-// Create global app object
 const app = express();
-
-app.use(cors());
-
-// Normal express config defaults
-app.use(require("morgan")("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(i18n.init);
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(require("method-override")());
-app.use(express.static(__dirname + "/public"));
+app.use(cookieSession({
+  secret: process.env.cookieSession,
+  cookie: { maxAge: 100000 },
+  resave: false,
+  saveUninitialized: false
+}));
 
-app.use(
-    session({
-        secret: "authorshaven",
-        cookie: { maxAge: 60000 },
-        resave: false,
-        saveUninitialized: false
-    })
-);
+app.use(passport.initialize());
+app.use(passport.session());
 
-if (!isProduction) {
-    app.use(errorhandler());
-}
+const port = process.env.PORT || 3000;
 
-if (isProduction) {
-    mongoose.connect(process.env.MONGODB_URI);
-} else {
-    mongoose.connect("mongodb://localhost/conduit");
-    mongoose.set("debug", true);
-}
+app.use('/api', welcome);
+app.use('/api-doc', swagger);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/trips', tripsRouter);
 
-require("./models/User");
+app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
 
-app.use(require("./routes"));
-
-/// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    const err = new Error("Not Found");
-    err.status = 404;
-    next(err);
-});
-
-/// error handlers
-
-// development error handler
-// will print stacktrace
-if (!isProduction) {
-    app.use(function(err, req, res, next) {
-        console.log(err.stack);
-
-        res.status(err.status || 500);
-
-        res.json({
-            errors: {
-                message: err.message,
-                error: err
-            }
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.json({
-        errors: {
-            message: err.message,
-            error: {}
-        }
-    });
-});
-
-// finally, let's start our server...
-const server = app.listen(process.env.PORT || 3000, function() {
-    console.log("Listening on port " + server.address().port);
-});
+export default app;

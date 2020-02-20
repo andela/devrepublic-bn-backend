@@ -1,0 +1,27 @@
+{
+  "name": "Devrepublic Bn Backend",
+  "description": "Making company travel and accomodation easy and convinient.",
+  "repository": "https://github.com/andela/devrepublic-bn-backend",
+  "keywords": [
+    "devrepublic",
+    "andela",
+    "simulations"
+  ],
+  "addons": [],
+  "env": {
+    "BASE_URL": {
+      "required": true
+    }
+  },
+  "buildpacks" : [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-18",
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
+}
