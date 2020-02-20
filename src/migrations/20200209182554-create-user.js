@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 'none',
         allowNull: false
-      }, 
+      },
       oAuthId: {
         type: Sequelize.STRING,
         defaultValue: 'none'
@@ -60,6 +60,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
