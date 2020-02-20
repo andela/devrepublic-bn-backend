@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
     signupMethod: DataTypes.STRING,
     oAuthId: DataTypes.STRING,
+    language: DataTypes.STRING,
+    currency: DataTypes.STRING,
+    department: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    residence: DataTypes.STRING,
+    birthdate: DataTypes.STRING,
+    image: DataTypes.STRING,
     isVerified: DataTypes.BOOLEAN
   }, {});
   User.associate = () => {

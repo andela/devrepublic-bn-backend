@@ -1,5 +1,6 @@
 import db from '../models';
 import Response from '../utils/ResponseHandler';
+import uploadImage from '../services/uploadImageService';
 
 /**
  * @description User Controller
@@ -7,12 +8,13 @@ import Response from '../utils/ResponseHandler';
  */
 export default class UserController {
   /**
-     * @description login method
+
+     * @description allows admin  to assign roles
      * @static
      * @param {Object} req
      * @param {Object} res
      * @returns {Object} User
-     * @memberof authController
+     * @memberof UserController
      */
   static async setRoles(req, res) {
     try {
@@ -38,6 +40,87 @@ export default class UserController {
       return Response.success(res, 200, res.__('User roles updated successfully'));
     } catch (error) {
       return Response.errorResponse(res, 500, res.__(error.message));
+    }
+  }
+
+  /**
+     * @description allows user to edit his profile
+     * @static
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} User
+     * @memberof UserController
+     */
+  static async editProfile(req, res) {
+    try {
+      const { email } = req.payload;
+      const {
+        currency, language, department, birthdate, gender, residence
+      } = req.body;
+      await db.User.update({
+        language,
+        currency,
+        department,
+        birthdate,
+        gender,
+        residence,
+      }, {
+        where: {
+          email
+        }
+      });
+      return Response.success(res, 200, res.__('Profile updated successfully'));
+    } catch (error) {
+      return Response.errorResponse(res, 500, error.message);
+    }
+  }
+
+  /**
+         * @description allows user to view his profile details
+         * @static
+         * @param {Object} req
+         * @param {Object} res
+         * @returns {Object} User
+         * @memberof UserController
+         */
+  static async viewProfile(req, res) {
+    try {
+      const { id } = req.payload;
+      const userProfileData = await db.User.findOne({
+        where: { id }, attributes: ['id', 'firstName', 'lastName', 'email', 'isVerified', 'role', 'language', 'currency', 'department', 'gender', 'residence', 'birthdate', 'image']
+      });
+      return Response.success(res, 200, res.__('User profile details'), userProfileData);
+    } catch (error) {
+      return Response.errorResponse(res, 500, error.message);
+    }
+  }
+
+  /**
+         * @description allows user to view his profile details
+         * @static
+         * @param {Object} req
+         * @param {Object} res
+         * @returns {Object} User
+         * @memberof UserController
+         */
+  static async uploadProfileImage(req, res) {
+    try {
+      const { email } = req.payload;
+      if (!req.file) {
+        return Response.errorResponse(res, 400, 'Choose an a picture first');
+      }
+      const image = req.file;
+      const output = await uploadImage(image, req);
+      await db.User.update({
+        image: output
+      }, {
+        where: {
+          email
+        }
+      });
+      return Response.success(res, 200, res.__('Your image has been uploded successfully'), output);
+    } catch (error) {
+      return Response.errorResponse(res, 500, error.message);
     }
   }
 }

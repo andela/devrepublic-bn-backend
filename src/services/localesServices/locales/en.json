@@ -41,5 +41,10 @@
 	"verification email welcome": "Welcome to devRepublic BareFoot Nomad",
 	"verification instruction email": "Click on this link below to verify your account",
 	"verification button": "Verify",
-	"signature": "signature"
+	"signature": "signature",
+	"Profile updated successfully": "Profile updated successfully",
+	"User profile details": "User profile details",
+	"Your image has been uploded successfull": "Your image has been uploded successfull",
+	"Gender must either be Male or Female": "Gender must either be Male or Female",
+	"Your image has been uploded successfully": "Your image has been uploded successfully"
 }

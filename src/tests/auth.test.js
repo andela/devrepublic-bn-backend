@@ -1,5 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sgMail from '@sendgrid/mail';
+import sinon from 'sinon';
 import index from '../index';
 
 const {
@@ -7,6 +9,14 @@ const {
 } = chai;
 chai.use(chaiHttp);
 describe('Signup Tests', () => {
+  before(() => {
+    sinon.stub(sgMail, 'send').returns({
+      to: 'aime@amgil.com',
+      from: 'devrepublic.team@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
   it('should return account created sucessfully.', (done) => {
     chai.request(index)
       .post('/api/v1/auth/register')

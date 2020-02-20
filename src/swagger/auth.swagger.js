@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /:
+ * /api:
  *   get:
  *     description: Display welcome message
  *     produces:
