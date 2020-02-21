@@ -264,3 +264,54 @@
  *       '401':
  *         description: No token provided
  */
+
+/**
+ * @swagger
+ * definitions:
+ *   assignManager:
+ *     type: object
+ *     properties:
+ *       managerId:
+ *         type: string
+ *       id:
+ *         type: string
+ *       required:
+ *         - managerId
+ *         - id
+ */
+
+/**
+ * @swagger
+ * /api/v1/users/assign/manager:
+ *   patch:
+ *     tags:
+ *       - Assign Manager
+ *     name: Assign a Manager
+ *     summary: super admin can assign a manager
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           type: object
+ *           properties:
+ *            id:
+ *              type: string
+ *            managerId:
+ *              type: string
+ *         required:
+ *         - id
+ *         - managerId
+ *     responses:
+ *       '200':
+ *             description: Manager assigned successfully.
+ *       '401':
+ *             description: User does not exist or they are not a manager or they are both managers.
+ *       '500':
+ *             description: Server Error.
+ * */

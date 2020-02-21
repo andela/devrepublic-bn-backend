@@ -74,7 +74,7 @@ export default class UserController {
           { managerId: existingManager.id, managerName: `${existingManager.firstName}, ${existingManager.lastName}` },
           { where: { id }, attributes: ['managerId', 'managerName'] }
         );
-        return Response.success(res, 200, res.__(`${existingUser.firstName}'s manager updated successfully`));
+        return Response.success(res, 200, res.__('Manager assigned successfully.'));
       }
       return Response.errorResponse(res, 401, res.__('User does not exist or they are not a manager or they are both managers'));
     } catch (error) {

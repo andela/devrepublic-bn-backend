@@ -64,5 +64,6 @@
 	"One or both user ID's do not exist": "One or both user ID's do not exist",
 	"devrepublicc's manager updated successfully": "devrepublicc's manager updated successfully",
 	"Muhoza's manager updated successfully": "Muhoza's manager updated successfully",
-	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers"
+	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
+	"Manager assigned successfully.": "Manager assigned successfully."
 }
