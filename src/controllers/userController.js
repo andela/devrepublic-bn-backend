@@ -55,31 +55,28 @@ export default class UserController {
   */
   static async assignManager(req, res) {
     try {
-      const { id, role, managerId } = req.body;
+      const { id, managerId } = req.body;
       const admin = req.payload;
-      const avaiableAdmins = await db.User.findAll({
-        where: { role: 'super administrator' }
-      });
-      if (admin.role !== 'super administrator' || (avaiableAdmins.length === 2 && role === 'super administrator')) {
+      if (admin.role !== 'super administrator' || null) {
         return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
       }
       const existingUser = await db.User.findOne({
         where: { id }
       });
       const existingManager = await db.User.findOne({
-        where: { managerId }
+        where: { id: managerId }
       });
-      if (!existingUser) {
-        return Response.errorResponse(res, 401, res.__('User with this id does not exist'));
+      if (!existingUser || !existingManager) {
+        return Response.errorResponse(res, 401, res.__('One or both user ID\'s do not exist'));
       }
-      if (!existingManager) {
-        return Response.errorResponse(res, 401, res.__('Manager with this id does not exist'));
+      if (existingManager.role === 'manager' && existingUser.role !== 'manager') {
+        await db.User.update(
+          { managerId: existingManager.id, managerName: `${existingManager.firstName}, ${existingManager.lastName}` },
+          { where: { id }, attributes: ['managerId', 'managerName'] }
+        );
+        return Response.success(res, 200, res.__(`${existingUser.firstName}'s manager updated successfully`));
       }
-      if (existingManager.role !== 'manager') {
-        return Response.errorResponse(res, 401, res.__('User with this Id is not a manager'));
-      }
-
-      return Response.success(res, 200, res.__('User roles updated successfully'));
+      return Response.errorResponse(res, 401, res.__('User does not exist or they are not a manager or they are both managers'));
     } catch (error) {
       return Response.errorResponse(res, 500, res.__(error.message));
     }

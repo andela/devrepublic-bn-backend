@@ -6,7 +6,7 @@ module.exports = {
     'Users',
     [
       {
-        id: uuid(),
+        id: '79660e6f-4b7d-4g21-81re-7av94jk91c8a',
         firstName: 'Bienjee',
         lastName: 'Bieio',
         email: 'jean@andela.com',
@@ -17,7 +17,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '79660e6f-4b7d-4g21-81re-74f54jk91c8a',
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'jdev@andela.com',
@@ -28,7 +28,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '79660e6f-4b7d-4g21-81re-74f54e9e1c8a',
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'jeanne@andela.com',
@@ -39,7 +39,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '79660e6f-4b7d-4d21-81re-74f54e9e1c8a',
         firstName: 'devrepublicc',
         lastName: 'devrpore',
         email: 'jeannette@andela.com',
@@ -61,7 +61,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '79660e6f-4b7d-4d21-81ad-74f54e9e1c8a',
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'jim@andela.com',
@@ -71,6 +71,28 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: '79660e6f-4b7d-4d21-81ad-74f64e9e1c8a',
+        firstName: 'Jamie',
+        lastName: 'Jules',
+        email: 'jules@andela.com',
+        password: bcrypt.hashSync('Bien@BAR789', Number(process.env.passwordHashSalt)),
+        isVerified: true,
+        role: 'manager',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '0119b84a-99a4-41c0-8a0e-6e0b6c905165',
+        firstName: 'Joan',
+        lastName: 'Mutesi',
+        email: 'mutesi@andela.com',
+        password: bcrypt.hashSync('Bien@BAR789', Number(process.env.passwordHashSalt)),
+        isVerified: true,
+        role: 'travel administrator',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
     ],
     {},
   ),
