@@ -214,6 +214,7 @@ export default class UserController {
         roomName,
         type
       });
+      existingFacility.increment('numOfRooms', { by: 1 });
       return Response.success(res, 200, res.__('Room created successfully'));
     } catch (error) {
       return Response.errorResponse(res, 500, res.__(error.message));
