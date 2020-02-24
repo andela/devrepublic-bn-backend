@@ -55,5 +55,12 @@
 	"Invalid value": "Invalid value",
 	"dstination should  only be letter": "dstination should  only be letter",
 	"destination should  only be letter": "destination should  only be letter",
-	"No token provided": "No token provided"
+	"No token provided": "No token provided",
+	"User does not exist": "User does not exist",
+	"User does not exist or they are not a manager": "User does not exist or they are not a manager",
+	"Cannot read property 'role' of null": "Cannot read property 'role' of null",
+	"One or both of the user's ID's do not exist": "One or both of the user's ID's do not exist",
+	"One or both user ID's do not exist": "One or both user ID's do not exist",
+	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
+	"Manager assigned successfully.": "Manager assigned successfully."
 }

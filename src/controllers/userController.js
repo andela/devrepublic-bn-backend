@@ -45,6 +45,44 @@ export default class UserController {
   }
 
   /**
+    * @description allows admin  to assign manager to Requester
+    * @static
+    * @param {Object} req
+    * @param {Object} res
+    * @returns {Object} User
+    * @memberof UserController
+    * @memberof userController
+  */
+  static async assignManager(req, res) {
+    try {
+      const { id, managerId } = req.body;
+      const admin = req.payload;
+      if (admin.role !== 'super administrator' || null) {
+        return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+      }
+      const existingUser = await db.User.findOne({
+        where: { id }
+      });
+      const existingManager = await db.User.findOne({
+        where: { id: managerId }
+      });
+      if (!existingUser || !existingManager) {
+        return Response.errorResponse(res, 401, res.__('One or both user ID\'s do not exist'));
+      }
+      if (existingManager.role === 'manager' && existingUser.role !== 'manager') {
+        await db.User.update(
+          { managerId: existingManager.id, managerName: `${existingManager.firstName}, ${existingManager.lastName}` },
+          { where: { id }, attributes: ['managerId', 'managerName'] }
+        );
+        return Response.success(res, 200, res.__('Manager assigned successfully.'));
+      }
+      return Response.errorResponse(res, 401, res.__('User does not exist or they are not a manager or they are both managers'));
+    } catch (error) {
+      return Response.errorResponse(res, 500, res.__(error.message));
+    }
+  }
+
+  /**
     * @description allows user to edit his profile
     * @static
     * @param {Object} req
@@ -176,6 +214,7 @@ export default class UserController {
         roomName,
         type
       });
+      existingFacility.increment('numOfRooms', { by: 1 });
       return Response.success(res, 200, res.__('Room created successfully'));
     } catch (error) {
       return Response.errorResponse(res, 500, res.__(error.message));

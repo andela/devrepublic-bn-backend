@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     role: DataTypes.STRING,
+    managerId: DataTypes.STRING,
+    managerName: DataTypes.STRING,
     signupMethod: DataTypes.STRING,
     oAuthId: DataTypes.STRING,
     language: DataTypes.STRING,

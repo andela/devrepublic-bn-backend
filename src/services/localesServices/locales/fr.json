@@ -66,5 +66,8 @@
 	"the return date must be greater than departure date": "la date de retour doit être supérieure à la date de départ",
 	"request with the same departure date exist": "demande avec la même date de départ existe",
 	"the accomondation doesn't exist or it's not in your destination": "le logement n'existe pas ou n'est pas dans votre destination",
-	"Request created successfully": "Demande créée avec succès"
+	"Request created successfully": "Demande créée avec succès",
+	"Manager assigned successfully.": "Gestionnaire attribué avec succès.",
+	"User does not exist or they are not a manager or they are both managers": "L'utilisateur n'existe pas ou il n'est pas gestionnaire ou ils sont tous les deux gestionnaires",
+	"One or both user ID's do not exist": "Un ou deux ID utilisateur n'existent pas"
 }
