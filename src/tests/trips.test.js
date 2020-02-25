@@ -8,7 +8,7 @@ const {
 
 let token;
 const
-  managerId = '79660e6f-4b7d-4d21-81ad-74f64e9e1c8a',
+  managerId = '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   location = 'kigali',
   destination = 'Nairobi',
   departureDate = '2020-12-10',

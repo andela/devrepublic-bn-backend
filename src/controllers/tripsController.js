@@ -271,4 +271,41 @@ export default class requestController {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} reject request
+   */
+  static async rejectRequest(req, res) {
+    try {
+      const { user } = req;
+      const { requestId } = req.params;
+
+      const findRequest = await db.Request.findOne({
+        where: { id: requestId },
+      });
+      if (!findRequest) {
+        return Response.errorResponse(res, 404, 'Request not found');
+      }
+      if (findRequest.managerId !== user.id) {
+        return Response.success(res, 401, res.__('This request is not yours it is for another manager'));
+      }
+      if (findRequest.status === 'rejected') {
+        return Response.success(res, 200, res.__('Request has been already rejected'));
+      }
+      await db.Request.update({
+        status: 'rejected'
+      }, {
+        where: {
+          id: requestId,
+          managerId: user.id
+        }
+      });
+      return Response.success(res, 200, res.__('Request rejected successfully'));
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
+    }
+  }
 }

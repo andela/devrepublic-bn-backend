@@ -109,5 +109,8 @@
 	"you are not the assigned manager for this user":"vous n'êtes pas le gestionnaire affecté à cet utilisateur",
 	"the request you are trying to confirm is still open": "la demande que vous essayez de confirmer est toujours ouverte",
 	"the request is already re-confirmed": "la demande est déjà reconfirmée",
-	"request re-confirmed": "demande confirmée"
+	"request re-confirmed": "demande confirmée",
+	"Request rejected successfully": "Demande refusée avec succès",
+	"This request is not yours it is for another manager":"Cette demande n'est pas la vôtre, c'est pour un autre manager",
+	"Request has been already rejected": "La demande a déjà été rejetée"
 }
