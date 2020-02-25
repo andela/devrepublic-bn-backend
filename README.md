@@ -35,24 +35,63 @@ Install all the project's dependencies
 ```
 Run npm install
 ```
-Connect the project to Postgres Database by creating .env file and the following
+### Set up environment variable
 
-```
+- create a `.env` file in the root directory
+
+- copy the variable from the `env.example` into the `.env` and give them values
+
+### Set up database
+
+create development database and test database
+
+Connect the project to Postgres development database by adding the db into .env file
+
 `DEV_DATABASE_URL=postgres://{db_username}:{db_password}@{host}}:{port}/{databaseName}`
 
-```
+Connect the project to Postgres test database by adding the db url into the .env file
+
+`TEST_DATABASE_URL=postgres://{db_username}:{db_password}@{host}}:{port}/{testDatabaseName}`
+
 specifiy your `database username` , `database Password`, `host`, `port` and your created `database name`
 
+run the following script in order to create migration
+
 ```
-Create migration using this command `sequelize db:migrate` in order to be abble to insert data in database
+npm run create
+```
+To undo migrations run the following script
+
+```
+npm run drop
+```
+to seed data into the database run the following script
+
+```
+npm run seed:dev
 ```
 
+To run all the above scripts all together and start the server at the same time
+this script will do it together
+
+```
+npm run reset:dev
+```
 ## Running the tests
 In your terminal
 ```
 Run npm test
 ```
-
+## Running the build
+In your terminal
+```
+npm run build
+```
+## Start server
+In your terminal
+```
+npm run dev
+```
 ## Built With
 
 * [Express](https://expressjs.com/) - The backend framework used
