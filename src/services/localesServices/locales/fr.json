@@ -50,7 +50,7 @@
 	"admin is not defined": "admin is not defined",
 	"Cannot read property %s of undefined": "Impossible de lire la propriété %s non définie",
 	"column \"id\" of relation \"Facilities\" does not exist": "la colonne \"id \" de la relation \"Facilities \" n'existe pas",
-	"you have to be a travel admin to perform this action": "vous devez être un administrateur de voyage pour effectuer cette action",
+	"you have to be a travel admin or a supplier to perform this action": "vous devez être un administrateur de voyage ou un fournisseur pour effectuer cette action",
 	"column \"facilityId\" of relation \"Facilities\" does not exist": "la colonne \"facilityId \" de la relation \"Facilities \" n'existe pas",
 	"null value in column \"id\" violates not-null constraint": "la valeur nulle dans la colonne \"id \" viole la contrainte non nulle",
 	"The firstname is required": "Le prénom est obligatoire",
@@ -72,5 +72,12 @@
 	"One or both user ID's do not exist": "Un ou deux ID utilisateur n'existent pas",
 	"The request does not exist or it's either been approved or rejected": "La demande n'existe pas ou a été approuvée ou rejetée",
 	"Only the requester of this trip can edit the trip.": "Seul le demandeur de ce voyage peut modifier le voyage.",
-	"Request updated successfully": "Demande mise à jour avec succès"
+	"Request updated successfully": "Demande mise à jour avec succès",
+	"Choose an a picture first": "Choisissez d'abord une photo",
+	"amenities are required": "les équipements sont requis",
+	"facilityName is required": "facilityName est requis",
+	"services are required": "les services sont requis",
+	"facility already created": "installation déjà créée",
+	"location should only contain letter": "l'emplacement ne doit contenir qu'une lettre",
+	"This facility does not exist":"Cette installation n'existe pas"
 }

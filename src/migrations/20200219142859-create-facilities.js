@@ -15,9 +15,19 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
+      amenities: {
+        type: Sequelize.STRING
+      },
+      services: {
+        type: Sequelize.STRING,
+        
+      },
       numOfRooms: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+      },
+      createdBy: {
+        type: Sequelize.STRING 
       },
       createdAt: {
         allowNull: false,

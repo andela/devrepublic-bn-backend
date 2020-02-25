@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     facilityName: DataTypes.STRING,
     location: DataTypes.STRING,
     image: DataTypes.STRING,
-    numOfRooms: DataTypes.INTEGER
+    createdBy: DataTypes.STRING,
+    numOfRooms: DataTypes.INTEGER,
+    amenities: DataTypes.STRING,
+    services: DataTypes.STRING,
   }, {});
   Facilities.associate = (models) => {
     Facilities.hasMany(models.Rooms, {

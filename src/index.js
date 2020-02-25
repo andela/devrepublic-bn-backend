@@ -10,6 +10,7 @@ import swagger from './swagger/index';
 import authRouter from './routes/authRoutes';
 import userRouter from './routes/userRoutes';
 import tripsRouter from './routes/tripsRoutes';
+import facilitiesRouter from './routes/facilityRoute';
 import './config/passport';
 
 dotenv.config();
@@ -24,6 +25,7 @@ const app = express();
 app.use(i18n.init);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
 
 app.use(cookieSession({
   secret: process.env.cookieSession,
@@ -42,6 +44,7 @@ app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripsRouter);
+app.use('/api/v1/facilities', facilitiesRouter);
 
 app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
 

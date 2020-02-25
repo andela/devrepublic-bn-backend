@@ -7,6 +7,7 @@ module.exports = {
         location: 'Nairobi',
         image: '',
         numOfRooms: 1,
+        createdBy: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
