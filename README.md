@@ -6,6 +6,7 @@
 
 Make company global travel and accommodation easy and convenient for the strong workforce of savvy members of staff, by leveraging the modern web.
 
+
 ## Getting Started
 
 The instructions below will get you a copy of the project up and running on your local machine for development, further contribution and testing purposes. 
@@ -110,3 +111,7 @@ npm run dev
 * Samuel Nishimwe
 * Caroline Nkirote
 * Samuel Munyili
+
+---
+Website: https://devrepublic-bn.herokuapp.com/api/
+
