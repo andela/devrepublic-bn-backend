@@ -22,7 +22,7 @@ export const changeRoles = [
   check('email').trim().exists().withMessage('The email is required')
     .isEmail()
     .withMessage('The email is required'),
-  check('role').trim().exists().matches(/\b(super administrator|travel administrator|manager|travel team member|requester)\b/)
+  check('role').trim().exists().matches(/\b(super administrator|travel administrator|manager|travel team member|requester|supplier)\b/)
     .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator')
 ];
 export const editProfileValidationRules = [
@@ -60,3 +60,13 @@ check('departureDate').exists().withMessage('departureDate is required').matches
   .withMessage('enter valid date with YYYY-MM-DD format'),
 check('returnDate').exists().withMessage('returnDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
   .withMessage('enter valid date with YYYY-MM-DD format')];
+
+export const createFacilityRules = [
+  check('facilityName').not().isEmpty({ ignore_whitespace: true }).withMessage('facilityName is required')
+    .bail(),
+  check('location').not().isEmpty({ ignore_whitespace: true }).withMessage('location is required')
+    .bail()
+    .matches(/^[A-Za-z\s]+$/)
+    .withMessage('location should only contain letter'),
+  check('amenities').not().isEmpty({ ignore_whitespace: true }).withMessage('amenities are required'),
+  check('services').not().isEmpty({ ignore_whitespace: true }).withMessage('services are required')];

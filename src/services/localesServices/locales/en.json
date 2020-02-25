@@ -65,5 +65,14 @@
 	"you have to be a travel admin to perform this action": "you have to be a travel admin to perform this action",
 	"Manager assigned successfully.": "Manager assigned successfully.",
 	"One or both user ID's do not exist": "One or both user ID's do not exist",
-	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers"
+	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
+	"Cannot set headers after they are sent to the client": "Cannot set headers after they are sent to the client",
+	"location should only contain letter": "location should only contain letter",
+	"services are required": "services are required",
+	"amenities are required": "amenities are required",
+	"facilityName is required": "facility is required",
+	"facility already created": "facility already created",
+	"Choose an a picture first": "Choose an a picture first",
+	"you have to be a travel admin or a supplier to perform this action": "you have to be a travel admin or a supplier to perform this action",
+	"This facility does not exist": "This facility does not exist"
 }

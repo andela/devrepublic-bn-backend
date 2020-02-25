@@ -109,8 +109,11 @@ describe('USER ROLES TESTS', () => {
 });
 
 describe('USER PROFILE TESTS', () => {
-  before(() => {
+  beforeEach(() => {
     sinon.stub(uploader, 'upload').returns({ url: 'https://cloudinarysample/image/150' });
+  });
+  afterEach(() => {
+    sinon.restore();
   });
   it('should allow user to edit his/her profile', (done) => {
     chai
@@ -172,107 +175,6 @@ describe('USER PROFILE TESTS', () => {
       });
   });
 });
-
-describe('TRAVEL ADMIN ROLE TESTS', () => {
-  it('should login the travel admin and return the token', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/auth/login')
-      .send({
-        email: 'jim@andela.com',
-        password: 'Bien@BAR789'
-      })
-      .end((err, res) => {
-        token = res.body.data;
-        done();
-      });
-  });
-  it('should allow travel admin to create a facility', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/users/create/facility')
-      .set('token', token)
-      .send({
-        facility: 'Marriot',
-        location: 'Kigali, Rwanda'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body.status).to.equal(200);
-        expect(res.body.message).to.equal('Facility created successfully');
-        done();
-      });
-  });
-  it('should allow travel admin to create a room', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/users/create/facility/room')
-      .set('token', token)
-      .send({
-        facilityId: '5be72db7-5510-4a50-9f15-e23f103116d5',
-        roomName: 'Kigali',
-        type: 'single bed'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body.status).to.equal(200);
-        expect(res.body.message).to.equal('Room created successfully');
-        done();
-      });
-  });
-  it('should not allow any other role to create a facility', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/users/create/facility')
-      .set('token', unauthToken)
-      .send({
-        facilityId: '5be72db7-5510-4a50-9f15-e23f103116d5',
-        roomName: 'Nairobi'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(401);
-        expect(res.body.status).to.equal(401);
-        expect(res.body.error).to.equal('you have to be a travel admin to perform this action');
-        done();
-      });
-  });
-  it('should not allow any other role to create a room', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/users/create/facility')
-      .set('token', unauthToken)
-      .send({
-        facilityId: '463e2dfb-d0b7-447c-900b-7ee031412e76',
-        roomName: 'Nairobi',
-        type: 'single bed'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(401);
-        expect(res.body.status).to.equal(401);
-        expect(res.body.error).to.equal('you have to be a travel admin to perform this action');
-        done();
-      });
-  });
-  it('should not allow travel admin to create a room for a non-existing', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/users/create/facility/room')
-      .set('token', token)
-      .send({
-        facilityId: 'e806d6fd-23f4-40a9-aae8-922208db7fba',
-        roomName: 'Nairobi',
-        type: 'single bed'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(401);
-        expect(res.body.status).to.equal(401);
-        expect(res.body.error).to.equal('This facility does not exist');
-        done();
-      });
-  });
-});
-
-
 describe('ASSIGNING A MANAGER TESTS', () => {
   it('should login the travel admin and return the token', (done) => {
     chai

@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import uploadImage from '../services/uploadImageService';
@@ -135,32 +134,6 @@ export default class UserController {
   }
 
   /**
-     * @description create facility method
-     * @static
-     * @param {Object} req
-     * @param {Object} res
-     * @returns {Object} Facility
-     * @memberof userController
-    */
-  static async createFacility(req, res) {
-    try {
-      const { facilityName, location } = req.body;
-      const admin = req.payload;
-      if (admin.role !== 'travel administrator') {
-        return Response.errorResponse(res, 401, res.__('you have to be a travel admin to perform this action'));
-      }
-      await db.Facilities.create({
-        id: uuid(),
-        facilityName,
-        location
-      });
-      return Response.success(res, 200, res.__('Facility created successfully'));
-    } catch (error) {
-      return Response.errorResponse(res, 500, res.__(error.message));
-    }
-  }
-
-  /**
     * @description allows user to view his profile details
     * @static
     * @param {Object} req
@@ -186,38 +159,6 @@ export default class UserController {
       return Response.success(res, 200, res.__('Your image has been uploded successfully'), output);
     } catch (error) {
       return Response.errorResponse(res, 500, error.message);
-    }
-  }
-
-  /**
-    * @description create facility method
-    * @static
-    * @param {Object} req
-    * @param {Object} res
-    * @returns {Object} Room
-    * @memberof userController
-  */
-  static async createRoom(req, res) {
-    try {
-      const { facilityId, roomName, type } = req.body;
-      const admin = req.payload;
-      if (admin.role !== 'travel administrator') {
-        return Response.errorResponse(res, 401, res.__('you have to be a travel admin to perform this action'));
-      }
-      const existingFacility = await db.Facilities.findOne({ where: { id: facilityId } });
-      if (!existingFacility) {
-        return Response.errorResponse(res, 401, 'This facility does not exist');
-      }
-      await db.Rooms.create({
-        id: uuid(),
-        facilityId,
-        roomName,
-        type
-      });
-      existingFacility.increment('numOfRooms', { by: 1 });
-      return Response.success(res, 200, res.__('Room created successfully'));
-    } catch (error) {
-      return Response.errorResponse(res, 500, res.__(error.message));
     }
   }
 }

@@ -42,6 +42,7 @@ export default class protectRoutes {
   }
 
   /**
+   * @description verify if user is a requester
    * @param  {object} req
    * @param  {object} res
    * @param  {object} next
@@ -50,6 +51,21 @@ export default class protectRoutes {
   static async verifyRequester(req, res, next) {
     const { user } = req;
     if (user.role !== 'requester') Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    next();
+  }
+
+  /**
+   * @description verify if user is a travel adminstrator or a supplier;
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} user
+   */
+  static verifyTripAdminOrSupplier(req, res, next) {
+    const { user } = req;
+    if (user.role !== 'travel administrator' && user.role !== 'supplier') {
+      return Response.errorResponse(res, 401, res.__('you have to be a travel admin or a supplier to perform this action'));
+    }
     next();
   }
 }
