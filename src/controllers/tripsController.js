@@ -103,4 +103,32 @@ export default class requestController {
       return Response.errorResponse(res, 500, err.message);
     }
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} edited request
+   */
+  static async editRequest(req, res) {
+    try {
+      const { user } = req;
+      const {
+        id, location, destination, departureDate, returnDate, reason, accomodation
+      } = req.body;
+      const existingRequest = await db.Request.findOne({ where: { id } });
+      if (!existingRequest || existingRequest.status === 'Approved' || existingRequest.status === 'Rejected') {
+        return Response.errorResponse(res, 404, res.__('The request does not exist or it\'s either been approved or rejected'));
+      }
+      if (existingRequest.email !== user.email || null) {
+        return Response.errorResponse(res, 401, res.__('Only the requester of this trip can edit the trip.'));
+      }
+      const updatedRequest = await db.Request.update({
+        location, destination, departureDate, returnDate, reason, accomodation
+      }, { where: { id } });
+      return Response.success(res, 200, res.__('Request updated successfully'), updatedRequest);
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
+    }
+  }
 }

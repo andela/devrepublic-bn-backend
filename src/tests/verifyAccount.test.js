@@ -30,7 +30,6 @@ describe('VERIFICATION TESTS', () => {
       .post('/api/v1/auth/register')
       .send(newUser)
       .end((err, res) => {
-        // const { token } = res.body;
         const { token } = res.body;
         userToken = token;
         done();

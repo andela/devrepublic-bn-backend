@@ -69,5 +69,8 @@
 	"Request created successfully": "Demande créée avec succès",
 	"Manager assigned successfully.": "Gestionnaire attribué avec succès.",
 	"User does not exist or they are not a manager or they are both managers": "L'utilisateur n'existe pas ou il n'est pas gestionnaire ou ils sont tous les deux gestionnaires",
-	"One or both user ID's do not exist": "Un ou deux ID utilisateur n'existent pas"
+	"One or both user ID's do not exist": "Un ou deux ID utilisateur n'existent pas",
+	"The request does not exist or it's either been approved or rejected": "La demande n'existe pas ou a été approuvée ou rejetée",
+	"Only the requester of this trip can edit the trip.": "Seul le demandeur de ce voyage peut modifier le voyage.",
+	"Request updated successfully": "Demande mise à jour avec succès"
 }
