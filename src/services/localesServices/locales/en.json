@@ -49,5 +49,17 @@
 	"Manager assigned successfully.": "Manager assigned successfully.",
 	"One or both user ID's do not exist": "One or both user ID's do not exist",
 	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
-	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page."
+	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page.",
+	"Please enter valid return date according to your stops and actual departure date": "Please enter valid return date according to your stops and actual departure date",
+	"location should only contain letter": "location should only contain letter",
+	"facilityName is required": "facility is required",
+	"Available requests to approve": "Available requests to approve",
+	"Firstname must be atleast 4 characters": "Firstname must be atleast 4 characters",
+	"Pending requests to approve": "Pending requests to approve",
+	"server error": "server error",
+	"user should have manager before performing this operation": "user should have manager before performing this operation",
+	"No trip requests available": "No trip requests available",
+	"accomodation is required": "accomodation is required",
+	"The user is already a %s": "The user is already a %s",
+	"relation \"Users\" does not exist": "relation \"Users\" does not exist"
 }

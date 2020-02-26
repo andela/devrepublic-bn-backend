@@ -48,7 +48,7 @@ export default class protectRoutes {
    * @param  {object} next
    * @returns {object} user
    */
-  static async verifyRequester(req, res, next) {
+  static verifyRequester(req, res, next) {
     const { user } = req;
     if (user.role !== 'requester') Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
     next();
@@ -66,6 +66,31 @@ export default class protectRoutes {
     if (user.role !== 'travel administrator' && user.role !== 'supplier') {
       return Response.errorResponse(res, 401, res.__('you have to be a travel admin or a supplier to perform this action'));
     }
+    next();
+  }
+
+  /**
+   * @description verify if user is a Manager
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} user
+   */
+  static verifyManager(req, res, next) {
+    const { user } = req;
+    if (user.role !== 'manager') Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    next();
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} user
+   */
+  static checkUserManager(req, res, next) {
+    const { user } = req;
+    if (user.managerId === null) Response.errorResponse(res, 401, res.__('user should have manager before performing this operation'));
     next();
   }
 }

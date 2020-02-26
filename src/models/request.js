@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Request = sequelize.define('Request', {
+    managerId: DataTypes.STRING,
     email: DataTypes.STRING,
     location: DataTypes.STRING,
     destination: DataTypes.STRING,

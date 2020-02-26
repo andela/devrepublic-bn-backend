@@ -7,7 +7,9 @@ const {
 } = chai;
 
 let token;
-const location = 'kigali',
+const
+  managerId = '79660e6f-4b7d-4d21-81ad-74f64e9e1c8a',
+  location = 'kigali',
   destination = 'Nairobi',
   departureDate = '2020-12-10',
   reason = 'I am attending the meeting',
@@ -42,6 +44,7 @@ const invalidDatesMulricityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
   reason: 'eaqtng and traveling',
+  managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-03',
   gender,
@@ -63,6 +66,7 @@ const invalidDatesMulricityRequest = {
 const validDatesMulricityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
+  managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   reason: 'eaqtng and traveling',
   accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-11',
@@ -89,15 +93,13 @@ describe('REQUEST TRIP TESTS', () => {
   before((done) => {
     chai
       .request(app)
-      .post('/api/v1/auth/register')
+      .post('/api/v1/auth/login')
       .send({
-        firstName: 'Jimmy',
-        lastName: 'Ntare',
-        email: 'Ntare@andela.com',
+        email: 'jdev@andela.com',
         password: 'Bien@BAR789'
       })
       .end((err, res) => {
-        ({ token } = { token: res.body.token });
+        token = res.body.data;
         done();
       });
   });
@@ -107,7 +109,15 @@ describe('REQUEST TRIP TESTS', () => {
       .post('/api/v1/trips/one-way')
       .set('token', token)
       .send({
-        location, destination, departureDate, reason, accomodation, gender, passportName, role
+        managerId,
+        location,
+        destination,
+        departureDate,
+        reason,
+        accomodation,
+        gender,
+        passportName,
+        role
       })
       .end((_err, res) => {
         expect(res.status).to.equal(201);
@@ -120,7 +130,15 @@ describe('REQUEST TRIP TESTS', () => {
       .post('/api/v1/trips/one-way')
       .set('token', token)
       .send({
-        location, destination, departureDate, reason, accomodation, gender, passportName, role
+        managerId,
+        location,
+        destination,
+        departureDate,
+        reason,
+        accomodation,
+        gender,
+        passportName,
+        role
       })
       .end((_err, res) => {
         expect(res.status).to.equal(409);

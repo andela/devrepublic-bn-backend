@@ -18,6 +18,7 @@ export default class requestController {
      */
   static async createRequest(req, res) {
     try {
+      const { user } = req;
       const {
         location, destination, reason, accomodation, departureDate, gender, role, passportName
       } = req.body;
@@ -36,6 +37,7 @@ export default class requestController {
         const newRequest = await db.Request.create({
           id: uuid(),
           type: 'one way',
+          managerId: user.managerId,
           location,
           destination,
           reason,
@@ -52,6 +54,7 @@ export default class requestController {
         return Response.success(res, 201, 'Request created successfully', newRequest);
       }
     } catch (error) {
+      // console.log(error);
       return Response.errorResponse(res, 500, error.message);
     }
   }
@@ -91,6 +94,7 @@ export default class requestController {
       const newRequest = await db.Request.create({
         id: uuid(),
         type: 'two way',
+        managerId: user.managerId,
         email: user.email,
         location,
         destination,
@@ -151,6 +155,25 @@ export default class requestController {
   }
 
   /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} avail trip request
+   */
+  static async availTripRequests(req, res) {
+    try {
+      const { user } = req;
+      const availableRequests = await db.Request.findAll({ where: { managerId: user.id, status: 'Open' } });
+      if (availableRequests.length === 0) {
+        return Response.success(res, 200, res.__('No trip requests available'));
+      }
+      return Response.success(res, 200, res.__('Pending requests to approve'), availableRequests);
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
+    }
+  }
+
+  /**
      * @description Create multi city request method
      * @static
      * @param {Object} req
@@ -160,6 +183,7 @@ export default class requestController {
      */
   static async createMultiCityRequest(req, res) {
     try {
+      const { user } = req;
       const {
         location, destination, reason, accomodation, departureDate, stops, returnDate
       } = req.body;
@@ -198,6 +222,7 @@ export default class requestController {
       const newMulticityRequest = await db.Request.create({
         id: uuid(),
         type: 'multi city',
+        managerId: user.id,
         location,
         destination,
         reason,

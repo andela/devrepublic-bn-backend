@@ -8,8 +8,10 @@ const {
 } = chai;
 chai.use(chaiHttp);
 let token;
+let noManagerToken;
+
 const notSignupToken = provideToken('dewdwwdwd', false, 'ade@gmail.com');
-describe('create a return trip', () => {
+describe('CREATE A RETURN TRIP', () => {
   before((done) => {
     const loggedUser = {
       email: 'jeannette@andela.com',
@@ -145,6 +147,43 @@ describe('create a return trip', () => {
       .request(index)
       .post('/api/v1/trips/return')
       .set('token', notSignupToken)
+      .send({
+        managerId: '79660e6f-4b7d-4d21-81ad-74f64e9e1c8a',
+        destination: 'Nairobi',
+        location: 'Kigali',
+        departureDate: '2020-03-15',
+        returnDate: '2020-05-01',
+        reason: 'vacation',
+        accomadationID: 'sfdmefkef',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        expect(res.body.error).to.equal('you are not authorised for this operation');
+        done();
+      });
+  });
+});
+
+describe('CHECK IF USER HAS A MANAGER', () => {
+  before((done) => {
+    const noManagerUser = {
+      email: 'jim@andela.com',
+      password: 'Bien@BAR789',
+    };
+    chai
+      .request(index)
+      .post('/api/v1/auth/login')
+      .send(noManagerUser)
+      .end((err, res) => {
+        noManagerToken = res.body.data;
+        done();
+      });
+  });
+  it('should return that user needs a manager to create a trip', (done) => {
+    chai
+      .request(index)
+      .post('/api/v1/trips/return')
+      .set('token', noManagerToken)
       .send({
         destination: 'Nairobi',
         location: 'Kigali',

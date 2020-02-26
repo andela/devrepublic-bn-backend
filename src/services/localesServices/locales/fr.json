@@ -78,7 +78,6 @@
 	"services are required": "les services sont requis",
 	"facility already created": "installation déjà créée",
 	"location should only contain letter": "l'emplacement ne doit contenir qu'une lettre",
-	"This facility does not exist": "Cette installation n'existe pas",
 	"your departureDate at Uganda office has to be greater than arrival Date": "votre date de départ au bureau de l'Ouganda doit être supérieure à la date d'arrivée",
 	"Check your STOPS arrival and depature dates": "Vérifiez vos dates d'arrivée et de départ",
 	"Multi city request created successfully": "Demande multi-villes créée avec succès",
@@ -100,5 +99,9 @@
 	"Passport name should be only characters": "Le nom du passeport doit être composé uniquement de caractères",
 	"Passport name must be atleast 4 characters": "Le nom du passeport doit contenir au moins 4 caractères",
 	"Gender is required": "Le sexe est requis",
-	"returnDate is required": "la date de retour est obligatoire"
+	"returnDate is required": "la date de retour est obligatoire",
+	"This facility does not exist":"Cette installation n'existe pas",
+	"Pending requests to approve":"Demandes d'approbation en attente",
+	"user should have manager before performing this operation":"l'utilisateur doit avoir un gestionnaire avant d'effectuer cette opération",
+	"No trip requests available": "Aucune demande de voyage disponible"
 }
