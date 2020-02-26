@@ -15,7 +15,10 @@ const openRequest = {
   destination: 'Nairobi',
   departureDate: '2020-12-10',
   reason: 'I am attending the meeting',
-  accomodation: 'Akagera'
+  accomodation: 'Akagera',
+  gender: 'Male',
+  passportName: 'Jimmy Ntare',
+  role: 'requester'
 };
 
 const closedRequest = {
@@ -24,7 +27,10 @@ const closedRequest = {
   destination: 'Nairobi',
   departureDate: '2020-12-10',
   reason: 'I am attending the meeting',
-  accomodation: 'Akagera'
+  accomodation: 'Akagera',
+  gender: 'Male',
+  passportName: 'Jimmy Ntare',
+  role: 'requester'
 };
 
 describe('EDIT TRIP TESTS', () => {

@@ -36,6 +36,9 @@ describe('create a return trip', () => {
         returnDate: '2020-05-01',
         reason: 'vacation',
         accomodation: 'kigali',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(404);
@@ -55,6 +58,9 @@ describe('create a return trip', () => {
         returnDate: '2020-05-01',
         reason: 'vacation',
         accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(201);
@@ -81,6 +87,9 @@ describe('create a return trip', () => {
         returnDate: '2020-05-30',
         reason: 'vacation',
         accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -100,6 +109,9 @@ describe('create a return trip', () => {
         returnDate: '2020-02-01',
         reason: 'vacation',
         accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -118,6 +130,9 @@ describe('create a return trip', () => {
         returnDate: '2020-05-01',
         reason: 'vacation',
         accomodation: 'sfdmefkef',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -137,6 +152,9 @@ describe('create a return trip', () => {
         returnDate: '2020-05-01',
         reason: 'vacation',
         accomadationID: 'sfdmefkef',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(401);

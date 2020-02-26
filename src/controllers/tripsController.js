@@ -19,7 +19,7 @@ export default class requestController {
   static async createRequest(req, res) {
     try {
       const {
-        location, destination, reason, accomodation, departureDate
+        location, destination, reason, accomodation, departureDate, gender, role, passportName
       } = req.body;
       const { email } = req.payload;
       const requestExist = await db.Request.findOne({
@@ -29,7 +29,7 @@ export default class requestController {
         },
       });
       if (requestExist) {
-        return Response.errorResponse(res, 409, 'Request already exist');
+        return Response.errorResponse(res, 409, res.__('Request already exist'));
       }
       const output = findFacilityHandlder(accomodation, destination, res);
       if (output) {
@@ -42,6 +42,11 @@ export default class requestController {
           accomodation,
           departureDate,
           email,
+          profileData: [{
+            gender,
+            passportName,
+            role
+          }],
           status: 'Open'
         });
         return Response.success(res, 201, 'Request created successfully', newRequest);
@@ -60,7 +65,13 @@ export default class requestController {
   static async createReturnRequest(req, res) {
     const { user } = req;
     const {
-      location, destination, departureDate, returnDate, reason, accomodation
+      location,
+      destination,
+      departureDate,
+      returnDate,
+      reason,
+      accomodation,
+      gender, role, passportName
     } = req.body;
     if (Date.parse(departureDate) > Date.parse(returnDate)) {
       return Response.errorResponse(res, 400, res.__('the return date must be greater than departure date'));
@@ -87,7 +98,12 @@ export default class requestController {
         returnDate,
         reason,
         accomodation,
-        status: 'open'
+        profileData: [{
+          gender,
+          passportName,
+          role
+        }],
+        status: 'Open'
       });
       return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (err) {
@@ -105,7 +121,8 @@ export default class requestController {
     try {
       const { user } = req;
       const {
-        id, location, destination, departureDate, returnDate, reason, accomodation
+        id, location, destination, departureDate, returnDate, reason, accomodation,
+        gender, role, passportName
       } = req.body;
       const existingRequest = await db.Request.findOne({ where: { id } });
       if (!existingRequest || existingRequest.status === 'Approved' || existingRequest.status === 'Rejected') {
@@ -115,7 +132,17 @@ export default class requestController {
         return Response.errorResponse(res, 401, res.__('Only the requester of this trip can edit the trip.'));
       }
       const updatedRequest = await db.Request.update({
-        location, destination, departureDate, returnDate, reason, accomodation
+        location,
+        destination,
+        departureDate,
+        returnDate,
+        reason,
+        accomodation,
+        profileData: [{
+          gender,
+          passportName,
+          role
+        }],
       }, { where: { id } });
       return Response.success(res, 200, res.__('Request updated successfully'), updatedRequest);
     } catch (err) {

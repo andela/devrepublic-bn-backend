@@ -11,13 +11,20 @@ const location = 'kigali',
   destination = 'Nairobi',
   departureDate = '2020-12-10',
   reason = 'I am attending the meeting',
-  accomodation = '5be72db7-5510-4a50-9f15-e23f103116d5';
+  accomodation = '5be72db7-5510-4a50-9f15-e23f103116d5',
+  gender = 'Male',
+  passportName = 'Jimmy Ntare',
+  role = 'requester';
+
 const invalidMulricityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
   reason: 'eaqtng and traveling',
   accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-03',
+  gender,
+  passportName,
+  role,
   stops: [{
     stopName: 'Uganda office',
     reason: 'Greet new members',
@@ -37,6 +44,9 @@ const invalidDatesMulricityRequest = {
   reason: 'eaqtng and traveling',
   accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-03',
+  gender,
+  passportName,
+  role,
   stops: [{
     stopName: 'Uganda office',
     reason: 'Greet new members',
@@ -56,6 +66,9 @@ const validDatesMulricityRequest = {
   reason: 'eaqtng and traveling',
   accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-11',
+  gender,
+  passportName,
+  role,
   stops: [{
     stopName: 'Uganda office',
     reason: 'Greet new members',
@@ -69,6 +82,7 @@ const validDatesMulricityRequest = {
     stopDepartureDate: '2019-09-21'
   }]
 };
+
 chai.use(chaiHttp);
 
 describe('REQUEST TRIP TESTS', () => {
@@ -93,7 +107,7 @@ describe('REQUEST TRIP TESTS', () => {
       .post('/api/v1/trips/one-way')
       .set('token', token)
       .send({
-        location, destination, departureDate, reason, accomodation
+        location, destination, departureDate, reason, accomodation, gender, passportName, role
       })
       .end((_err, res) => {
         expect(res.status).to.equal(201);
@@ -106,7 +120,7 @@ describe('REQUEST TRIP TESTS', () => {
       .post('/api/v1/trips/one-way')
       .set('token', token)
       .send({
-        location, destination, departureDate, reason, accomodation
+        location, destination, departureDate, reason, accomodation, gender, passportName, role
       })
       .end((_err, res) => {
         expect(res.status).to.equal(409);
@@ -151,6 +165,20 @@ describe('REQUEST TRIP TESTS', () => {
         expect(res.body.data.stops[0].reason).to.equal('Greet new members');
         expect(res.body.data.stops[0].stopArrivalDate).to.equal('2019-09-18');
         expect(res.body.data.stops[0].stopDepartureDate).to.equal('2019-09-19');
+        done();
+      });
+  });
+  it('User should not create a one way trip', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/trips/one-way?remember=true')
+      .set('token', token)
+      .send({
+        location, destination, departureDate, reason, accomodation, gender, passportName, role
+      })
+      .end((_err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.error).to.equal('Please update your profile with gender, passport name and role');
         done();
       });
   });

@@ -62,7 +62,6 @@
 	"accomodation is required": "l'hébergement est requis",
 	"departureDate is required": "date de départ obligatoire",
 	"enter valid date with YYYY-MM-DD format": "entrez une date valide au format AAAA-MM-JJ",
-	"No token provided": "Aucun jeton fourni",
 	"the return date must be greater than departure date": "la date de retour doit être supérieure à la date de départ",
 	"request with the same departure date exist": "demande avec la même date de départ existe",
 	"the accomondation doesn't exist or it's not in your destination": "le logement n'existe pas ou n'est pas dans votre destination",
@@ -89,5 +88,17 @@
 	"Please provide departure date on each stop": "Veuillez indiquer la date de départ à chaque arrêt",
 	"Please enter valid return date according to your stops and actual departure date": "Veuillez entrer une date de retour valide en fonction de vos arrêts et de la date de départ réelle",
 	"Please provide arrival date on each stop with YYYY-MM-DD format": "Veuillez indiquer la date de départ à chaque arrêt au format AAAA-MM-JJ",
-	"Please provide departure date on each stop with YYYY-MM-DD format": "Veuillez indiquer la date d'arrivée à chaque arrêt au format AAAA-MM-JJ"
+	"Please provide departure date on each stop with YYYY-MM-DD format": "Veuillez indiquer la date d'arrivée à chaque arrêt au format AAAA-MM-JJ",
+	"Request already exist": "La demande existe déjà",
+	"No token provided": "Aucun jeton fourni",
+	"user not found, check your input for any mistake": "user not found, check your input for any mistake",
+	"Invalid token": "Jeton invalide",
+	"Sorry, you are not authorized to access this page.": "Désolé, vous n'êtes pas autorisé à accéder à cette page.",
+	"passport name should be only characters": "le nom du passeport doit être composé uniquement de caractères",
+	"The passport name is required": "Le nom du passeport est obligatoire",
+	"The role is required": "Le rôle est requis",
+	"Passport name should be only characters": "Le nom du passeport doit être composé uniquement de caractères",
+	"Passport name must be atleast 4 characters": "Le nom du passeport doit contenir au moins 4 caractères",
+	"Gender is required": "Le sexe est requis",
+	"returnDate is required": "la date de retour est obligatoire"
 }

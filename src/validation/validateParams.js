@@ -26,7 +26,7 @@ export default class validateParams {
       } = req.query;
       const decodeToken = jwt.verify(token, process.env.JWTPRIVATEKEY);
       if (decodeToken.email !== email) {
-        return Response.errorResponse(res, 401, 'Sorry, you are not authorized to access this page.');
+        return Response.errorResponse(res, 401, res.__('Sorry, you are not authorized to access this page.'));
       }
       next();
     } catch (error) {
