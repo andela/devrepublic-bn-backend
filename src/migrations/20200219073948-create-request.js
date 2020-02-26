@@ -33,6 +33,9 @@ module.exports = {
       accomodation: {
         type: Sequelize.STRING
       },
+      stops:{
+        type:Sequelize.ARRAY(Sequelize.JSON)
+      },
       status: {
         type: Sequelize.STRING,
         allowNull: false,

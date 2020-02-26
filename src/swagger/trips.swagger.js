@@ -138,7 +138,6 @@
 *       '201':
 *             description: Request created successfully.
 * */
-
 /**
  * @swagger
  * definitions:
@@ -215,4 +214,83 @@
 *             description: The request does not exist or it's either been approved or rejected
 *       '401':
 *             description: Only the requester of this trip can edit the trip.
+* */
+/**
+ * @swagger
+ * definitions:
+ *   Multi city trip:
+ *     type: object
+ *     properties:
+ *       location:
+ *         type: string
+ *       destination:
+ *         type: string
+ *       departureDate:
+ *         type: string
+ *       returnDate:
+ *         type: string
+ *       reason:
+ *         type: string
+ *       accomodation:
+ *         type: string
+ *       required:
+ *         - location
+ *         - destination
+ *         - departureDate
+ *         - returnDate
+ *         - reason
+ *         - accomodation
+ *         - stops
+ */
+
+/**
+* @swagger
+* /api/v1/trips/multi-city:
+*   post:
+*     tags:
+*       - Trips
+*     name: Request a multi city trip
+*     summary: request a trip where you specifie different stops during that trip
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: token
+*         in: header
+*         description: jwt token of the user
+*       - name: body
+*         in: body
+*         schema:
+*           type: object
+*           properties:
+*             location:
+*               type: string
+*             destination:
+*               type: string
+*             departureDate:
+*               type: string
+*             returnDate:
+*               type: string
+*             reason:
+*               type: string
+*             accomodation:
+*               type: string
+*             stops:
+*               type: array
+*               items:
+*                 type: object
+*         required:
+*           - location
+*           - destination
+*           - departureDate
+*           - returnDate
+*           - reason
+*           - accomodation
+*           - stops
+*     responses:
+*       '201':
+*             description: Multi city request created successfully.
+*       '400':
+*             description: Please double checks your departure and arrival dates.
 * */
