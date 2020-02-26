@@ -22,7 +22,8 @@ export const changeRoles = [
   check('email').trim().exists().withMessage('The email is required')
     .isEmail()
     .withMessage('The email is required'),
-  check('role').trim().exists().matches(/\b(super administrator|travel administrator|manager|travel team member|requester|supplier)\b/)
+  check('role').trim().exists().withMessage('The passport name is required')
+    .matches(/\b(super administrator|travel administrator|manager|travel team member|requester)\b/)
     .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator')
 ];
 export const editProfileValidationRules = [
@@ -48,6 +49,17 @@ export const requestRules = [
     .isString(),
   check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
     .withMessage('enter valid date with YYYY-MM-DD format'),
+  check('passportName').exists().withMessage('The passport name is required')
+    .matches(/^[A-Za-z\s]+$/)
+    .withMessage('Passport name should be only characters')
+    .isLength({ min: 4 })
+    .withMessage('Passport name must be atleast 4 characters'),
+  check('role').exists().withMessage('The role is required')
+    .trim()
+    .matches(/\b(super administrator|travel administrator|manager|travel team member|requester)\b/)
+    .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator'),
+  check('gender').exists().withMessage('Gender is required').isIn(['Male', 'Female'])
+    .withMessage('Gender must either be Male or Female'),
 ];
 export const returnTripRules = [check('location').exists().withMessage('location is required').bail()
   .isAlpha(),
@@ -59,7 +71,19 @@ check('accomodation').exists().withMessage('accomodation is required'),
 check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
   .withMessage('enter valid date with YYYY-MM-DD format'),
 check('returnDate').exists().withMessage('returnDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
-  .withMessage('enter valid date with YYYY-MM-DD format')];
+  .withMessage('enter valid date with YYYY-MM-DD format'),
+check('passportName').exists().withMessage('The passport name is required')
+  .matches(/^[A-Za-z\s]+$/)
+  .withMessage('Passport name should be only characters')
+  .isLength({ min: 4 })
+  .withMessage('Passport name must be atleast 4 characters'),
+check('role').exists().withMessage('The role is required')
+  .trim()
+  .matches(/\b(super administrator|travel administrator|manager|travel team member|requester)\b/)
+  .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator'),
+check('gender').exists().withMessage('Gender is required').isIn(['Male', 'Female'])
+  .withMessage('Gender must either be Male or Female'),
+];
 
 export const createFacilityRules = [
   check('facilityName').not().isEmpty({ ignore_whitespace: true }).withMessage('facilityName is required')
@@ -70,3 +94,18 @@ export const createFacilityRules = [
     .withMessage('location should only contain letter'),
   check('amenities').not().isEmpty({ ignore_whitespace: true }).withMessage('amenities are required'),
   check('services').not().isEmpty({ ignore_whitespace: true }).withMessage('services are required')];
+export const multiCityTripRules = [check('location').exists().withMessage('location is required').bail()
+  .isAlpha(),
+check('destination').exists().withMessage('destination is required').bail()
+  .isAlpha()
+  .withMessage('destination should  only be letter'),
+check('reason').exists().withMessage('reason is required'),
+check('accomodation').exists().withMessage('accomodation is required'),
+check('departureDate').exists().withMessage('departureDate is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+  .withMessage('enter valid date with YYYY-MM-DD format'),
+check('stops').exists().withMessage('The locations where you will stop by are required'),
+check('stops.*.stopName').exists().withMessage('Please provide all your stop location names'),
+check('stops.*.reason').exists().withMessage('Please add your trip reasons to all your stops'),
+check('stops.*.stopArrivalDate').exists().matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/).withMessage('Please provide arrival date on each stop with YYYY-MM-DD format'),
+check('stops.*.stopDepartureDate').exists().matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/).withMessage('Please provide departure date on each stop with YYYY-MM-DD format'),
+];

@@ -8,7 +8,7 @@ const {
 } = chai;
 chai.use(chaiHttp);
 let token;
-const notSignupToken = provideToken('dewdwwdwd', false, 'ade@gmail.com');
+const notSignupToken = provideToken('wrongtototo', false, 'ade@gmail.com');
 describe('Forgot password feature', () => {
   it('should not send an email to the user who didn\'t provide valid email', (done) => {
     chai
@@ -32,7 +32,7 @@ describe('Forgot password feature', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        expect(res.body.error).to.equal('user not found, check your input for any mistake');
+        expect(res.body.error).to.equal('user not found on reset');
         done();
       });
   });

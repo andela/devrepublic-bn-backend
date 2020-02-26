@@ -145,7 +145,7 @@ export default class UserController {
     try {
       const { email } = req.payload;
       if (!req.file) {
-        return Response.errorResponse(res, 400, 'Choose an a picture first');
+        return Response.errorResponse(res, 400, res.__('Choose an a picture first'));
       }
       const image = req.file;
       const output = await uploadImage(image, req);

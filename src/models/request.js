@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     returnDate: DataTypes.STRING,
     reason: DataTypes.STRING,
     accomodation: DataTypes.STRING,
-    status: DataTypes.STRING
+    profileData: DataTypes.ARRAY(DataTypes.JSON),
+    status: DataTypes.STRING,
+    stops: DataTypes.ARRAY(DataTypes.JSON),
   }, {});
   Request.associate = (models) => {
     Request.belongsTo(models.User, {
