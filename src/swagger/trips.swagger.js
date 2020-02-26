@@ -271,3 +271,27 @@
 *       '400':
 *             description: Please double checks your departure and arrival dates.
 * */
+
+/**
+ * @swagger
+ * /api/v1/trips/view:
+ *   get:
+ *     tags:
+ *       - Trips
+ *     name: Manager view trip requests
+ *     summary:  Manager should be able to view all open requests they have to approve
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         schema:
+ *           type: string
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: Pending request to approve.
+ *       '401':
+ *         description: You are not authorized to perform this action
+ */
