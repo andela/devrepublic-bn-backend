@@ -78,7 +78,10 @@ export default class protectRoutes {
    */
   static verifyManager(req, res, next) {
     const { user } = req;
-    if (user.role !== 'manager') Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    if (user.role !== 'manager') {
+      return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    }
+
     next();
   }
 

@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING,
     destination: DataTypes.STRING,
     departureDate: DataTypes.STRING,
+    confirm: DataTypes.BOOLEAN,
     returnDate: DataTypes.STRING,
     reason: DataTypes.STRING,
     accomodation: DataTypes.STRING,

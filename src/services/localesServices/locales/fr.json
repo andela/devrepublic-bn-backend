@@ -103,5 +103,11 @@
 	"This facility does not exist":"Cette installation n'existe pas",
 	"Pending requests to approve":"Demandes d'approbation en attente",
 	"user should have manager before performing this operation":"l'utilisateur doit avoir un gestionnaire avant d'effectuer cette opération",
-	"No trip requests available": "Aucune demande de voyage disponible"
+	"No trip requests available": "Aucune demande de voyage disponible",
+	"request not found": "demande introuvable",
+	"Only manager are allowed for this operation": "Seul le gestionnaire est autorisé pour cette opération",
+	"you are not the assigned manager for this user":"vous n'êtes pas le gestionnaire affecté à cet utilisateur",
+	"the request you are trying to confirm is still open": "la demande que vous essayez de confirmer est toujours ouverte",
+	"the request is already re-confirmed": "la demande est déjà reconfirmée",
+	"request re-confirmed": "demande confirmée"
 }

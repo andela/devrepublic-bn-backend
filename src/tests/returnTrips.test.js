@@ -68,8 +68,8 @@ describe('CREATE A RETURN TRIP', () => {
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal('Request created successfully');
         expect(res.body.data).to.be.an('object');
-        expect(res.body.data.destination).to.equal('Nairobi');
-        expect(res.body.data.location).to.equal('Kigali');
+        expect(res.body.data.destination).to.equal('nairobi');
+        expect(res.body.data.location).to.equal('kigali');
         expect(res.body.data.departureDate).to.equal('2020-03-15');
         expect(res.body.data.returnDate).to.equal('2020-05-01');
         expect(res.body.data.accomodation).to.equal('5be72db7-5510-4a50-9f15-e23f103116d5');

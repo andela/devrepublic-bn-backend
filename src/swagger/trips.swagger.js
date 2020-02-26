@@ -126,6 +126,34 @@
 *             description: Request already exist.
 * */
 /**
+ * @swagger
+ * definitions:
+ *   edit trip:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *       location:
+ *         type: string
+ *       destination:
+ *         type: string
+ *       departureDate:
+ *         type: string
+ *       returnDate:
+ *         type: string
+ *       reason:
+ *         type: string
+ *       accomodation:
+ *         type: string
+ *       required:
+ *         - location
+ *         - destination
+ *         - departureDate
+ *         - reason
+ *         - accomodation
+ */
+
+/**
 * @swagger
 * /api/v1/trips/edit:
 *   patch:
@@ -295,3 +323,25 @@
  *       '401':
  *         description: You are not authorized to perform this action
  */
+/**
+* @swagger
+* /api/v1/trips/{requestId}/confirm:
+*   put:
+*     tags:
+*       - Trips
+*     name: re-confirm a trip request
+*     summary: manager should be able to re-confirm a trip request decision
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: token
+*         in: header
+*         description: jwt token of the user
+*       - name: requestId
+*         in: path
+*     responses:
+*       '200':
+*             description: request re-confirmed.
+* */
