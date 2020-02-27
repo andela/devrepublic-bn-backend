@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     numOfRooms: DataTypes.INTEGER,
     amenities: DataTypes.STRING,
     services: DataTypes.STRING,
+    likes: DataTypes.INTEGER,
+    likesId: DataTypes.ARRAY(DataTypes.STRING),
+    unlikes: DataTypes.INTEGER,
+    unlikesId: DataTypes.ARRAY(DataTypes.STRING)
   }, {});
   Facilities.associate = (models) => {
     Facilities.hasMany(models.Rooms, {

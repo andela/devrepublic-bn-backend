@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import { Sequelize } from 'sequelize';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import uploadImage from '../services/uploadImageService';
@@ -78,6 +79,52 @@ class FacilitiesController {
         }
       });
       return Response.success(res, 201, res.__('Room created successfully'), room);
+    } catch (error) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+    * @description like a facility method
+    * @static
+    * @param {Object} req
+    * @param {Object} res
+    * @returns {Object} Room
+    * @memberof FacilitiesController
+  */
+  static async likeFacility(req, res) {
+    try {
+      const { user } = req;
+      const { id } = req.query;
+
+      await db.Facilities.increment('likes', { where: { id } });
+      await db.Facilities.update({
+        likesId: Sequelize.fn('array_append', Sequelize.col('likesId'), user.id)
+      }, { where: { id } });
+      return Response.success(res, 200, res.__('user has liked facility'));
+    } catch (error) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+    * @description unlike a facility method
+    * @static
+    * @param {Object} req
+    * @param {Object} res
+    * @returns {Object} Room
+    * @memberof FacilitiesController
+  */
+  static async unlikeFacility(req, res) {
+    try {
+      const { user } = req;
+      const { id } = req.query;
+
+      await db.Facilities.increment('unlikes', { where: { id } });
+      await db.Facilities.update({
+        unlikesId: Sequelize.fn('array_append', Sequelize.col('unlikesId'), user.id)
+      }, { where: { id } });
+      return Response.success(res, 200, res.__('user has unliked facility'));
     } catch (error) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }

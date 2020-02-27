@@ -63,5 +63,17 @@
 	"Pending requests to approve": "Pending requests to approve",
 	"Request rejected successfully": "Request rejected successfully",
 	"This request is not yours it is for another manager": "This request is not yours it is for another manager",
-	"Request has been already rejected": "Request has been already rejected"
+	"Request has been already rejected": "Request has been already rejected",
+	"Please enter valid return date according to your stops and actual departure date": "Please enter valid return date according to your stops and actual departure date",
+	"location should only contain letter": "location should only contain letter",
+	"facilityName is required": "facility is required",
+	"Available requests to approve": "Available requests to approve",
+	"Firstname must be atleast 4 characters": "Firstname must be atleast 4 characters",
+	"user should have manager before performing this operation": "user should have manager before performing this operation",
+	"No token provided": "No token provided",
+	"facility with this id does not exist": "facility with this id does not exist",
+	"user has liked facility": "user has liked facility",
+	"user has already liked facility": "user has already liked facility",
+	"user has unliked facility": "user has unliked facility",
+	"user has already unliked facility": "user has already unliked facility"
 }

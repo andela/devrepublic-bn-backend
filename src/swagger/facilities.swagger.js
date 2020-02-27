@@ -80,3 +80,67 @@
  *       '500':
  *             description: Server Error.
  * */
+
+/**
+ * @swagger
+ * /api/v1/facilities/like:
+ *   patch:
+ *     tags:
+ *       - Facilities
+ *     name: likeFacility
+ *     summary: enables user to like facility
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: facilityId
+ *         in: header
+ *         schema:
+ *           type: object
+ *           properties:
+ *             facilityId:
+ *               type: string
+ *         required:
+ *           - facilityId
+ *           - token
+ *     responses:
+ *       '200':
+ *             description: user has liked facility.
+ *       '403':
+ *             description: user has already liked facility.
+ *       '500':
+ *             description: Server Error.
+ * */
+
+/**
+ * @swagger
+ * /api/v1/facilities/unlike:
+ *   patch:
+ *     tags:
+ *       - Facilities
+ *     name: unlikeFacility
+ *     summary: allows travel admin to create room
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: facilityId
+ *         in: header
+ *         schema:
+ *           type: object
+ *           properties:
+ *             facilityId:
+ *               type: string
+ *         required:
+ *           - facilityId
+ *           - token
+ *     responses:
+ *       '200':
+ *             description: user has unliked facility.
+ *       '403':
+ *             description: user has already unliked facility.
+ *       '500':
+ *             description: Server Error.
+ * */
