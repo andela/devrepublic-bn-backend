@@ -58,7 +58,7 @@ export default class AuthController {
       const token = provideToken(user.id, user.isVerified, email, user.role);
       const link = `http://${process.env.BASE_URL}/api/v1/auth/verification?token=${token}&email=${email}`;
       localStorage.setItem('token', token);
-      sendMsg(email, firstName, content, link);
+      await sendMsg(email, firstName, content, link);
       return Response.signupResponse(res, 201, res.__('User is successfully registered'), token);
     } catch (error) {
       return Response.errorResponse(res, 500, res.__(`${error.message}`));
@@ -182,7 +182,7 @@ export default class AuthController {
         text: req.__('button text'),
         signature: req.__('email signature')
       };
-      AuthService.forgotPassword(user, content);
+      await AuthService.forgotPassword(user, content);
       return Response.success(res, 200, res.__('check your email to reset your password'));
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));

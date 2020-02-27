@@ -1,4 +1,4 @@
-import { check } from 'express-validator';
+import { check, query } from 'express-validator';
 
 
 export const signupInputRules = [
@@ -76,7 +76,7 @@ check('passportName').exists().withMessage('The passport name is required')
   .withMessage('Passport name must be atleast 4 characters'),
 check('role').exists().withMessage('The role is required')
   .trim()
-  .matches(/\b(super administrator|travel administrator|manager|travel team member|requester)\b/)
+  .matches(/\b(super administrator|travel administrator|manager|travel team member|requester|supplier)\b/)
   .withMessage('The allowable roles are manager, travel team member, requester, travel administrator, super administrator'),
 check('gender').exists().withMessage('Gender is required').isIn(['Male', 'Female'])
   .withMessage('Gender must either be Male or Female'),
@@ -114,4 +114,24 @@ export const bookingRules = [
     .withMessage('enter valid date with YYYY-MM-DD format'),
   check('checkout').exists().withMessage('checkout is required').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
     .withMessage('enter valid date with YYYY-MM-DD format')
+];
+export const searchQueryRules = [
+  query('id').not().isEmpty({ ignore_whitespace: true }).withMessage('request ID can\'t be empty')
+    .optional(),
+  query('location').not().isEmpty({ ignore_whitespace: true }).matches(/^[A-Za-z\s]+$/)
+    .withMessage('location should only contain letter')
+    .optional(),
+  query('destination').not().isEmpty({ ignore_whitespace: true })
+    .matches(/^[A-Za-z\s]+$/)
+    .withMessage('destination should only contain letter')
+    .optional(),
+  query('accomodation').not().isEmpty({ ignore_whitespace: true }).withMessage('accommodation id must be a valid uuid')
+    .optional(),
+  query('status').matches(/\b(open|approved|rejected)\b/).withMessage('status can only be open, rejected or approved').optional(),
+  query('departureDate').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+    .withMessage('enter valid date with YYYY-MM-DD format').optional(),
+  query('returnDate').matches(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])/)
+    .withMessage('enter valid date with YYYY-MM-DD format').optional(),
+  query('reason').not().isEmpty({ ignore_whitespace: true }).withMessage('reason must be atleast one character')
+    .optional(),
 ];

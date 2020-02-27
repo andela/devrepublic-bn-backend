@@ -35,7 +35,7 @@ const sendMsg = (newUserEmail, firstName, content, link) => {
     html: email
   };
 
-  sgMail.send(msg);
+  return sgMail.send(msg);
 };
 
 

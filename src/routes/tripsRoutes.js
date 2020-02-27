@@ -1,7 +1,12 @@
 
 import express from 'express';
 import tripsController from '../controllers/tripsController';
-import { requestRules, returnTripRules, multiCityTripRules } from '../validation/validationRules';
+import {
+  requestRules,
+  returnTripRules,
+  multiCityTripRules,
+  searchQueryRules
+} from '../validation/validationRules';
 import validationResult from '../validation/validationResult';
 import protectRoute from '../middlewares/protectRoute';
 import rememberProfile from '../utils/rememberProfile';
@@ -15,4 +20,6 @@ router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rem
 router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
 router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);
 router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.rejectRequest);
+router.get('/search', protectRoute.verifyUser, searchQueryRules, validationResult, tripsController.requestSearch);
+
 export default router;

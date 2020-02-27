@@ -1,6 +1,8 @@
 import uuid from 'uuid/v4';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
+import TripsService from '../services/tripServices';
+import stringHelper from '../utils/stringHelper';
 
 /**
  * @description RequestController Controller
@@ -292,6 +294,39 @@ export default class requestController {
       return Response.success(res, 200, res.__('Request rejected successfully'));
     } catch (err) {
       return Response.errorResponse(res, 500, err.message);
+    }
+  }
+
+  /**
+     * @description request feature
+     * @static
+     * @param {Object} req
+     * @param {Object} res
+     * @returns {Object} array of request
+     * @memberof requestController
+     */
+  static async requestSearch(req, res) {
+    try {
+      const { user } = req;
+      const {
+        id, location, destination, status, reason, departureDate, returnDate
+      } = req.query;
+      const field = {
+        id,
+        location,
+        destination,
+        status,
+        reason,
+        departureDate,
+        returnDate
+      };
+      const requests = await TripsService.searchRequest(field, user);
+      if (requests === stringHelper.requestNotFound) {
+        return Response.errorResponse(res, 404, res.__(requests));
+      }
+      return Response.success(res, 200, res.__('requests found'), requests);
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
 }
