@@ -49,7 +49,7 @@ export default class requestController {
             passportName,
             role
           }],
-          status: 'Open'
+          status: 'open',
         });
         return Response.success(res, 201, 'Request created successfully', newRequest);
       }
@@ -96,18 +96,18 @@ export default class requestController {
         type: 'two way',
         managerId: user.managerId,
         email: user.email,
-        location,
-        destination,
+        location: location.toLowerCase().trim(),
+        destination: destination.toLowerCase().trim(),
         departureDate,
         returnDate,
-        reason,
-        accomodation,
+        reason: reason.trim(),
+        accomodation: accomodation.trim(),
         profileData: [{
-          gender,
-          passportName,
-          role
+          gender: gender.toLowerCase().trim(),
+          passportName: passportName.toLowerCase().trim(),
+          role: role.toLowerCase().trim()
         }],
-        status: 'Open'
+        status: 'open',
       });
       return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (err) {
@@ -136,15 +136,15 @@ export default class requestController {
         return Response.errorResponse(res, 401, res.__('Only the requester of this trip can edit the trip.'));
       }
       const updatedRequest = await db.Request.update({
-        location,
-        destination,
+        location: location.toLowerCase().trim(),
+        destination: destination.toLowerCase().trim(),
         departureDate,
         returnDate,
-        reason,
+        reason: reason.trim(),
         accomodation,
         profileData: [{
-          gender,
-          passportName,
+          gender: gender.toLowerCase().trim(),
+          passportName: passportName.toLowerCase().trim(),
           role
         }],
       }, { where: { id } });
@@ -163,7 +163,7 @@ export default class requestController {
   static async availTripRequests(req, res) {
     try {
       const { user } = req;
-      const availableRequests = await db.Request.findAll({ where: { managerId: user.id, status: 'Open' } });
+      const availableRequests = await db.Request.findAll({ where: { managerId: user.id, status: 'open' } });
       if (availableRequests.length === 0) {
         return Response.success(res, 200, res.__('No trip requests available'));
       }
@@ -222,20 +222,53 @@ export default class requestController {
       const newMulticityRequest = await db.Request.create({
         id: uuid(),
         type: 'multi city',
-        managerId: user.id,
-        location,
-        destination,
-        reason,
+        location: location.toLowerCase(),
+        destination: location.toLowerCase(),
+        reason: reason.trim(),
         accomodation,
         departureDate,
         email,
-        status: 'Open',
+        status: 'open',
         stops,
-        returnDate
+        returnDate,
+        managerId: user.managerId
       });
       return Response.success(res, 201, res.__('Multi city request created successfully'), newMulticityRequest);
     } catch (error) {
       return Response.errorResponse(res, 500, error.message);
+    }
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @return {object} confirmed request
+   */
+  static async confirmRequest(req, res) {
+    const { user } = req;
+    const { requestId } = req.params;
+    try {
+      const request = await db.Request.findOne({
+        where: {
+          id: requestId
+        }
+      });
+      if (!request) {
+        return Response.errorResponse(res, 404, res.__('request not found'));
+      }
+      if (request.managerId !== user.id) {
+        return Response.errorResponse(res, 401, res.__('you are not the assigned manager for this user'));
+      }
+      if (request.status === 'open') {
+        return Response.errorResponse(res, 400, res.__('the request you are trying to confirm is still open'));
+      }
+      if (request.confirm === true) {
+        return Response.errorResponse(res, 400, res.__('the request is already re-confirmed'));
+      }
+      const updatedRequest = await request.update({ confirm: true });
+      return Response.success(res, 200, res.__('request re-confirmed'), updatedRequest);
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
 }

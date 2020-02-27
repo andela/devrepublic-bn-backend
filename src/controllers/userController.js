@@ -101,7 +101,7 @@ export default class UserController {
         department,
         birthdate,
         gender,
-        residence,
+        residence: residence.toLowerCase(),
       }, {
         where: {
           email

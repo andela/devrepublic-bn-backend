@@ -46,11 +46,11 @@ export default class AuthController {
       if (existingUser) {
         return Response.errorResponse(res, 409, res.__('Email already exists'));
       }
-      const hashedPassword = bcrypt.hashSync(password, Number(process.env.passwordHashSalt));
+      const hashedPassword = bcrypt.hashSync(password.trim(), Number(process.env.passwordHashSalt));
       const user = await db.User.create({
         id: uuid(),
-        firstName,
-        lastName,
+        firstName: firstName.toLowerCase(),
+        lastName: lastName.toLowerCase(),
         email,
         password: hashedPassword,
         role: 'requester'
@@ -130,8 +130,8 @@ export default class AuthController {
       await db.User.create({
         id: uuid(),
         email,
-        firstName,
-        lastName,
+        firstName: firstName.toLowerCase(),
+        lastName: lastName.toLowerCase(),
         password,
         role: 'requester',
         signupMethod: method,
@@ -201,7 +201,7 @@ export default class AuthController {
     try {
       const { user } = req;
       const { password } = req.body;
-      const hashedPassword = hashPassword(password);
+      const hashedPassword = hashPassword(password.trim());
       AuthService.resetPassword(user.id, hashedPassword);
       return Response.success(res, 200, res.__('password reset successfully'));
     } catch (err) {

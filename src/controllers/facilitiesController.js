@@ -29,8 +29,8 @@ class FacilitiesController {
       const output = await uploadImage(image, req);
       const facility = await db.Facilities.findOne({
         where: {
-          facilityName,
-          location
+          facilityName: facilityName.toLowerCase(),
+          location: location.toLowerCase()
         }
       });
       if (facility) {
@@ -38,11 +38,11 @@ class FacilitiesController {
       }
       const newFacility = await db.Facilities.create({
         id: uuid(),
-        facilityName,
-        location,
+        facilityName: facilityName.toLowerCase().trim(),
+        location: location.toLowerCase().trim(),
         image: output,
-        amenities,
-        services,
+        amenities: amenities.trim(),
+        services: services.trim(),
         createdBy: user.id
       });
       return Response.success(res, 201, res.__('Facility created successfully'), newFacility);
@@ -69,8 +69,8 @@ class FacilitiesController {
       const room = await db.Rooms.create({
         id: uuid(),
         facilityId,
-        roomName,
-        type
+        roomName: roomName.toLowerCase().trim(),
+        type: type.toLowerCase().trim()
       });
       await db.Facilities.increment('numOfRooms', {
         where: {

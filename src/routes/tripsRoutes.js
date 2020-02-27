@@ -12,5 +12,6 @@ router.post('/return', protectRoute.verifyUser, protectRoute.verifyRequester, re
 router.post('/multi-city', protectRoute.verifyUser, protectRoute.verifyRequester, multiCityTripRules, validationResult, tripsController.createMultiCityRequest);
 router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, requestRules, validationResult, tripsController.editRequest);
 router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
+router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);
 
 export default router;
