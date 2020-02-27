@@ -1,9 +1,8 @@
 import uuid from 'uuid/v4';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
-import findFacilityHandlder from '../utils/findFacility';
+
 /**
- *
  * @description RequestController Controller
  * @class RequestController
  */
@@ -20,7 +19,7 @@ export default class requestController {
     try {
       const { user } = req;
       const {
-        location, destination, reason, accomodation, departureDate, gender, role, passportName
+        location, destination, reason, departureDate, gender, role, passportName
       } = req.body;
       const { email } = req.payload;
       const requestExist = await db.Request.findOne({
@@ -32,29 +31,24 @@ export default class requestController {
       if (requestExist) {
         return Response.errorResponse(res, 409, res.__('Request already exist'));
       }
-      const output = findFacilityHandlder(accomodation, destination, res);
-      if (output) {
-        const newRequest = await db.Request.create({
-          id: uuid(),
-          type: 'one way',
-          managerId: user.managerId,
-          location,
-          destination,
-          reason,
-          accomodation,
-          departureDate,
-          email,
-          profileData: [{
-            gender,
-            passportName,
-            role
-          }],
-          status: 'open',
-        });
-        return Response.success(res, 201, 'Request created successfully', newRequest);
-      }
+
+      const newRequest = await db.Request.create({
+        id: uuid(),
+        type: 'one way',
+        managerId: user.managerId,
+        location,
+        destination,
+        reason,
+        departureDate,
+        email,
+        profileData: [{
+          gender,
+          passportName,
+          role
+        }],
+      });
+      return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (error) {
-      // console.log(error);
       return Response.errorResponse(res, 500, error.message);
     }
   }
@@ -66,20 +60,19 @@ export default class requestController {
    * @return {object} request
    */
   static async createReturnRequest(req, res) {
-    const { user } = req;
-    const {
-      location,
-      destination,
-      departureDate,
-      returnDate,
-      reason,
-      accomodation,
-      gender, role, passportName
-    } = req.body;
-    if (Date.parse(departureDate) > Date.parse(returnDate)) {
-      return Response.errorResponse(res, 400, res.__('the return date must be greater than departure date'));
-    }
     try {
+      const { user } = req;
+      const {
+        location,
+        destination,
+        departureDate,
+        returnDate,
+        reason,
+        gender, role, passportName
+      } = req.body;
+      if (Date.parse(departureDate) >= Date.parse(returnDate)) {
+        return Response.errorResponse(res, 400, res.__('the return date must be greater than departure date'));
+      }
       const request = await db.Request.findOne({
         where: {
           email: user.email,
@@ -87,10 +80,6 @@ export default class requestController {
         }
       });
       if (request) return Response.errorResponse(res, 400, res.__('request with the same departure date exist'));
-      const facility = await findFacilityHandlder(accomodation, destination);
-      if (!facility) {
-        return Response.errorResponse(res, 404, res.__('the accomondation doesn\'t exist or it\'s not in your destination'));
-      }
       const newRequest = await db.Request.create({
         id: uuid(),
         type: 'two way',
@@ -101,13 +90,11 @@ export default class requestController {
         departureDate,
         returnDate,
         reason: reason.trim(),
-        accomodation: accomodation.trim(),
         profileData: [{
           gender: gender.toLowerCase().trim(),
           passportName: passportName.toLowerCase().trim(),
           role: role.toLowerCase().trim()
         }],
-        status: 'open',
       });
       return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (err) {
@@ -125,11 +112,11 @@ export default class requestController {
     try {
       const { user } = req;
       const {
-        id, location, destination, departureDate, returnDate, reason, accomodation,
+        id, location, destination, departureDate, returnDate, reason,
         gender, role, passportName
       } = req.body;
       const existingRequest = await db.Request.findOne({ where: { id } });
-      if (!existingRequest || existingRequest.status === 'Approved' || existingRequest.status === 'Rejected') {
+      if (!existingRequest || existingRequest.status === 'approved' || existingRequest.status === 'rejected') {
         return Response.errorResponse(res, 404, res.__('The request does not exist or it\'s either been approved or rejected'));
       }
       if (existingRequest.email !== user.email || null) {
@@ -141,7 +128,6 @@ export default class requestController {
         departureDate,
         returnDate,
         reason: reason.trim(),
-        accomodation,
         profileData: [{
           gender: gender.toLowerCase().trim(),
           passportName: passportName.toLowerCase().trim(),
@@ -185,7 +171,8 @@ export default class requestController {
     try {
       const { user } = req;
       const {
-        location, destination, reason, accomodation, departureDate, stops, returnDate
+        location, destination, reason, departureDate, stops, returnDate,
+        gender, role, passportName
       } = req.body;
       const { email } = req.payload;
       const requestExist = await db.Request.findOne({
@@ -197,14 +184,10 @@ export default class requestController {
       if (requestExist) {
         return Response.errorResponse(res, 409, 'Request already exist');
       }
-      const facility = findFacilityHandlder(accomodation, destination);
-      if (!facility) {
-        return Response.errorResponse(res, 404, res.__('the accomondation doesn\'t exist or it\'s not in your destination'));
-      }
       if (stops.length <= 0) {
         return Response.errorResponse(res, 400, res.__('Please provide your stops'));
       }
-      if (Date.parse(departureDate) > Date.parse(stops[0].stopArrivalDate)) {
+      if (Date.parse(departureDate) >= Date.parse(stops[0].stopArrivalDate)) {
         return Response.errorResponse(res, 400, res.__(`the arrival to ${stops[0].stopName} date must be greater than your trip departure date`));
       }
       let i;
@@ -215,7 +198,7 @@ export default class requestController {
         if (stops[i].stopArrivalDate > stops[i].stopDepartureDate) {
           return Response.errorResponse(res, 400, res.__(`your departureDate at ${stops[i].stopName} has to be greater than arrival Date`));
         }
-        if (Date.parse(stops[i].stopDepartureDate) > Date.parse(returnDate)) {
+        if (Date.parse(stops[i].stopDepartureDate) >= Date.parse(returnDate)) {
           return Response.errorResponse(res, 400, res.__('Please enter valid return date according to your stops and actual departure date'));
         }
       }
@@ -223,15 +206,18 @@ export default class requestController {
         id: uuid(),
         type: 'multi city',
         location: location.toLowerCase(),
-        destination: location.toLowerCase(),
+        destination: destination.toLowerCase(),
         reason: reason.trim(),
-        accomodation,
         departureDate,
         email,
-        status: 'open',
         stops,
         returnDate,
-        managerId: user.managerId
+        managerId: user.managerId,
+        profileData: [{
+          gender: gender.toLowerCase().trim(),
+          passportName: passportName.toLowerCase().trim(),
+          role
+        }],
       });
       return Response.success(res, 201, res.__('Multi city request created successfully'), newMulticityRequest);
     } catch (error) {

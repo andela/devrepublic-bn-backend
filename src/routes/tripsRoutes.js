@@ -8,9 +8,9 @@ import rememberProfile from '../utils/rememberProfile';
 
 const router = express.Router();
 
-router.post('/one-way', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, requestRules, validationResult, tripsController.createRequest);
-router.post('/return', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, returnTripRules, validationResult, tripsController.createReturnRequest);
-router.post('/multi-city', protectRoute.verifyUser, protectRoute.verifyRequester, multiCityTripRules, validationResult, tripsController.createMultiCityRequest);
+router.post('/one-way', protectRoute.verifyUser, protectRoute.verifyRequester, protectRoute.checkUserManager, rememberProfile, requestRules, validationResult, tripsController.createRequest);
+router.post('/return', protectRoute.verifyUser, protectRoute.verifyRequester, protectRoute.checkUserManager, rememberProfile, returnTripRules, validationResult, tripsController.createReturnRequest);
+router.post('/multi-city', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, multiCityTripRules, validationResult, tripsController.createMultiCityRequest);
 router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, requestRules, validationResult, tripsController.editRequest);
 router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
 router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);

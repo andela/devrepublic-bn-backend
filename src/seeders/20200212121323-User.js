@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-const uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
@@ -97,7 +96,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '0119b84a-99a4-41c0-8a0e-6f0b6c905165',
         firstName: 'devrepubli',
         lastName: 'devrpo',
         email: 'uwase@andela.com',
@@ -119,7 +118,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuid(),
+        id: '0119b84a-99a4-41c0-8a0e-6g0b6c905165',
         firstName: 'peter',
         lastName: 'Ishimwe',
         email: 'peter@andela.com',

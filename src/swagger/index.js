@@ -16,6 +16,15 @@ const swaggerDef = {
             'A platform to make company global travel and accommodation easy and convenient for strongwork force of savvy member'
     },
     host: process.env.BASE_URL,
+    securityDefinitions: {
+      bearerAuth: {
+        type: 'apiKey',
+        name: 'token',
+        description: 'First login to get a token then paste it in "value" below',
+        scheme: 'bearer',
+        in: 'header',
+      },
+    },
   },
   apis: ['./src/swagger/*.swagger.js']
 };

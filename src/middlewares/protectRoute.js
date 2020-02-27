@@ -50,7 +50,7 @@ export default class protectRoutes {
    */
   static verifyRequester(req, res, next) {
     const { user } = req;
-    if (user.role !== 'requester') Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    if (user.role !== 'requester') return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
     next();
   }
 
@@ -93,7 +93,9 @@ export default class protectRoutes {
    */
   static checkUserManager(req, res, next) {
     const { user } = req;
-    if (user.managerId === null) Response.errorResponse(res, 401, res.__('user should have manager before performing this operation'));
+    if (user.managerId === null) {
+      return Response.errorResponse(res, 401, res.__('user should have manager before performing this operation'));
+    }
     next();
   }
 

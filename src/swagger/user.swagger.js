@@ -18,8 +18,10 @@
  * @swagger
  * /api/v1/users/setRoles:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
- *       - User Roles
+ *       - User
  *     name: updateRoles
  *     summary: updates the roles of a user
  *     produces:
@@ -80,8 +82,10 @@
  * @swagger
  * /api/v1/users/edit-profile:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
- *       - User Profile
+ *       - User
  *     name: Edit Profile settings
  *     summary: user can edit his/her profile page
  *     produces:
@@ -137,8 +141,10 @@
  * @swagger
  * /api/v1/users/edit-profile-image:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
- *       - User Profile image
+ *       - User
  *     name: upload Profile image
  *     summary: user can edit his/her profile image
  *     produces:
@@ -170,6 +176,8 @@
  * @swagger
  * /api/v1/users/view-profile:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - User
  *     name: View Profile settings
@@ -209,8 +217,10 @@
  * @swagger
  * /api/v1/users/assign/manager:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
- *       - Assign Manager
+ *       - User
  *     name: Assign a Manager
  *     summary: super admin can assign a manager
  *     produces:
@@ -238,5 +248,5 @@
  *       '401':
  *             description: User does not exist or they are not a manager or they are both managers.
  *       '500':
- *             description: Server Error.
+ *             description: server error.
  * */

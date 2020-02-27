@@ -15,7 +15,6 @@ const openRequest = {
   destination: 'Nairobi',
   departureDate: '2020-12-10',
   reason: 'I am attending the meeting',
-  accomodation: 'Akagera',
   gender: 'Male',
   passportName: 'Jimmy Ntare',
   role: 'requester'
@@ -27,7 +26,6 @@ const closedRequest = {
   destination: 'Nairobi',
   departureDate: '2020-12-10',
   reason: 'I am attending the meeting',
-  accomodation: 'Akagera',
   gender: 'Male',
   passportName: 'Jimmy Ntare',
   role: 'requester'

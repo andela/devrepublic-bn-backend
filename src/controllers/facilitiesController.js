@@ -1,9 +1,9 @@
-import uuid from 'uuid';
 import { Sequelize } from 'sequelize';
+import uuid from 'uuid/v4';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import uploadImage from '../services/uploadImageService';
-
+import findFacilityByLocation from '../utils/findFacility';
 /**
  * @description Facilities Controller
  * @class FacilitiesController
@@ -15,7 +15,7 @@ class FacilitiesController {
      * @param {Object} req
      * @param {Object} res
      * @returns {Object} Facility
-     * @memberof uFacilitiesController
+     * @memberof FacilitiesController
     */
   static async createFacility(req, res) {
     try {
@@ -53,7 +53,7 @@ class FacilitiesController {
   }
 
   /**
-    * @description create facility method
+    * @description create room method
     * @static
     * @param {Object} req
     * @param {Object} res
@@ -125,6 +125,69 @@ class FacilitiesController {
         unlikesId: Sequelize.fn('array_append', Sequelize.col('unlikesId'), user.id)
       }, { where: { id } });
       return Response.success(res, 200, res.__('user has unliked facility'));
+    } catch (error) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+* @description book facility method
+* @static
+* @param {Object} req
+* @param {Object} res
+* @returns {Object} Facility Booking
+* @memberof FacilitiesController
+*/
+  static async bookFacility(req, res) {
+    try {
+      const {
+        checkin, checkout, roomId, facilityId, requestId
+      } = req.body;
+      const { user } = req;
+      if (Date.parse(checkin) >= Date.parse(checkout)) {
+        return Response.errorResponse(res, 400, res.__('the checkout date must be greater than checkin date'));
+      }
+
+      const request = await db.Request.findOne({
+        where: {
+          id: requestId,
+          email: user.email
+        }
+      });
+      if (!request) return Response.errorResponse(res, 401, res.__('request does not exist or is not yours'));
+
+      const room = await db.Rooms.findOne({
+        where: {
+          facilityId,
+          id: roomId,
+          availability: true
+        }
+      });
+      if (!room) {
+        return Response.errorResponse(res, 404, res.__('this room is booked or it does not exist'));
+      }
+      const facility = await findFacilityByLocation(facilityId, request.dataValues.destination);
+      if (!facility) {
+        return Response.errorResponse(res, 404, res.__('facility does not exist or is not in that location'));
+      }
+
+      const newBooking = await db.Bookings.create({
+        id: uuid(),
+        facilityId,
+        roomId,
+        requestId,
+        bookedBy: user.email,
+        checkin,
+        checkout
+      });
+
+      await db.Rooms.update({ availability: false }, {
+        where: {
+          facilityId,
+          id: roomId,
+        }
+      });
+      return Response.success(res, 201, res.__('Booking created successfully'), newBooking);
     } catch (error) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }

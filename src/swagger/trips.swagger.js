@@ -2,8 +2,10 @@
  * @swagger
  * /api/v1/trips/one-way:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
- *       - Request Trip
+ *       - Trips
  *     name: requestTrip
  *     summary: user can request a trip
  *     produces:
@@ -31,8 +33,6 @@
  *               type: string
  *             reason:
  *               type: string
- *             accomodation:
- *               type: string
  *             gender:
  *               type: string
  *               example: ""
@@ -47,7 +47,6 @@
  *           - destination
  *           - departureDate
  *           - reason
- *           - accomodation
  *           - gender
  *           - passportName
  *           - role
@@ -64,6 +63,8 @@
 * @swagger
 * /api/v1/trips/return:
 *   post:
+*     security:
+*       - bearerAuth: []
 *     tags:
 *       - Trips
 *     name: Request a return trip
@@ -96,8 +97,6 @@
 *               type: string
 *             reason:
 *               type: string
-*             accomodation:
-*               type: string
 *             gender:
 *               type: string
 *               example: ""
@@ -113,7 +112,6 @@
 *           - departureDate
 *           - returnDate
 *           - reason
-*           - accomodation
 *           - gender
 *           - passportName
 *           - role
@@ -143,20 +141,19 @@
  *         type: string
  *       reason:
  *         type: string
- *       accomodation:
- *         type: string
  *       required:
  *         - location
  *         - destination
  *         - departureDate
  *         - reason
- *         - accomodation
  */
 
 /**
 * @swagger
 * /api/v1/trips/edit:
 *   patch:
+*     security:
+*       - bearerAuth: []
 *     tags:
 *       - Trips
 *     name: Edit a trip
@@ -191,8 +188,6 @@
 *               type: string
 *             reason:
 *               type: string
-*             accomodation:
-*               type: string
 *             gender:
 *               type: string
 *               example: ""
@@ -208,7 +203,6 @@
 *           - departureDate
 *           - returnDate
 *           - reason
-*           - accomodation
 *           - gender
 *           - passportName
 *           - role
@@ -236,15 +230,12 @@
  *         type: string
  *       reason:
  *         type: string
- *       accomodation:
- *         type: string
  *       required:
  *         - location
  *         - destination
  *         - departureDate
  *         - returnDate
  *         - reason
- *         - accomodation
  *         - stops
  */
 
@@ -252,6 +243,8 @@
 * @swagger
 * /api/v1/trips/multi-city:
 *   post:
+*     security:
+*       - bearerAuth: []
 *     tags:
 *       - Trips
 *     name: Request a multi city trip
@@ -279,8 +272,15 @@
 *               type: string
 *             reason:
 *               type: string
-*             accomodation:
+*             gender:
 *               type: string
+*               example: ""
+*             passportName:
+*               type: string
+*               example: ""
+*             role:
+*               type: string
+*               example: ""
 *             stops:
 *               type: array
 *               items:
@@ -291,8 +291,10 @@
 *           - departureDate
 *           - returnDate
 *           - reason
-*           - accomodation
 *           - stops
+*           - gender
+*           - passportName
+*           - role
 *     responses:
 *       '201':
 *             description: Multi city request created successfully.
@@ -304,6 +306,8 @@
  * @swagger
  * /api/v1/trips/view:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Trips
  *     name: Manager view trip requests
@@ -327,6 +331,8 @@
 * @swagger
 * /api/v1/trips/{requestId}/confirm:
 *   put:
+*     security:
+*       - bearerAuth: []
 *     tags:
 *       - Trips
 *     name: re-confirm a trip request

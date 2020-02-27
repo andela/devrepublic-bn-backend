@@ -13,16 +13,14 @@ const
   destination = 'Nairobi',
   departureDate = '2020-12-10',
   reason = 'I am attending the meeting',
-  accomodation = '5be72db7-5510-4a50-9f15-e23f103116d5',
   gender = 'Male',
   passportName = 'Jimmy Ntare',
   role = 'requester';
 
-const invalidMulricityRequest = {
+const invalidMulticityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
   reason: 'eaqtng and traveling',
-  accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-03',
   gender,
   passportName,
@@ -40,12 +38,11 @@ const invalidMulricityRequest = {
     stopDepartureDate: '2019-09-27'
   }]
 };
-const invalidDatesMulricityRequest = {
+const invalidDatesMulticityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
   reason: 'eaqtng and traveling',
   managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
-  accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-03',
   gender,
   passportName,
@@ -63,12 +60,11 @@ const invalidDatesMulricityRequest = {
     stopDepartureDate: '2019-09-27'
   }]
 };
-const validDatesMulricityRequest = {
+const validDatesMulticityRequest = {
   location: 'Kigali',
   destination: 'Nairobi',
   managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   reason: 'eaqtng and traveling',
-  accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
   departureDate: '2019-09-11',
   gender,
   passportName,
@@ -114,7 +110,6 @@ describe('REQUEST TRIP TESTS', () => {
         destination,
         departureDate,
         reason,
-        accomodation,
         gender,
         passportName,
         role
@@ -135,7 +130,6 @@ describe('REQUEST TRIP TESTS', () => {
         destination,
         departureDate,
         reason,
-        accomodation,
         gender,
         passportName,
         role
@@ -151,7 +145,7 @@ describe('REQUEST TRIP TESTS', () => {
       .request(app)
       .post('/api/v1/trips/multi-city')
       .set('token', token)
-      .send(invalidMulricityRequest)
+      .send(invalidMulticityRequest)
       .end((_err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Check your STOPS arrival and depature dates');
@@ -163,10 +157,10 @@ describe('REQUEST TRIP TESTS', () => {
       .request(app)
       .post('/api/v1/trips/multi-city')
       .set('token', token)
-      .send(invalidDatesMulricityRequest)
+      .send(invalidDatesMulticityRequest)
       .end((_err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal(`the arrival to ${invalidDatesMulricityRequest.stops[0].stopName} date must be greater than your trip departure date`);
+        expect(res.body.error).to.equal(`the arrival to ${invalidDatesMulticityRequest.stops[0].stopName} date must be greater than your trip departure date`);
         done();
       });
   });
@@ -175,7 +169,7 @@ describe('REQUEST TRIP TESTS', () => {
       .request(app)
       .post('/api/v1/trips/multi-city')
       .set('token', token)
-      .send(validDatesMulricityRequest)
+      .send(validDatesMulticityRequest)
       .end((_err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal('Multi city request created successfully');
@@ -192,7 +186,7 @@ describe('REQUEST TRIP TESTS', () => {
       .post('/api/v1/trips/one-way?remember=true')
       .set('token', token)
       .send({
-        location, destination, departureDate, reason, accomodation, gender, passportName, role
+        location, destination, departureDate, reason, gender, passportName, role
       })
       .end((_err, res) => {
         expect(res.status).to.equal(404);
