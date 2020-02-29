@@ -3,6 +3,7 @@ module.exports = {
     'Requests', [
       {
         id: '51e74db7-5510-4f50-9f15-e23710331ld5',
+        userId: '79660e6f-4b7d-4g21-81re-74f54e9e1c8a',
         location: 'nairobi',
         destination: 'nairobi',
         reason: 'meeting with partners',
@@ -19,6 +20,7 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld5',
+        userId: '79660e6f-4b7d-4g21-81re-74f54jk91c8a',
         location: 'boston',
         destination: 'kigali',
         reason: 'meeting with engineers',
@@ -35,6 +37,7 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld4',
+        userId: '79660e6f-4b7d-4g21-81re-74f54jk91c8a',
         location: 'boston',
         destination: 'gisenyi',
         reason: 'meeting with engineers write',
@@ -50,6 +53,7 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld9',
+        userId: '79660e6f-4b7d-4g21-81re-74f54jk91c8a',
         location: 'boston',
         destination: 'gisenyi',
         reason: 'meeting with engineers write',
@@ -65,6 +69,7 @@ module.exports = {
       },
       {
         id: '0ad0ef9d-a926-4c5c-86e6-4d1e22e9ab88',
+        userId: 'aed6785b-382f-43a7-a0b5-15a78dd02cc7',
         location: 'boston',
         destination: 'bisenyi',
         reason: 'meeting with engineers write',

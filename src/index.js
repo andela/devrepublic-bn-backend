@@ -10,6 +10,7 @@ import swagger from './swagger/index';
 import authRouter from './routes/authRoutes';
 import userRouter from './routes/userRoutes';
 import tripsRouter from './routes/tripsRoutes';
+import commentsRouter from './routes/commentsRoutes';
 import facilitiesRouter from './routes/facilityRoute';
 import './config/passport';
 
@@ -45,10 +46,11 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripsRouter);
 app.use('/api/v1/facilities', facilitiesRouter);
-
+app.use('/api/v1/comments', commentsRouter);
 app.use((req, res) => res.status(404).send({ status: 404, error: res.__('Route %s not found', req.url) }));
 
 app.use((err, req, res) => res.status(500).send({ status: 500, error: res.__('server error') }));
+
 
 app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
 

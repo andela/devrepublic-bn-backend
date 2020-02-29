@@ -135,3 +135,7 @@ export const searchQueryRules = [
   query('reason').not().isEmpty({ ignore_whitespace: true }).withMessage('reason must be atleast one character')
     .optional(),
 ];
+export const commentRules = [
+  check('comment').exists().trim().isLength({ min: 1, max: 200 })
+    .withMessage('a comment is required with maximum 200 characters')
+];
