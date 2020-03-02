@@ -57,5 +57,11 @@
 	"Manager assigned successfully.": "Manager assigned successfully.",
 	"One or both user ID's do not exist": "One or both user ID's do not exist",
 	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
-	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page."
+	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page.",
+	"The user is already a %s": "The user is already a %s",
+	"relation \"Users\" does not exist": "relation \"Users\" does not exist",
+	"Pending requests to approve": "Pending requests to approve",
+	"Request rejected successfully": "Request rejected successfully",
+	"This request is not yours it is for another manager": "This request is not yours it is for another manager",
+	"Request has been already rejected": "Request has been already rejected"
 }

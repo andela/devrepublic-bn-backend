@@ -1,3 +1,4 @@
+
 import express from 'express';
 import tripsController from '../controllers/tripsController';
 import { requestRules, returnTripRules, multiCityTripRules } from '../validation/validationRules';
@@ -13,5 +14,5 @@ router.post('/multi-city', protectRoute.verifyUser, protectRoute.verifyRequester
 router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, requestRules, validationResult, tripsController.editRequest);
 router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
 router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);
-
+router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.rejectRequest);
 export default router;
