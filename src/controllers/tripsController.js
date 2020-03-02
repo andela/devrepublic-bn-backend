@@ -255,6 +255,12 @@ export default class requestController {
         return Response.errorResponse(res, 400, res.__('the request is already re-confirmed'));
       }
       const updatedRequest = await request.update({ confirm: true });
+      await db.Notifications.create({
+        id: uuid(),
+        email: request.email,
+        requestId,
+        content: 'Your request has been approved'
+      });
       return Response.success(res, 200, res.__('request re-confirmed'), updatedRequest);
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));

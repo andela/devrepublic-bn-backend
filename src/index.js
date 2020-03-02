@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cookieSession from 'cookie-session';
+import socketio from 'socket.io';
 import passport from 'passport';
 import welcome from './routes/welcome';
 import swagger from './swagger/index';
@@ -12,6 +13,7 @@ import userRouter from './routes/userRoutes';
 import tripsRouter from './routes/tripsRoutes';
 import commentsRouter from './routes/commentsRoutes';
 import facilitiesRouter from './routes/facilityRoute';
+import notificationsRouter from './routes/notifications';
 import './config/passport';
 
 dotenv.config();
@@ -23,6 +25,8 @@ i18n.configure({
 });
 
 const app = express();
+// const http = require('http').createServer(app);
+
 app.use(i18n.init);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,6 +42,8 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/public', express.static(path.join(__dirname, '../public')));
+
 const port = process.env.PORT || 3000;
 
 app.use('/', welcome);
@@ -51,7 +57,17 @@ app.use((req, res) => res.status(404).send({ status: 404, error: res.__('Route %
 
 app.use((err, req, res) => res.status(500).send({ status: 500, error: res.__('server error') }));
 
+app.use('api/v1/notifications', notificationsRouter);
 
-app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
+const server = app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
+
+const io = socketio(server);
+io.on('connection', (socket) => {
+  process.stdout.write('\nThere is connection ...........\n');
+  socket.emit('notification', { data: 'this is coming from a server' });
+  socket.on('messageFromClient', (data) => {
+    process.stdout.write(data);
+  });
+});
 
 export default app;

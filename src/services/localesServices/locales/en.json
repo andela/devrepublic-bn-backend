@@ -73,5 +73,6 @@
 	"Manager assigned successfully.": "Manager assigned successfully.",
 	"One or both user ID's do not exist": "One or both user ID's do not exist",
 	"User does not exist or they are not a manager or they are both managers": "User does not exist or they are not a manager or they are both managers",
-	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page."
+	"Sorry, you are not authorized to access this page.": "Sorry, you are not authorized to access this page.",
+	"server error": "server error"
 }

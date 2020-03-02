@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Notification</title>
+        <style>
+            .notifs-container {
+                margin: auto;
+                width: 50%;
+                border: 3px solid black;
+                border-radius: 10px
+            }
+            #notif-title {
+                background-color: #eee;
+                text-align: center;
+                font-size: 25px;
+            }
+        </style>
+    </head>
+<body>
+    <div class='notifs-container'>
+        <div id='notif-title' >
+            <span>NOTIFICATIONS</span>
+        </div>
+        <div class="notifications"></div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('http://localhost:8000');
+        socket.on('notification', (data) => {
+            console.log(data, 'wow!!!!!');
+            socket.emit('messageFromClient', 'This is from the client')
+        });
+    </script>
+</body>
+</html>

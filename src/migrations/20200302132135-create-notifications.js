@@ -13,14 +13,24 @@ module.exports = {
         allowNull: false
       },
       userId: {
+        primaryKey: true,
+        type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.STRING,
+        defaultValue: 'unread',
+        allowNull: false
+      },
+      email: {
         type: Sequelize.STRING,
         allowNull: false
       },
       requestId: {
         type: Sequelize.STRING,
       },
-      timestamp: {
-        type: Sequelize.DATE
+      content: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
