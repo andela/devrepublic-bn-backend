@@ -20,11 +20,26 @@ module.exports = {
       },
       services: {
         type: Sequelize.STRING,
-        
       },
       numOfRooms: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+      },
+      likes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      likesId: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: []
+      },
+      unlikes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      unlikesId: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: []
       },
       createdBy: {
         type: Sequelize.STRING 

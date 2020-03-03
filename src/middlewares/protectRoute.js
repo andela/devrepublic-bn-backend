@@ -96,4 +96,55 @@ export default class protectRoutes {
     if (user.managerId === null) Response.errorResponse(res, 401, res.__('user should have manager before performing this operation'));
     next();
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} object
+   */
+  static async verifyFacility(req, res, next) {
+    const { id } = req.query;
+    const existingFacility = await db.Facilities.findOne({ where: { id } });
+    if (!existingFacility) {
+      return Response.errorResponse(res, 401, res.__('facility with this id does not exist'));
+    }
+    next();
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} object
+   */
+  static async checkIfLiked(req, res, next) {
+    const { user } = req;
+    const { id } = req.query;
+    const likeFacility = await db.Facilities.findOne({ where: { id } });
+    const { likesId } = likeFacility;
+    const alreadyLiked = likesId.find((d) => d === user.id);
+    if (alreadyLiked) {
+      return Response.errorResponse(res, 403, res.__('user has already liked facility'));
+    }
+    next();
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} object
+   */
+  static async checkIfUnliked(req, res, next) {
+    const { user } = req;
+    const { id } = req.query;
+    const unlikedFacility = await db.Facilities.findOne({ where: { id } });
+    const { unlikesId } = unlikedFacility;
+    const alreadyUnliked = unlikesId.find((u) => u === user.id);
+    if (alreadyUnliked) {
+      return Response.errorResponse(res, 403, res.__('user has already unliked facility'));
+    }
+    next();
+  }
 }

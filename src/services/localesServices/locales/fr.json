@@ -112,5 +112,10 @@
 	"request re-confirmed": "demande confirmée",
 	"Request rejected successfully": "Demande refusée avec succès",
 	"This request is not yours it is for another manager":"Cette demande n'est pas la vôtre, c'est pour un autre manager",
-	"Request has been already rejected": "La demande a déjà été rejetée"
+	"Request has been already rejected": "La demande a déjà été rejetée",
+	"facility with this id does not exist": "l'établissement avec cet identifiant n'existe pas",
+	"user has liked facility":"l'utilisateur a aimé l'établissement",
+	"user has already liked facility": "l'utilisateur a déjà aimé l'établissement",
+	"user has unliked facility": "l'utilisateur n'a pas aimé l'établissement",
+	"user has already unliked facility": "l'utilisateur n'a pas aimé l'installation"
 }
