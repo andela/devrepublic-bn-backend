@@ -34,14 +34,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      accomodation: {
-        type: Sequelize.STRING
-      },
       stops:{
         type:Sequelize.ARRAY(Sequelize.JSON)
       },
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       status: {
         type: Sequelize.STRING,
+        defaultValue: 'open',
         allowNull: false,
       },
       profileData: {

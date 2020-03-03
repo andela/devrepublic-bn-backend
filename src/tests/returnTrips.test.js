@@ -26,28 +26,6 @@ describe('CREATE A RETURN TRIP', () => {
         done();
       });
   });
-  it('should not create a return trip if the accomondation is not available in the destination', (done) => {
-    chai
-      .request(index)
-      .post('/api/v1/trips/return')
-      .set('token', token)
-      .send({
-        destination: 'Nairobi',
-        location: 'Kigali',
-        departureDate: '2020-03-15',
-        returnDate: '2020-05-01',
-        reason: 'vacation',
-        accomodation: 'kigali',
-        gender: 'Male',
-        passportName: 'Jimmy Ntare',
-        role: 'requester'
-      })
-      .end((err, res) => {
-        expect(res.status).to.equal(404);
-        expect(res.body.error).to.equal('the accomondation doesn\'t exist or it\'s not in your destination');
-        done();
-      });
-  });
   it('should create a return trip if all the data are given', (done) => {
     chai
       .request(index)
@@ -59,7 +37,6 @@ describe('CREATE A RETURN TRIP', () => {
         departureDate: '2020-03-15',
         returnDate: '2020-05-01',
         reason: 'vacation',
-        accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
         gender: 'Male',
         passportName: 'Jimmy Ntare',
         role: 'requester'
@@ -72,7 +49,6 @@ describe('CREATE A RETURN TRIP', () => {
         expect(res.body.data.location).to.equal('kigali');
         expect(res.body.data.departureDate).to.equal('2020-03-15');
         expect(res.body.data.returnDate).to.equal('2020-05-01');
-        expect(res.body.data.accomodation).to.equal('5be72db7-5510-4a50-9f15-e23f103116d5');
         expect(res.body.data.reason).to.equal('vacation');
         done();
       });
@@ -88,7 +64,6 @@ describe('CREATE A RETURN TRIP', () => {
         departureDate: '2020-03-15',
         returnDate: '2020-05-30',
         reason: 'vacation',
-        accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
         gender: 'Male',
         passportName: 'Jimmy Ntare',
         role: 'requester'
@@ -110,7 +85,6 @@ describe('CREATE A RETURN TRIP', () => {
         departureDate: '2020-03-15',
         returnDate: '2020-02-01',
         reason: 'vacation',
-        accomodation: '5be72db7-5510-4a50-9f15-e23f103116d5',
         gender: 'Male',
         passportName: 'Jimmy Ntare',
         role: 'requester'
@@ -131,7 +105,6 @@ describe('CREATE A RETURN TRIP', () => {
         departureDate: '2020-04-15',
         returnDate: '2020-05-01',
         reason: 'vacation',
-        accomodation: 'sfdmefkef',
         gender: 'Male',
         passportName: 'Jimmy Ntare',
         role: 'requester'
@@ -154,7 +127,6 @@ describe('CREATE A RETURN TRIP', () => {
         departureDate: '2020-03-15',
         returnDate: '2020-05-01',
         reason: 'vacation',
-        accomadationID: 'sfdmefkef',
       })
       .end((err, res) => {
         expect(res.status).to.equal(401);
@@ -167,8 +139,8 @@ describe('CREATE A RETURN TRIP', () => {
 describe('CHECK IF USER HAS A MANAGER', () => {
   before((done) => {
     const noManagerUser = {
-      email: 'jim@andela.com',
-      password: 'Bien@BAR789',
+      email: 'aime@andela.com',
+      password: 'Aime12&*',
     };
     chai
       .request(index)
@@ -190,14 +162,13 @@ describe('CHECK IF USER HAS A MANAGER', () => {
         departureDate: '2020-03-15',
         returnDate: '2020-05-01',
         reason: 'vacation',
-        accomadationID: 'sfdmefkef',
         gender: 'Male',
         passportName: 'Jimmy Ntare',
         role: 'requester'
       })
       .end((err, res) => {
         expect(res.status).to.equal(401);
-        expect(res.body.error).to.equal('you are not authorised for this operation');
+        expect(res.body.error).to.equal('user should have manager before performing this operation');
         done();
       });
   });

@@ -22,8 +22,6 @@ export default class ResponceHandler {
   }
 
   /**
- *
- *
  * @static
  * @param {Object} response
  * @param {Object} status

@@ -8,15 +8,20 @@ module.exports = (sequelize, DataTypes) => {
     confirm: DataTypes.BOOLEAN,
     returnDate: DataTypes.STRING,
     reason: DataTypes.STRING,
-    accomodation: DataTypes.STRING,
     profileData: DataTypes.ARRAY(DataTypes.JSON),
-    status: DataTypes.STRING,
-    stops: DataTypes.ARRAY(DataTypes.JSON),
+    status: DataTypes.ENUM('open', 'rejected', 'approved'),
+    type: DataTypes.ENUM('one way', 'two way', 'multi city'),
+    stops: DataTypes.ARRAY(DataTypes.JSON)
   }, {});
   Request.associate = (models) => {
     Request.belongsTo(models.User, {
       foreignKey: 'email',
       as: 'requester',
+      onDelete: 'CASCADE'
+    });
+    Request.hasMany(models.Bookings, {
+      foreignKey: 'id',
+      as: 'request Id',
       onDelete: 'CASCADE'
     });
   };

@@ -18,7 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     isVerified: DataTypes.BOOLEAN
   }, {});
-  User.associate = () => {
+  User.associate = (models) => {
+    User.hasMany(models.Bookings, {
+      foreignKey: 'bookedBy',
+    });
+    User.hasMany(models.Request, {
+      foreignKey: 'email',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+    });
   };
   return User;
 };

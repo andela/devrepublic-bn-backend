@@ -38,7 +38,7 @@
  * /api/v1/auth/register:
  *   post:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: Signup
  *     summary: Signup a user in a system
  *     produces:
@@ -97,7 +97,7 @@
  * /api/v1/auth/login:
  *   post:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: login
  *     summary: login a user in a system
  *     produces:
@@ -130,17 +130,6 @@
 
 /**
  * @swagger
- * /:
- *   get:
- *     description: Display welcome message
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: Welcome to devRepublic Barefoot Nomad API
- */
-/**
- * @swagger
  * definitions:
  *   register:
  *     type: object
@@ -166,7 +155,7 @@
  * /api/v1/auth/register:
  *   post:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: Signup
  *     summary: Signup a user in a system
  *     produces:
@@ -223,7 +212,7 @@
  * /api/v1/auth/login:
  *   post:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: login
  *     summary: login a user in a system
  *     produces:
@@ -258,7 +247,7 @@
  * /api/v1/auth/verification/token={token}&email={email}:
  *   get:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: verify
  *     summary: verify the email of the user
  *     produces:
@@ -286,7 +275,7 @@
  * /api/v1/auth/google:
  *   get:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: google authentication
  *     summary: login or signup using google authentication
  *     produces:
@@ -317,7 +306,7 @@
  * /api/v1/auth/facebook:
  *   get:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: google authentication
  *     summary: login or signup using google authentication
  *     produces:
@@ -355,7 +344,7 @@
  * /api/v1/auth/logout:
  *   get:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: logout
  *     summary: Logs a user out
  *     produces:
@@ -385,7 +374,7 @@
  * /api/v1/auth/password/forgot:
  *   put:
  *     tags:
- *       - User
+ *       - Authentication
  *     name: forgot password
  *     summary: send email when user forgot password
  *     produces:
@@ -426,8 +415,10 @@
 * @swagger
 * /api/v1/auth/password/reset:
 *   put:
+*     security:
+*       - bearerAuth: []
 *     tags:
-*       - User
+*       - Authentication
 *     name: reset password
 *     summary: reset user password
 *     produces:
