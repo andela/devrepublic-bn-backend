@@ -129,5 +129,11 @@
 	"this room is booked or it does not exist": "cette chambre est réservée ou elle n'existe pas",
 	"Booking created successfully": "Réservation créée avec succès",
 	"the checkout date must be greater than checkin date": "la date de départ doit être supérieure à la date d'arrivée",
-	"Route %s not found": "itinéraire %s introuvable"
+	"Route %s not found": "itinéraire %s introuvable",
+	"requests found": "demandes trouvées",
+	"status can only be open, rejected or approved": "le statut ne peut être ouvert, rejeté ou approuvé",
+	"reason must be atleast one character": "la raison doit être au moins un caractère",
+	"destination should only contain letter": "la destination ne doit contenir qu'une lettre",
+	"please check your input and enter a valid ID": "veuillez vérifier votre saisie et saisir un ID valide",
+	"request ID can't be empty": "l'ID de la demande ne peut pas être vide"
 }

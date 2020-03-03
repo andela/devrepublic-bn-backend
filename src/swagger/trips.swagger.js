@@ -375,3 +375,39 @@
 *       '401':
 *             description: This request is not yours it is for another manager
 * */
+/**
+* @swagger
+* /api/v1/trips/search:
+*   get:
+*     tags:
+*       - Trips
+*     name: search a trip request
+*     summary: user can search for a trip request using different request attribute
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: token
+*         in: header
+*         description: jwt token of the user
+*       - name: id
+*         in: query
+*       - name: location
+*         in: query
+*       - name: destination
+*         in: query
+*       - name: departureDate
+*         in: query
+*       - name: returnDate
+*         in: query
+*       - name: reason
+*         in: query
+*       - name: status
+*         in: query
+*     responses:
+*       '200':
+*             description: request found.
+*       '404':
+*             description: request not found.
+* */

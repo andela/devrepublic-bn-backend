@@ -9,13 +9,16 @@ const {
 } = chai;
 chai.use(chaiHttp);
 describe('Signup Tests', () => {
-  before(() => {
-    sinon.stub(sgMail, 'send').returns({
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
       to: 'aime@amgil.com',
       from: 'devrepublic.team@gmail.com',
       subject: 'barefoot nomad',
       html: 'this is stubbing message'
     });
+  });
+  afterEach(() => {
+    sinon.restore();
   });
   it('should return account created sucessfully.', (done) => {
     chai.request(index)

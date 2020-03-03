@@ -81,7 +81,6 @@ export default class protectRoutes {
     if (user.role !== 'manager') {
       return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
     }
-
     next();
   }
 

@@ -6,7 +6,7 @@ const {
   expect
 } = chai;
 
-let token;
+let token, managerToken;
 const
   managerId = '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   location = 'kigali',
@@ -96,6 +96,16 @@ describe('REQUEST TRIP TESTS', () => {
       })
       .end((err, res) => {
         token = res.body.data;
+      });
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'umuhozad@andela.com',
+        password: 'Bien@BAR789'
+      })
+      .end((err, res) => {
+        managerToken = res.body.data;
         done();
       });
   });
@@ -191,6 +201,52 @@ describe('REQUEST TRIP TESTS', () => {
       .end((_err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body.error).to.equal('Please update your profile with gender, passport name and role');
+        done();
+      });
+  });
+});
+describe('SEARCH TESTS', () => {
+  it('should return an error if the query given are not the right format', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/search?status=red$id=3234')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.error[0]).to.equal('status can only be open, rejected or approved');
+        done();
+      });
+  });
+  it('should return an error if the request searched doesn\'t exist', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/search?id=0e0f29e3-e3ca-419a-bf54-a085e03eeedb')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.error).to.equal('request not found');
+        done();
+      });
+  });
+  it('should return an array with the request that meet the search conditions', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/search?status=rejected')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('requests found');
+        done();
+      });
+  });
+  it('should return an array with the request that meet the search conditions', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/search?reason=meeting')
+      .set('token', managerToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('requests found');
         done();
       });
   });

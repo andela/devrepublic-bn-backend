@@ -3,8 +3,8 @@ module.exports = {
     'Requests', [
       {
         id: '51e74db7-5510-4f50-9f15-e23710331ld5',
-        location: 'Nairobi',
-        destination: 'Nairobi',
+        location: 'nairobi',
+        destination: 'nairobi',
         reason: 'meeting with partners',
         departureDate: '2020-01-01',
         managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
@@ -18,8 +18,8 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld5',
-        location: 'Boston',
-        destination: 'Kigali',
+        location: 'boston',
+        destination: 'kigali',
         reason: 'meeting with engineers',
         departureDate: '2020-12-01',
         managerId: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
@@ -33,8 +33,8 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld4',
-        location: 'Boston',
-        destination: 'Gisenyi',
+        location: 'boston',
+        destination: 'gisenyi',
         reason: 'meeting with engineers write',
         departureDate: '2020-12-01',
         email: 'jdev@andela.com',
@@ -48,8 +48,8 @@ module.exports = {
       },
       {
         id: 't1e74db7-h610-4f50-9f45-e2371j331ld9',
-        location: 'Boston',
-        destination: 'Gisenyi',
+        location: 'boston',
+        destination: 'gisenyi',
         reason: 'meeting with engineers write',
         departureDate: '2020-12-01',
         email: 'jdev@andela.com',
@@ -62,8 +62,8 @@ module.exports = {
       },
       {
         id: '0ad0ef9d-a926-4c5c-86e6-4d1e22e9ab88',
-        location: 'Boston',
-        destination: 'Gisenyi',
+        location: 'boston',
+        destination: 'bisenyi',
         reason: 'meeting with engineers write',
         departureDate: '2020-12-01',
         email: 'rejectuser@andela.com',
@@ -73,8 +73,7 @@ module.exports = {
         managerId: '79660e6f-4b7d-4d21-81ad-74f64e9e1c8a',
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-    ], 
+      }], 
     {},
   ),
 

@@ -1,4 +1,6 @@
 import chai from 'chai';
+import sgMail from '@sendgrid/mail';
+import sinon from 'sinon';
 import chaiHttp from 'chai-http';
 import index from '../index';
 import { provideToken } from '../utils/tokenHandler';
@@ -10,6 +12,17 @@ chai.use(chaiHttp);
 let token;
 const notSignupToken = provideToken('wrongtototo', false, 'ade@gmail.com');
 describe('Forgot password feature', () => {
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic.team@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   it('should not send an email to the user who didn\'t provide valid email', (done) => {
     chai
       .request(index)
