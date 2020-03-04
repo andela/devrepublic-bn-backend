@@ -9,7 +9,7 @@ const { Op } = Sequelize;
  */
 export default class TripsService {
   /**
-   * set the user token and send the email(servicee)
+   * search for a request
    * @param  {object} obj
    * @param  {object} user
    * @returns {object} request array
@@ -37,5 +37,31 @@ export default class TripsService {
       return stringHelper.requestNotFound;
     }
     return requests;
+  }
+
+  /**
+   * set the user token and send the email(servicee)
+   * @param  {object} requestId
+   * @param  {object} managerId
+   * @returns {object} updated request
+   */
+  static async approveRequest(requestId, managerId) {
+    const request = await db.Request.findOne({
+      where: {
+        id: requestId,
+        managerId,
+        status: 'open'
+      }
+    });
+    if (!request) {
+      return stringHelper.approveRequestNotFound;
+    }
+    const approvedRequest = await request.update({
+      status: 'approved'
+    }, {
+      returning: true,
+      plain: true
+    });
+    return approvedRequest;
   }
 }

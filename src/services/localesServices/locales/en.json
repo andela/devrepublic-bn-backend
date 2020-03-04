@@ -106,5 +106,8 @@
 	"please check your input and enter a valid ID": "please check your input and enter a valid ID",
 	"request ID can't be empty": "request ID can't be empty",
 	"destination should only contain letter": "destination should only contain letter",
-	"Gender must either be Male or Female": "Gender must either be Male or Female"
+	"Gender must either be Male or Female": "Gender must either be Male or Female",
+	"request with that id and with status open not found in your direct report": "request with that id and with status open not found in your direct report",
+	"request approved": "request approved",
+	"An open request with that id is not found in your direct report": "An open request with that id is not found in your direct report"
 }
