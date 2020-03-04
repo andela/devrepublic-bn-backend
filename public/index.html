@@ -25,9 +25,11 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io('http://localhost:8000');
+        import dotenv from 'dotenv';
+        dotenv.config();
+        const baseURL = process.env.BASE_URL
+        const socket = io(baseURL);
         socket.on('notification', (data) => {
-            console.log(data, 'wow!!!!!');
             socket.emit('messageFromClient', 'This is from the client')
         });
     </script>

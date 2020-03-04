@@ -4,15 +4,6 @@ module.exports = {
     return queryInterface.createTable('Notifications', {
       id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      status: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      userId: {
         primaryKey: true,
         type: Sequelize.STRING
       },
@@ -21,11 +12,11 @@ module.exports = {
         defaultValue: 'unread',
         allowNull: false
       },
-      email: {
+      recieverEmail: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      requestId: {
+      recieverId: {
         type: Sequelize.STRING,
       },
       content: {

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.ENUM('read, unread'),
     content: DataTypes.STRING,
     recieverEmail: DataTypes.STRING,
-    recieverId: DataTypes.STRING,
+    recieverId: DataTypes.STRING
   }, {});
   Notifications.associate = () => {
   };

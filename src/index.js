@@ -25,7 +25,6 @@ i18n.configure({
 });
 
 const app = express();
-// const http = require('http').createServer(app);
 
 app.use(i18n.init);
 app.use(bodyParser.json());
@@ -53,11 +52,12 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripsRouter);
 app.use('/api/v1/facilities', facilitiesRouter);
 app.use('/api/v1/comments', commentsRouter);
+app.use('/api/v1/notifications', notificationsRouter);
+
 app.use((req, res) => res.status(404).send({ status: 404, error: res.__('Route %s not found', req.url) }));
 
 app.use((err, req, res) => res.status(500).send({ status: 500, error: res.__('server error') }));
 
-app.use('api/v1/notifications', notificationsRouter);
 
 const server = app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
 
