@@ -110,13 +110,13 @@ describe('COMMENTS TESTS', () => {
         expect(res.body.data.requestId).to.equal('51e74db7-5510-4f50-9f15-e23710331ld5');
         expect(res.body.data.commmentOwner).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
         expect(res.body.data.comment).to.equal('As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first');
+        done();
       });
     clientSocket.on('notification', (msg) => {
       expect(JSON.parse(msg)).to.be.an('object');
       expect(JSON.parse(msg).receiverId).to.equal('79660e6f-4b7d-4g21-81re-74f54e9e1c8a');
       expect(JSON.parse(msg).status).to.equal('unread');
       expect(JSON.parse(msg).content).to.equal('your manager posted a comment');
-      done();
     });
   });
   it('should not allow a manager to comment on a request which does not belong to him', (done) => {

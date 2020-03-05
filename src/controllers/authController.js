@@ -53,7 +53,7 @@ export default class AuthController {
         lastName: lastName.toLowerCase(),
         email,
         password: hashedPassword,
-        role: 'requester'
+        role: 'requester',
       });
       const token = provideToken(user.id, user.isVerified, email, user.role);
       const link = `http://${process.env.BASE_URL}/api/v1/auth/verification?token=${token}&email=${email}`;

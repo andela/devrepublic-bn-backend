@@ -1,5 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon';
+import sgMail from '@sendgrid/mail';
 import app from '../index';
 
 const {
@@ -86,6 +88,17 @@ const validDatesMulticityRequest = {
 chai.use(chaiHttp);
 
 describe('REQUEST TRIP TESTS', () => {
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   before((done) => {
     chai
       .request(app)

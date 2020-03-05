@@ -1,4 +1,3 @@
-
 import express from 'express';
 import tripsController from '../controllers/tripsController';
 import {

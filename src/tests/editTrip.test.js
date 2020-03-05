@@ -43,7 +43,7 @@ describe('EDIT TRIP TESTS', () => {
   beforeEach((done) => {
     sinon.stub(sgMail, 'send').resolves({
       to: 'aime@amgil.com',
-      from: 'devrepublic.team@gmail.com',
+      from: 'devrepublic@gmail.com',
       subject: 'barefoot nomad',
       html: 'this is stubbing message'
     });
@@ -83,12 +83,12 @@ describe('EDIT TRIP TESTS', () => {
       .send(openRequest)
       .end((err, res) => {
         expect(res.status).to.equal(200);
+        done();
       });
     clientSocket.on('notification', (msg) => {
       expect(JSON.parse(msg)).to.be.an('object');
       expect(JSON.parse(msg).receiverId).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
       expect(JSON.parse(msg).status).to.equal('unread');
-      done();
     });
   });
   it('should return trip does not exist or has been approved or rejected', (done) => {
