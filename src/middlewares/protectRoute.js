@@ -171,4 +171,22 @@ export default class protectRoutes {
     req.request = requestExist;
     next();
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} object
+   */
+  static async checkUnreadNotifications(req, res, next) {
+    const { user } = req;
+    const unreadUsersNotifications = await db.Notifications.findAll({
+      where: { recieverId: user.id, status: 'unread' }
+    });
+
+    if (unreadUsersNotifications.length === 0) {
+      return Response.errorResponse(res, 404, res.__('no unread notifications'));
+    }
+    next();
+  }
 }

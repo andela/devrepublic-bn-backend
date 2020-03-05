@@ -139,5 +139,7 @@
 	"An open request with that id is not found in your direct report": "Une demande ouverte avec cet identifiant est introuvable dans votre subordonné direct",
 	"request approved": "demande approuvée",
 	"Comment is successfully posted": "Le commentaire a été publié avec succès",
-	"This request has been a created by another user and belongs to another manager":"Cette demande a été créée par un autre utilisateur et appartient à un autre gestionnaire"
+	"This request has been a created by another user and belongs to another manager":"Cette demande a été créée par un autre utilisateur et appartient à un autre gestionnaire",
+	"all unread notifications marked as read": "toutes les notifications non lues marquées comme lues",
+	"no unread notifications": "pas de notifications non lues"
 }
