@@ -1,13 +1,46 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index';
+import dotenv from 'dotenv';
+import ioClient from 'socket.io-client';
+import sgMail from '@sendgrid/mail';
+import sinon from 'sinon';
+import app, { server } from '../index';
+import { provideToken } from '../utils/tokenHandler';
 
+const socketToken = provideToken('79660e6f-4b7d-4g21-81re-74f54jk91c8a', true, 'jdev@andela.com', 'requester');
+
+dotenv.config();
 const { expect } = chai;
 chai.use(chaiHttp);
 let token;
 let notManagerToken;
 let otherManagerToken;
 describe('re-confirm request tests', () => {
+  let clientSocket;
+  const BASE_URL = `http://localhost:${server.address().port}`;
+  beforeEach((done) => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic.team@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+    clientSocket = ioClient.connect(BASE_URL, {
+      transportOptions: {
+        polling:
+            { extraHeaders: { token: socketToken } }
+      },
+      'force new connection': true,
+    });
+
+    done();
+  });
+  afterEach((done) => {
+    clientSocket.disconnect();
+    sinon.restore();
+    done();
+  });
+
   before((done) => {
     chai
       .request(app)
@@ -104,7 +137,12 @@ describe('re-confirm request tests', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('request re-confirmed');
-        done();
       });
+    clientSocket.on('notification', (data) => {
+      expect(JSON.parse(data)).to.be.an('object');
+      expect(JSON.parse(data).receiverId).to.equal('79660e6f-4b7d-4g21-81re-74f54jk91c8a');
+      expect(JSON.parse(data).content).to.equal('the trip to gisenyi on 2020-12-01 that you requested has been rejected');
+      done();
+    });
   });
 });

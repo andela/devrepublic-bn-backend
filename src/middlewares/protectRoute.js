@@ -1,3 +1,4 @@
+import localStorage from 'localStorage';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import { verifyToken } from '../utils/tokenHandler';
@@ -17,7 +18,8 @@ export default class protectRoutes {
    */
   static async verifyUser(req, res, next) {
     try {
-      const { token } = req.headers;
+      // const { token } = req.headers;
+      const token = req.headers.token || localStorage.getItem('token');
       if (!token) {
         return Response.errorResponse(res, 401, res.__('No token provided'));
       }
@@ -181,7 +183,7 @@ export default class protectRoutes {
   static async checkUnreadNotifications(req, res, next) {
     const { user } = req;
     const unreadUsersNotifications = await db.Notifications.findAll({
-      where: { recieverId: user.id, status: 'unread' }
+      where: { receiverId: user.id, status: 'unread' }
     });
 
     if (unreadUsersNotifications.length === 0) {

@@ -86,6 +86,7 @@ module.exports = {
       {
         id: 'f88ed93c-b84d-4159-85e0-221cd7b2f547',
         location: 'boston',
+        userId: 'aed6785b-382f-43a7-a0b5-15a78dd02cc7',
         destination: 'bisenyi',
         reason: 'meeting with engineers',
         departureDate: '2020-12-01',
@@ -105,6 +106,7 @@ module.exports = {
         reason: 'meeting with engineers write',
         departureDate: '2020-10-01',
         email: 'jdev@andela.com',
+        userId: '79660e6f-4b7d-4g21-81re-74f54jk91c8a',
         status: 'open',
         type: 'two way',
         confirm: false,

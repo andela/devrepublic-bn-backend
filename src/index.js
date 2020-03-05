@@ -15,6 +15,7 @@ import commentsRouter from './routes/commentsRoutes';
 import facilitiesRouter from './routes/facilityRoute';
 import notificationsRouter from './routes/notifications';
 import './config/passport';
+import { ioMiddleware } from './middlewares/io';
 
 dotenv.config();
 i18n.configure({
@@ -45,6 +46,19 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 
 const port = process.env.PORT || 3000;
 
+export const server = app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
+
+const io = socketio(server);
+
+io.use(async (socket, next) => {
+  ioMiddleware(socket);
+  next();
+});
+
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 app.use('/', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);
@@ -57,17 +71,5 @@ app.use('/api/v1/notifications', notificationsRouter);
 app.use((req, res) => res.status(404).send({ status: 404, error: res.__('Route %s not found', req.url) }));
 
 app.use((err, req, res) => res.status(500).send({ status: 500, error: res.__('server error') }));
-
-
-const server = app.listen(port, () => process.stdout.write(`Server is running on http://localhost:${port}/api`));
-
-const io = socketio(server);
-io.on('connection', (socket) => {
-  process.stdout.write('\nThere is connection ...........\n');
-  socket.emit('notification', { data: 'this is coming from a server' });
-  socket.on('messageFromClient', (data) => {
-    process.stdout.write(data);
-  });
-});
 
 export default app;

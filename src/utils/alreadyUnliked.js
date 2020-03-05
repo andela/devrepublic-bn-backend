@@ -4,19 +4,19 @@ const alreadyUnliked = async (req, res, next) => {
   const { user } = req;
   const { id } = req.query;
 
-  const likedFacility = await db.Facilities.findOne({ where: { id } });
-  const { unlikesId } = likedFacility;
-  const unliked = unlikesId.find((d) => d === user.id);
+  const unlikedFacility = await db.Facilities.findOne({ where: { id } });
+  const { unlikesId } = unlikedFacility;
 
+  const unliked = unlikesId.find((d) => d === user.id);
   const unlikedUserIndex = unlikesId.indexOf(unliked);
 
-
+  let unlikedCol;
   if (unliked === user.id && unlikesId.length <= 1) {
-    unlikesId.splice(unlikedUserIndex, 0);
-    await db.Facilities.update({ unlikesId }, { where: { id } });
+    unlikedCol = await unlikesId.splice(unlikedUserIndex, 0);
+    await db.Facilities.update({ unlikesId: unlikedCol }, { where: { id } });
   } else {
-    unlikesId.splice(unlikedUserIndex, 1);
-    await db.Facilities.update({ unlikesId }, { where: { id } });
+    unlikedCol = unlikesId.splice(unlikedUserIndex, 1);
+    await db.Facilities.update({ unlikedCol }, { where: { id } });
   }
 
   if (user.id === unliked) {

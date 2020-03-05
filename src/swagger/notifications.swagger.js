@@ -21,3 +21,25 @@
  *       '500':
  *             description: Server Error.
  * */
+
+
+/**
+ * @swagger
+ * /public/:
+ *   get:
+ *     tags:
+ *       - Notifications
+ *     name: Get Notifications
+ *     summary: get user notifications in real-time
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         description: token of the user
+ *     responses:
+ *       '200':
+ *             description: Your request has been approved
+ * */

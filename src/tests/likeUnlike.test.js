@@ -115,7 +115,7 @@ describe('LIKE/DISLIKE TESTS', () => {
         done();
       });
   });
-  it('should return user has liked the facility', (done) => {
+  it('should return user has unliked the facility', (done) => {
     chai
       .request(app)
       .patch('/api/v1/facilities/unlike?id=5bb72db7-5514-4a50-9g15-e23f103116d3')
@@ -123,17 +123,6 @@ describe('LIKE/DISLIKE TESTS', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('user has unliked facility');
-        done();
-      });
-  });
-  it('should return user has liked the facility', (done) => {
-    chai
-      .request(app)
-      .patch('/api/v1/facilities/like?id=5bb72db7-5514-4a50-9g15-e23f103116d3')
-      .set('token', thirdUserToken)
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body.message).to.equal('user has liked facility');
         done();
       });
   });

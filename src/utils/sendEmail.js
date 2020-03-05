@@ -38,5 +38,4 @@ const sendMsg = (newUserEmail, firstName, content, link) => {
   return sgMail.send(msg);
 };
 
-
 export default sendMsg;

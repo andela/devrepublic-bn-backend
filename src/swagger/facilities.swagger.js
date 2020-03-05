@@ -100,15 +100,15 @@
  *     parameters:
  *       - name: token
  *         in: header
- *       - name: facilityId
- *         in: header
+ *       - name: id
+ *         in: query
  *         schema:
  *           type: object
  *           properties:
- *             facilityId:
+ *             id:
  *               type: string
  *         required:
- *           - facilityId
+ *           - id
  *           - token
  *     responses:
  *       '200':
@@ -134,15 +134,15 @@
  *     parameters:
  *       - name: token
  *         in: header
- *       - name: facilityId
- *         in: header
+ *       - name: id
+ *         in: query
  *         schema:
  *           type: object
  *           properties:
- *             facilityId:
+ *             id:
  *               type: string
  *         required:
- *           - facilityId
+ *           - id
  *           - token
  *     responses:
  *       '200':
