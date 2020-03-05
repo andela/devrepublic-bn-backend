@@ -2,6 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Request = sequelize.define('Request', {
     managerId: DataTypes.STRING,
     email: DataTypes.STRING,
+    userId: DataTypes.STRING,
     location: DataTypes.STRING,
     destination: DataTypes.STRING,
     departureDate: DataTypes.STRING,
@@ -15,9 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Request.associate = (models) => {
     Request.belongsTo(models.User, {
-      foreignKey: 'email',
-      as: 'requester',
-      onDelete: 'CASCADE'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    Request.hasMany(models.Comments, {
+      foreignKey: 'requestId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
     Request.hasMany(models.Bookings, {
       foreignKey: 'id',

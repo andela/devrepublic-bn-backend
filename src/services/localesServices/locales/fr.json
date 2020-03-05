@@ -137,5 +137,7 @@
 	"please check your input and enter a valid ID": "veuillez vérifier votre saisie et saisir un ID valide",
 	"request ID can't be empty": "l'ID de la demande ne peut pas être vide",
 	"An open request with that id is not found in your direct report": "Une demande ouverte avec cet identifiant est introuvable dans votre subordonné direct",
-	"request approved": "demande approuvée"
+	"request approved": "demande approuvée",
+	"Comment is successfully posted": "Le commentaire a été publié avec succès",
+	"This request has been a created by another user and belongs to another manager":"Cette demande a été créée par un autre utilisateur et appartient à un autre gestionnaire"
 }

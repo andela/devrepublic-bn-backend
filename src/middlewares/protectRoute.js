@@ -148,4 +148,27 @@ export default class protectRoutes {
     }
     next();
   }
+
+  /**
+  * @description check if request exists
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} user
+   */
+  static async checkRequestDetails(req, res, next) {
+    const { requestId } = req.params;
+    const { user } = req;
+    const requestExist = await db.Request.findOne({
+      where: { id: requestId },
+    });
+    if (!requestExist) {
+      return Response.errorResponse(res, 404, res.__('Request not found'));
+    }
+    if (user.email !== requestExist.email && user.id !== requestExist.managerId) {
+      return Response.success(res, 401, res.__('This request has been a created by another user and belongs to another manager'));
+    }
+    req.request = requestExist;
+    next();
+  }
 }

@@ -33,7 +33,6 @@ export default class requestController {
       if (requestExist) {
         return Response.errorResponse(res, 409, res.__('Request already exist'));
       }
-
       const newRequest = await db.Request.create({
         id: uuid(),
         type: 'one way',
@@ -87,6 +86,7 @@ export default class requestController {
         type: 'two way',
         managerId: user.managerId,
         email: user.email,
+        userId: user.id,
         location: location.toLowerCase().trim(),
         destination: destination.toLowerCase().trim(),
         departureDate,
@@ -206,6 +206,7 @@ export default class requestController {
       }
       const newMulticityRequest = await db.Request.create({
         id: uuid(),
+        userId: user.id,
         type: 'multi city',
         location: location.toLowerCase(),
         destination: destination.toLowerCase(),
