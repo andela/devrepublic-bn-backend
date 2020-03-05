@@ -375,6 +375,31 @@
 *       '401':
 *             description: This request is not yours it is for another manager
 * */
+
+/**
+* @swagger
+* /api/v1/trips/{requestId}/approve:
+*   patch:
+*     tags:
+*       - Trips
+*     name: approve a trip request
+*     summary: manager should be able to approve a trip request
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: token
+*         in: header
+*         description: jwt token of the user
+*       - name: requestId
+*         in: path
+*     responses:
+*       '200':
+*             description: Request approved.
+*       '404':
+*             description: request with that id and still open is not found in your direct report
+* */
 /**
 * @swagger
 * /api/v1/trips/search:

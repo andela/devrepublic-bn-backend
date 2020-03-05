@@ -329,4 +329,23 @@ export default class requestController {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @return {object} approve request
+   */
+  static async approveRequest(req, res) {
+    const { requestId } = req.params;
+    const { user } = req;
+    try {
+      const approvedRequest = await TripsService.approveRequest(requestId, user.id);
+      if (approvedRequest === stringHelper.approveRequestNotFound) {
+        return Response.errorResponse(res, 404, res.__(approvedRequest));
+      }
+      return Response.success(res, 200, res.__('request approved'), approvedRequest);
+    } catch (err) {
+      return Response.errorResponse(res, 200, res.__('server error'));
+    }
+  }
 }

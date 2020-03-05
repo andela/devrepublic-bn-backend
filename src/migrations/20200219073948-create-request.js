@@ -53,7 +53,8 @@ module.exports = {
       },
       confirm: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

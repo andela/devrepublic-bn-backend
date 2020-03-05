@@ -20,6 +20,7 @@ router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rem
 router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
 router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);
 router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.rejectRequest);
+router.patch('/:requestId/approve', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.approveRequest);
 router.get('/search', protectRoute.verifyUser, searchQueryRules, validationResult, tripsController.requestSearch);
 
 export default router;
