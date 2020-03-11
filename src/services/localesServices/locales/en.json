@@ -123,5 +123,7 @@
 	"rejected": "rejected",
 	"approved": "approved",
 	"that you requested has been": "that you requested has been",
-	"To view this %s request you made click below": "To view this %s request you made click below"
+	"To view this %s request you made click below": "To view this %s request you made click below",
+	"To view this edited request click below": "To view this edited request click below",
+	"request with id %s has been edited": "request with id %s has been edited"
 }

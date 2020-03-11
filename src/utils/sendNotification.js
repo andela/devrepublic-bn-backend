@@ -13,7 +13,7 @@ export default class SendNotification {
    * @param {object} content
    * @return {object} return the io object
    */
-  static async SendNotif(notification, req, content) {
+  static async sendNotif(notification, req, content) {
     if (connectedUsers[notification.receiverId]) {
       connectedUsers[notification.receiverId].forEach(async (el) => {
         await req.io.to(el).emit('notification', JSON.stringify(notification));
