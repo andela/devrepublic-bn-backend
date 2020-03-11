@@ -3,6 +3,8 @@ import db from '../models';
 import Response from '../utils/ResponseHandler';
 import TripsService from '../services/tripServices';
 import stringHelper from '../utils/stringHelper';
+import notifService from '../services/notificationService';
+import SendNotification from '../utils/sendNotification';
 
 /**
  * @description RequestController Controller
@@ -37,6 +39,7 @@ export default class requestController {
         id: uuid(),
         type: 'one way',
         managerId: user.managerId,
+        userId: user.id,
         location,
         destination,
         reason,
@@ -255,6 +258,17 @@ export default class requestController {
         return Response.errorResponse(res, 400, res.__('the request is already re-confirmed'));
       }
       const updatedRequest = await request.update({ confirm: true });
+
+      const result = await notifService.createNotif(updatedRequest.userId, updatedRequest.email, `the trip to ${updatedRequest.destination} on ${updatedRequest.departureDate} that you requested has been ${updatedRequest.status}`, '#');
+
+      const content = {
+        intro: `${req.__('the trip to')} ${updatedRequest.destination} ${req.__('on')} ${request.departureDate} ${req.__('that you requested has been')} ${req.__(request.status)}`,
+        instruction: req.__('To view this %s request you made click below', req.__(request.status)),
+        text: req.__('View request'),
+        signature: req.__('signature')
+      };
+      await SendNotification.SendNotif(result, req, content);
+
       return Response.success(res, 200, res.__('request re-confirmed'), updatedRequest);
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));
@@ -344,9 +358,10 @@ export default class requestController {
       if (approvedRequest === stringHelper.approveRequestNotFound) {
         return Response.errorResponse(res, 404, res.__(approvedRequest));
       }
+
       return Response.success(res, 200, res.__('request approved'), approvedRequest);
     } catch (err) {
-      return Response.errorResponse(res, 200, res.__('server error'));
+      return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
 }

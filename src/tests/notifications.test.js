@@ -37,7 +37,6 @@ describe('MARK ALL AS READ TESTS', () => {
       .patch('/api/v1/notifications/all-read')
       .set('token', token)
       .end((err, res) => {
-        // console.log(res.body);
         expect(res.status).to.equal(404);
         expect(res.body.error).to.equal('no unread notifications');
         done();

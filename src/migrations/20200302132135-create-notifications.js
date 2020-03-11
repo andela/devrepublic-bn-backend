@@ -12,16 +12,28 @@ module.exports = {
         defaultValue: 'unread',
         allowNull: false
       },
-      recieverEmail: {
+      receiverId: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references:{
+          model: 'Users',
+          key: 'id',
+          as: 'id'
+      },
+      },
+      receiverEmail: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      recieverId: {
-        type: Sequelize.STRING,
       },
       content: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      link: {
+        type: Sequelize.STRING,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,

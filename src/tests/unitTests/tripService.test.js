@@ -1,4 +1,6 @@
 import chai from 'chai';
+import sgMail from '@sendgrid/mail';
+import sinon from 'sinon';
 import TripsService from '../../services/tripServices';
 import stringHelper from '../../utils/stringHelper';
 
@@ -33,6 +35,17 @@ describe('SEARCH REQUEST SERVICE TESTS', () => {
   });
 });
 describe('APPROVE REQUEST SERVICE TEST', () => {
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic.team@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   it('should return an error message when the request is not found', async () => {
     const approvedRequest = await TripsService.approveRequest('345523cfe', managerId);
     expect(approvedRequest).to.equal(stringHelper.approveRequestNotFound);

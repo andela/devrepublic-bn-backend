@@ -11,8 +11,16 @@
             }
             #notif-title {
                 background-color: #eee;
-                text-align: center;
                 font-size: 25px;
+                text-align: center;
+
+            }
+            .notifs {
+                color: rgb(13, 13, 46);
+                font-size: 20px;
+                list-style: none;
+                margin:auto;
+                text-align: center;
             }
         </style>
     </head>
@@ -25,12 +33,41 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        import dotenv from 'dotenv';
-        dotenv.config();
-        const baseURL = process.env.BASE_URL
-        const socket = io(baseURL);
+        Notification.requestPermission();
+                const socket = io({
+            transportOptions: {
+                polling: {
+                    extraHeaders: {
+                        token: localStorage.getItem("token")
+                    }
+                }
+            }
+        });
+        const token = localStorage.getItem('token')
+        socket.on( 'initialize', (data) => {
+            const parsedData = JSON.parse(data);
+            let notifDiv = document.querySelector('.notifications');
+            notifDiv.innerHTML = '';
+            if(parsedData.error) {
+                let error = document.querySelector('#notif-title span');;
+                error.textContent = parsedData.error
+            }
+            for(obj in parsedData.notif) { 
+                let node = document.createElement('div');
+                node.innerHTML = `<a href = ${parsedData.notif[obj].link} target="_blank"><li class = "notifs">${parsedData.notif[obj].content}</li></a>`
+                notifDiv.appendChild(node)
+        }});
+
         socket.on('notification', (data) => {
-            socket.emit('messageFromClient', 'This is from the client')
+            const parsedData = JSON.parse(data);
+            let notifDiv = document.querySelector('.notifications');
+            let node = document.createElement('div');
+            node.innerHTML = `<a href = ${parsedData.link} target="_blank"><li class = "notifs">${parsedData.content}</li></a>`
+            notifDiv.appendChild(node)
+            var notification = new Notification("Barefoot Nomad", {
+                body: parsedData.content,
+                icon: "./bareicon.png"
+            })
         });
     </script>
 </body>
