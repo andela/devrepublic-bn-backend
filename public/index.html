@@ -57,7 +57,6 @@
                 node.innerHTML = `<a href = ${parsedData.notif[obj].link} target="_blank"><li class = "notifs">${parsedData.notif[obj].content}</li></a>`
                 notifDiv.appendChild(node)
         }});
-
         socket.on('notification', (data) => {
             const parsedData = JSON.parse(data);
             let notifDiv = document.querySelector('.notifications');
@@ -68,7 +67,7 @@
                 body: parsedData.content,
                 icon: "./bareicon.png"
             })
-        });
+        }); 
     </script>
 </body>
 </html>

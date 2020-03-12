@@ -30,7 +30,7 @@ describe('SEARCH REQUEST SERVICE TESTS', () => {
     };
     const requests = await TripsService.searchRequest(field, user);
     expect(requests).to.be.an('array');
-    expect(requests[0].dataValues.managerId).to.equal('75c34027-a2f0-4b50-808e-0c0169fb074w');
+    expect(requests[0].dataValues.managerId).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
     expect(requests[0].dataValues.id).to.equal('t1e74db7-h610-4f50-9f45-e2371j331ld5');
   });
 });

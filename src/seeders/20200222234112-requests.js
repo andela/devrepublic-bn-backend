@@ -31,7 +31,6 @@ module.exports = {
         status: 'rejected',
         confirm: false,
         returnDate: '2021-02-15',
-        managerId: '75c34027-a2f0-4b50-808e-0c0169fb074w',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

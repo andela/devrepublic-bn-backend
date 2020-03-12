@@ -138,10 +138,19 @@ export default class requestController {
           passportName: passportName.toLowerCase().trim(),
           role
         }],
-      }, { where: { id } });
+      }, { where: { id }, returning: true, plain: true });
+      const manager = await db.User.findOne({ where: { id: updatedRequest[1].managerId } });
+      const notification = await notifService.createNotif(manager.id, manager.email, `Request with id ${updatedRequest[1].id} has been edited`, '#');
+      const content = {
+        intro: req.__('request with id %s has been edited', updatedRequest[1].id),
+        instruction: req.__('To view this edited request click below'),
+        text: req.__('View request'),
+        signature: req.__('signature')
+      };
+      await SendNotification.sendNotif(notification, req, content);
       return Response.success(res, 200, res.__('Request updated successfully'), updatedRequest);
     } catch (err) {
-      return Response.errorResponse(res, 500, err.message);
+      return Response.errorResponse(res, 500, req.__('server error'));
     }
   }
 
@@ -267,7 +276,7 @@ export default class requestController {
         text: req.__('View request'),
         signature: req.__('signature')
       };
-      await SendNotification.SendNotif(result, req, content);
+      await SendNotification.sendNotif(result, req, content);
 
       return Response.success(res, 200, res.__('request re-confirmed'), updatedRequest);
     } catch (err) {
