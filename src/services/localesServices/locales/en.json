@@ -146,5 +146,15 @@
 	"you have opted in for email notifications": "you have opted in for email notifications",
 	"that you requested has been made by": "that you requested has been made by",
 	"A trip request to": "A trip request to",
-	"has been requested by": "has been requested by"
+	"has been requested by": "has been requested by",
+	"Comment not found": "Comment not found",
+	"You are not authorised to delete this comment": "You are not authorised to delete this comment",
+	"Comment is successfully deleted": "Comment is successfully deleted",
+	"a commentId is required with maximum 200 characters": "a commentId is required with maximum 200 characters",
+	"The password is required": "The password is required",
+	"The email is required": "The email is required",
+	"Invalid value": "Invalid value",
+	"password can not be empty": "password can not be empty",
+	"email can not be empty": "email can not be empty",
+	"a comment is required with maximum 200 characters": "a comment is required with maximum 200 characters"
 }

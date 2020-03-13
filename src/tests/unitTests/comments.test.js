@@ -1,4 +1,5 @@
 import chai from 'chai';
+import uuid from 'uuid/v4';
 import db from '../../models';
 
 const {
@@ -17,11 +18,11 @@ describe('COMMENT UNIT TESTS', () => {
   it('should create a comment', async () => {
     const newComment = await db.Comments.create({
       requestId,
-      commmentOwner: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
+      id: uuid(),
+      commentOwner: '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
       comment: 'As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first'
     });
     expect(newComment).to.be.an('object');
-    expect(newComment.id).to.equal(3);
     expect(newComment.comment).to.equal('As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first');
   });
 });

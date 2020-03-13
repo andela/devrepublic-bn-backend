@@ -12,7 +12,7 @@ const {
   expect
 } = chai;
 dotenv.config();
-let requesterToken, managerToken, wrongManagerToken;
+let requesterToken, managerToken, wrongManagerToken, commentId;
 const requestId = '51e74db7-5510-4f50-9f15-e23710331ld5';
 const wrongRequestId = '51e74db7-5510-4f50-9f15-e23710331ld555';
 chai.use(chaiHttp);
@@ -108,7 +108,7 @@ describe('COMMENTS TESTS', () => {
         expect(res.body.message).to.equal('Comment is successfully posted');
         expect(res.body).to.have.property('data');
         expect(res.body.data.requestId).to.equal('51e74db7-5510-4f50-9f15-e23710331ld5');
-        expect(res.body.data.commmentOwner).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
+        expect(res.body.data.commentOwner).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
         expect(res.body.data.comment).to.equal('As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first');
         done();
       });
@@ -143,12 +143,13 @@ describe('COMMENTS TESTS', () => {
         comment: 'thanks for your comment manager. This is my request too. And please Approve my request after this comment',
       })
       .end((err, res) => {
+        commentId = res.body.data.id;
         expect(res.status).to.equal(200);
         expect(res.body.status).to.equal(200);
         expect(res.body.message).to.equal('Comment is successfully posted');
         expect(res.body).to.have.property('data');
         expect(res.body.data.requestId).to.have.equal('51e74db7-5510-4f50-9f15-e23710331ld5');
-        expect(res.body.data.commmentOwner).to.have.equal('79660e6f-4b7d-4g21-81re-74f54e9e1c8a');
+        expect(res.body.data.commentOwner).to.have.equal('79660e6f-4b7d-4g21-81re-74f54e9e1c8a');
         expect(res.body.data.comment).to.have.equal('thanks for your comment manager. This is my request too. And please Approve my request after this comment');
         done();
       });
@@ -165,6 +166,30 @@ describe('COMMENTS TESTS', () => {
         expect(res.status).to.equal(404);
         expect(res.body.status).to.equal(404);
         expect(res.body.error).to.equal('Request not found');
+        done();
+      });
+  });
+  it('should not allow a requester to delete a comment that does not exist', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/comments/blahblah')
+      .set('token', requesterToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        expect(res.body.error).to.equal('Comment not found');
+        done();
+      });
+  });
+  it('should allow a user to delete a comment', (done) => {
+    chai
+      .request(app)
+      .delete(`/api/v1/comments/${commentId}`)
+      .set('token', requesterToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.message).to.equal('Comment is successfully deleted');
         done();
       });
   });
