@@ -1,4 +1,5 @@
 {
+	"Welcome to devRepublic Barefoot Nomad API": "Welcome to devRepublic Barefoot Nomad API",
 	"User is successfully logged in": "User is successfully logged in",
 	"An open request with that id is not found in your direct report": "An open request with that id is not found in your direct report",
 	"Your trip to bisenyi on 2020-10-01 you requested has been approved": "Your trip to bisenyi on 2020-10-01 you requested has been approved",
@@ -69,7 +70,6 @@
 	"amenities are required": "amenities are required",
 	"services are required": "services are required",
 	"facility already created": "facility already created",
-	"Welcome to devRepublic Barefoot Nomad API": "Welcome to devRepublic Barefoot Nomad API",
 	"Route %s not found": "Route %s not found",
 	"user has liked facility": "user has liked facility",
 	"user has already liked facility": "user has already liked facility",
@@ -125,5 +125,20 @@
 	"that you requested has been": "that you requested has been",
 	"To view this %s request you made click below": "To view this %s request you made click below",
 	"To view this edited request click below": "To view this edited request click below",
-	"request with id %s has been edited": "request with id %s has been edited"
+	"request with id %s has been edited": "request with id %s has been edited",
+	"Your manager posted a comment to your request": "Your manager posted a comment to your request",
+	"To view this As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first request you made click below": "To view this As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first request you made click below",
+	"View comment": "View comment",
+	"To view this thanks for your comment manager. This is my request too. And please Approve my request after this comment request you made click below": "To view this thanks for your comment manager. This is my request too. And please Approve my request after this comment request you made click below",
+	"To view this yeahahaha 252525626262 request you made click below": "To view this yeahahaha 252525626262 request you made click below",
+	"As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first": "As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first",
+	"thanks for your comment manager. This is my request too. And please Approve my request after this comment": "thanks for your comment manager. This is my request too. And please Approve my request after this comment",
+	"your manager posted a comment": "your manager posted a comment",
+	"your requester posted a comment": "your requester posted a comment",
+	"To view this thanks for your comment manager. This is my request too. And please Approve my request after this comment click below": "To view this thanks for your comment manager. This is my request too. And please Approve my request after this comment click below",
+	"To view this As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first click below": "To view this As a your manager I can add any comment on your request. I can also cancel or approve your request but let me comment first click below",
+	"To view this %s click below": "To view this %s click below",
+	"Your Manager commented: %s": "Your Manager commented: %s",
+	"Your requsester commented: %s": "Your requsester commented: %s",
+	"Your requester commented: %s": "Your requester commented: %s"
 }

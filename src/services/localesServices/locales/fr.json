@@ -152,5 +152,12 @@
 	"approved": "approuvée",
 	"To view this %s request you made click below": "Pour voir cela %s demande que vous avez faite cliquez ci-dessous",
 	"request with id %s has been edited": "la demande avec l'ID %s a été modifiée",
-	"To view this edited request click below": "Pour voir cette demande modifiée, cliquez ci-dessous"
+	"To view this edited request click below": "Pour voir cette demande modifiée, cliquez ci-dessous",
+	"To view this %s click below": "Pour voir ce %s, cliquez ci-dessous",
+	"Your requester commented": "Votre demandeur a commenté",
+	"Your Manager commented": "Votre responsable a commenté",
+	"your manager posted a comment: %s": "votre manager a posté un commentaire: %s",
+	"Your Manager commented: %s": "Votre demandeur a commenté: %s",
+	"View comment": "Afficher le commentaire",
+	"your manager posted a comment": "votre manager a posté un commentaire"
 }

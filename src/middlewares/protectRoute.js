@@ -18,8 +18,7 @@ export default class protectRoutes {
    */
   static async verifyUser(req, res, next) {
     try {
-      // const { token } = req.headers;
-      const token = req.headers.token || localStorage.getItem('token');
+      const { token } = req.headers;
       if (!token) {
         return Response.errorResponse(res, 401, res.__('No token provided'));
       }
@@ -164,13 +163,18 @@ export default class protectRoutes {
     const requestExist = await db.Request.findOne({
       where: { id: requestId },
     });
+
     if (!requestExist) {
       return Response.errorResponse(res, 404, res.__('Request not found'));
     }
+    const managerDetails = await db.User.findOne({
+      where: { id: requestExist.managerId },
+    });
     if (user.email !== requestExist.email && user.id !== requestExist.managerId) {
       return Response.success(res, 401, res.__('This request has been a created by another user and belongs to another manager'));
     }
     req.request = requestExist;
+    req.managerDetails = managerDetails;
     next();
   }
 
