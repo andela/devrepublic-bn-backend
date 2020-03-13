@@ -42,6 +42,7 @@ describe('CREATE A RETURN TRIP', () => {
         role: 'requester'
       })
       .end((err, res) => {
+        // console.log('****************&&&&&&&&&&&',res)
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal('Request created successfully');
         expect(res.body.data).to.be.an('object');

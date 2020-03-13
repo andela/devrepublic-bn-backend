@@ -62,7 +62,20 @@ describe('EDIT TRIP TESTS', () => {
     sinon.restore();
     done();
   });
-  before((done) => {
+  // before((done) => {
+  //   chai
+  //     .request(index)
+  //     .post('/api/v1/auth/login')
+  //     .send({
+  //       email: 'jeanne@andela.com',
+  //       password: 'Bien@BAR789'
+  //     })
+  //     .end((err, res) => {
+  //       token = res.body.data;
+  //       done();
+  //     });
+  // });
+  it('should login the user', (done) => {
     chai
       .request(index)
       .post('/api/v1/auth/login')
@@ -72,6 +85,10 @@ describe('EDIT TRIP TESTS', () => {
       })
       .end((err, res) => {
         token = res.body.data;
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.message).to.equal('User is successfully logged in');
+        expect(res.body).to.have.property('data');
         done();
       });
   });
@@ -83,12 +100,13 @@ describe('EDIT TRIP TESTS', () => {
       .send(openRequest)
       .end((err, res) => {
         expect(res.status).to.equal(200);
+        done();
       });
     clientSocket.on('notification', (msg) => {
       expect(JSON.parse(msg)).to.be.an('object');
       expect(JSON.parse(msg).receiverId).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
       expect(JSON.parse(msg).status).to.equal('unread');
-      done();
+      // done();
     });
   });
   it('should return trip does not exist or has been approved or rejected', (done) => {

@@ -1,6 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index';
+import sinon from 'sinon';
+import dotenv from 'dotenv';
+import ioClient from 'socket.io-client';
+import sgMail from '@sendgrid/mail';
+import app, { server } from '../index';
+import { provideToken } from '../utils/tokenHandler';
+
+dotenv.config();
 
 const {
   expect
@@ -86,6 +93,31 @@ const validDatesMulticityRequest = {
 chai.use(chaiHttp);
 
 describe('REQUEST TRIP TESTS', () => {
+  const socketToken = provideToken('0119b84a-99a4-41c0-8a0e-6e0b6c385165', true, 'umuhozad@andela.com', 'manager');
+  let clientSocket;
+  const BASE_URL = process.env.BASE_URL || `http://localhost:${server.address().port}`;
+  beforeEach((done) => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'jeanaime@andela.com',
+      from: 'devrepublic.team@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+    clientSocket = ioClient.connect(BASE_URL, {
+      transportOptions: {
+        polling:
+      { extraHeaders: { token: socketToken } }
+      },
+      'force new connection': true,
+      forceNew: true,
+    });
+    done();
+  });
+  afterEach((done) => {
+    clientSocket.disconnect();
+    sinon.restore();
+    done();
+  });
   before((done) => {
     chai
       .request(app)

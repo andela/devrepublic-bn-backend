@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     residence: DataTypes.STRING,
     birthdate: DataTypes.STRING,
     image: DataTypes.STRING,
-    isVerified: DataTypes.BOOLEAN
+    isVerified: DataTypes.BOOLEAN,
+    emailNotifications: DataTypes.BOOLEAN
   }, {});
   User.associate = (models) => {
     User.hasMany(models.Bookings, {

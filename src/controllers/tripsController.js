@@ -51,6 +51,24 @@ export default class requestController {
           role
         }],
       });
+
+      const managerInfo = await db.User.findOne({ where: { id: user.managerId } });
+
+      const notification = await notifService.createNotif(
+        newRequest.managerId,
+        managerInfo.email,
+        `A trip request to ${newRequest.destination} on ${newRequest.departureDate} has been requested by ${user.firstName}, ${user.lastName}, it is waiting your approval.`,
+        '#'
+      );
+      const content = {
+        intro: `${req.__('A trip request to')} ${newRequest.destination} ${req.__('on')} ${newRequest.departureDate} ${req.__('has been requested by')} ${newRequest.email}`,
+        instruction: req.__('To view this open request, click below'),
+        text: req.__('View request'),
+        signature: req.__('signature')
+      };
+
+      await SendNotification.sendNotif(notification, req, content);
+
       return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (error) {
       return Response.errorResponse(res, 500, error.message);
@@ -101,6 +119,24 @@ export default class requestController {
           role: role.toLowerCase().trim()
         }],
       });
+
+      const managerInfo = await db.User.findOne({ where: { id: user.managerId } });
+
+      const notification = await notifService.createNotif(
+        newRequest.managerId,
+        managerInfo.email,
+        `A trip request to ${newRequest.destination} on ${newRequest.departureDate} has been requested by ${user.firstName}, ${user.lastName}, it is waiting your approval.`,
+        '#'
+      );
+      const content = {
+        intro: `${req.__('A trip request to')} ${newRequest.destination} ${req.__('on')} ${newRequest.departureDate} ${req.__('has been requested by')} ${newRequest.passportName} }`,
+        instruction: req.__('To view this open request, click below'),
+        text: req.__('View request'),
+        signature: req.__('signature')
+      };
+
+      SendNotification.sendNotif(notification, req, content);
+
       return Response.success(res, 201, res.__('Request created successfully'), newRequest);
     } catch (err) {
       return Response.errorResponse(res, 500, err.message);
@@ -234,6 +270,23 @@ export default class requestController {
           role
         }],
       });
+      const managerInfo = await db.User.findOne({ where: { id: user.managerId } });
+
+      const notification = await notifService.createNotif(
+        newMulticityRequest.managerId,
+        managerInfo.email,
+        `A trip request to ${newMulticityRequest.destination} on ${newMulticityRequest.departureDate} has been requested by ${user.firstName}, ${user.lastName}, it is waiting your approval.`,
+        '#'
+      );
+      const content = {
+        intro: `${req.__('A trip request to')} ${newMulticityRequest.destination} ${req.__('on')} ${newMulticityRequest.departureDate} ${req.__('has been requested by')} ${newMulticityRequest.passportName} }`,
+        instruction: req.__('To view this open request, click below'),
+        text: req.__('View request'),
+        signature: req.__('signature')
+      };
+
+      await SendNotification.sendNotif(notification, req, content);
+
       return Response.success(res, 201, res.__('Multi city request created successfully'), newMulticityRequest);
     } catch (error) {
       return Response.errorResponse(res, 500, error.message);

@@ -66,7 +66,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-
+      emailNotifications: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
