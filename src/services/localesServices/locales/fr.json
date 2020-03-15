@@ -142,7 +142,6 @@
 	"This request has been a created by another user and belongs to another manager": "Cette demande a été créée par un autre utilisateur et appartient à un autre gestionnaire",
 	"all unread notifications marked as read": "toutes les notifications non lues marquées comme lues",
 	"no unread notifications": "pas de notifications non lues",
-	"Your trip to bisenyi on 2020-10-01 you requested has been approved": "Votre voyage à Bisenyi le 01/10/2020 que vous avez demandé a été approuvé",
 	"To view this approved request you made click below": "Pour voir cette demande approuvée que vous avez faite, cliquez ci-dessous",
 	"View request": "Afficher la demande",
 	"the trip to": "le voyage à",
@@ -173,5 +172,10 @@
 	"the rating can only be an integer number less or equal to 5": "la note ne peut être qu'un nombre entier inférieur ou égal à 5",
 	"facility not found": "installation non trouvée",
 	"you haven't visited this facility yet":"vous n'avez pas encore visité cette installation",
-	"facility rated": "évalué par l'établissement"
+	"facility rated": "évalué par l'établissement",
+	"Request not found or not yours": "Demande non trouvée ou pas la vôtre",
+	"Requests found": "Demandes trouvées",
+	"Requests not found": "Demandes non trouvées",
+	"Request found": "Demande trouvée",
+	"Request not found or not yours to approve": "Demande d'approbation introuvable ou non à vous"
 }

@@ -8,7 +8,8 @@ const {
   expect
 } = chai;
 
-let token, managerToken;
+let token, tokenWithNoRequests, managerToken;
+const requestId = 't1e74db7-h610-4f50-9f45-e2371j331ld5';
 const
   managerId = '0119b84a-99a4-41c0-8a0e-6e0b6c385165',
   location = 'kigali',
@@ -260,6 +261,81 @@ describe('SEARCH TESTS', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('requests found');
+        done();
+      });
+  });
+});
+describe('VIEW REQUESTS', () => {
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'peter@andela.com',
+        password: 'Bien@BAR789'
+      })
+      .end((err, res) => {
+        tokenWithNoRequests = res.body.data;
+        done();
+      });
+  });
+  it('should allow a requester to view one trip', (done) => {
+    chai
+      .request(app)
+      .get(`/api/v1/trips/${requestId}/view`)
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.data).to.be.an('object');
+        done();
+      });
+  });
+  it('should allow a manager to view one trip', (done) => {
+    chai
+      .request(app)
+      .get(`/api/v1/trips/${requestId}/view`)
+      .set('token', managerToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.data).to.be.an('object');
+        done();
+      });
+  });
+  it('should allow a requester to view all trips', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/view')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.status).to.equal(200);
+        expect(res.body.data).to.be.an('array');
+        done();
+      });
+  });
+  it('should not view an unexisting trip', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/blahblah/view')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        expect(res.body.error).to.equal('Request not found or not yours');
+        done();
+      });
+  });
+  it('should not view unexisting trips', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/view')
+      .set('token', tokenWithNoRequests)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.status).to.equal(404);
+        expect(res.body.error).to.equal('Requests not found');
         done();
       });
   });

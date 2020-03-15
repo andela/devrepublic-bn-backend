@@ -213,7 +213,8 @@
 *             description: The request does not exist or it's either been approved or rejected
 *       '401':
 *             description: Only the requester of this trip can edit the trip.
-* */
+*/
+
 /**
  * @swagger
  * definitions:
@@ -304,7 +305,7 @@
 
 /**
  * @swagger
- * /api/v1/trips/view:
+ * /api/v1/trips/view-pending:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -327,6 +328,7 @@
  *       '401':
  *         description: You are not authorized to perform this action
  */
+
 /**
 * @swagger
 * /api/v1/trips/{requestId}/confirm:
@@ -351,6 +353,7 @@
 *       '200':
 *             description: request re-confirmed.
 * */
+
 /**
 * @swagger
 * /api/v1/trips/{requestId}/reject:
@@ -400,6 +403,7 @@
 *       '404':
 *             description: request with that id and still open is not found in your direct report
 * */
+
 /**
 * @swagger
 * /api/v1/trips/search:
@@ -436,3 +440,59 @@
 *       '404':
 *             description: request not found.
 * */
+
+/**
+ * @swagger
+ * /api/v1/trips/{requestId}/view:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Trips
+ *     name: User view a trip request
+ *     summary: User or his manager should be able to view a trip request he made
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: requestId
+ *         in: path
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: Request found
+ *       '401':
+ *         description: You are not authorized to perform this action
+ *       '404':
+ *         description: Request not found or not yours
+ */
+
+/**
+ * @swagger
+ * /api/v1/trips/view:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Trips
+ *     name: Manager or requester view trip requests
+ *     summary: Requester and manager should be able to view all requests the requester's requests
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         schema:
+ *           type: string
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: Requests found
+ *       '404':
+ *         description: Requests not found
+ *       '401':
+ *         description: You are not authorized to perform this action
+ */
