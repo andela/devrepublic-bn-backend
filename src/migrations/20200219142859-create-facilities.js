@@ -44,6 +44,16 @@ module.exports = {
       createdBy: {
         type: Sequelize.STRING 
       },
+      totalRating: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false 
+      },
+      averageRating: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false 
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

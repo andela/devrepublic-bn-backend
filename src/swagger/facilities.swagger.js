@@ -201,3 +201,37 @@
  *       '500':
  *             description: Server Error.
  * */
+
+/**
+ * @swagger
+ * /api/v1/facilities/rate/{facilityId}:
+ *   patch:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Facilities
+ *     name: rate a facilility
+ *     summary: a user can rate a facility they visited
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: rating
+ *         in: query
+ *         schema:
+ *           type: string
+ *       - name: facilityId
+ *         in: path
+ *     responses:
+ *       '200':
+ *             description: facility rated
+ *       '404':
+ *             description: facility not found
+ *       '403':
+ *             description: you haven't visited this facility yet
+ *       '400':
+ *             description: the rating can only be an integer number less or equal to 5
+ * */
