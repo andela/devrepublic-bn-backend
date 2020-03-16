@@ -17,6 +17,7 @@ import notificationsRouter from './routes/notifications';
 import './config/passport';
 import { ioMiddleware } from './middlewares/io';
 
+
 dotenv.config();
 i18n.configure({
   locales: ['fr', 'en'],
@@ -50,15 +51,17 @@ export const server = app.listen(port, () => process.stdout.write(`Server is run
 
 const io = socketio(server);
 
+
 io.use(async (socket, next) => {
   ioMiddleware(socket);
   next();
 });
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   req.io = io;
   next();
 });
+
 
 app.use('/', welcome);
 app.use('/api-doc', swagger);
