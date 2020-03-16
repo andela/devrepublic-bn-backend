@@ -5,6 +5,7 @@ import TripsService from '../services/tripServices';
 import stringHelper from '../utils/stringHelper';
 import notifService from '../services/notificationService';
 import SendNotification from '../utils/sendNotification';
+import StatsController from '../utils/statsCheckings';
 
 /**
  * @description RequestController Controller
@@ -485,6 +486,32 @@ export default class requestController {
           : Response.success(res, 200, res.__('Requests found'), Requests);
       }
       return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+   * @description this function provides requester's trips statistics
+   * @param  {object} req
+   * @param  {object} res
+   * @return {object} number of all created trips
+   */
+  static async TripStats(req, res) {
+    const { user } = req;
+    try {
+      if (user.role === 'manager') {
+        const allTrips = await db.Request.findAll({
+          where: { managerId: user.id },
+        });
+        StatsController.stats(allTrips, res);
+      }
+      if (user.role === 'requester') {
+        const allTrips = await db.Request.findAll({
+          where: { userId: user.id },
+        });
+        StatsController.stats(allTrips, res);
+      }
     } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
