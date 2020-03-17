@@ -178,5 +178,8 @@
 	"Requests not found": "Demandes non trouvées",
 	"Request found": "Demande trouvée",
 	"Request not found or not yours to approve": "Demande d'approbation introuvable ou non à vous",
-	"Trips statistics": "Statistiques de voyages"
+	"Trips statistics": "Statistiques de voyages",
+	"feedback is required": "une rétroaction est requise",
+	"feedback can't be longer than 300 character": "les commentaires ne peuvent pas dépasser 300 caractères",
+	"feedback saved successfully" : "commentaires enregistrés avec succès"
 }

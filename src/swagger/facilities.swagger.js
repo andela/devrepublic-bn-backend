@@ -235,3 +235,40 @@
  *       '400':
  *             description: the rating can only be an integer number less or equal to 5
  * */
+
+/**
+ * @swagger
+ * /api/v1/facilities/feedback/{facilityId}:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Facilities
+ *     name: give feedback to a facilility
+ *     summary: a user can provide feedback to a facility they visited
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *       - name: facilityId
+ *         in: path
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           type: object
+ *           properties:
+ *             feedback:
+ *               type: string
+ *         required:
+ *           - feedback
+ *     responses:
+ *       '200':
+ *             description: feedback saved successfully
+ *       '404':
+ *             description: facility not found
+ *       '403':
+ *             description: you haven't visited this facility yet
+ * */

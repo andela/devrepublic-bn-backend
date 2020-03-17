@@ -149,3 +149,11 @@ export const rateQueryRules = [
     .isInt({ min: 1, max: 5 })
     .withMessage('the rating can only be an integer number less or equal to 5')
 ];
+export const feedbackRules = [
+  check('feedback').not()
+    .isEmpty({ ignore_whitespace: true })
+    .withMessage('feedback is required')
+    .bail()
+    .isLength({ min: 1, max: 300 })
+    .withMessage('feedback can\'t be longer than 300 character')
+];

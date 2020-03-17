@@ -214,5 +214,25 @@ class FacilitiesController {
       return Response.errorResponse(res, 500, err.message);
     }
   }
+
+  /**
+* @description give a facility feedback
+* @static
+* @param {Object} req
+* @param {Object} res
+* @returns {Object} Facility feedback
+* @memberof FacilitiesController
+*/
+  static async facilityFeedback(req, res) {
+    const { facilityId } = req.params;
+    const { user } = req;
+    const { feedback } = req.body;
+    try {
+      const result = await FacilityService.feedback(facilityId, user, feedback);
+      return (((result === stringHelper.facilityNotFound) && Response.errorResponse(res, 404, req.__(result))) || ((result === stringHelper.notVisitedFacility) && Response.errorResponse(res, 403, req.__(result))) || (typeof result === 'object' && Response.success(res, 201, req.__('feedback saved successfully'), result)));
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
+    }
+  }
 }
 export default FacilitiesController;
