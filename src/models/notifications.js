@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   Notifications.associate = (models) => {
     Notifications.belongsTo(models.User, {
       foreignKey: 'receiverId',
+      as: 'user',
       onDelete: 'CASCADE'
     });
   };

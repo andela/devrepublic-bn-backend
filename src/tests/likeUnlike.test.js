@@ -22,6 +22,17 @@ describe('LIKE/DISLIKE TESTS', () => {
         done();
       });
   });
+  it('should return user has unliked the facility', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/facilities/unlike?id=5be72db7-5510-4a50-9f15-e23f103116d5')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('user has unliked facility');
+        done();
+      });
+  });
   it('should return user has liked the facility', (done) => {
     chai
       .request(app)

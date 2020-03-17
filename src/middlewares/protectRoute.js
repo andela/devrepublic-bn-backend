@@ -19,6 +19,7 @@ export default class protectRoutes {
   static async verifyUser(req, res, next) {
     try {
       const { token } = req.headers;
+
       if (!token) {
         return Response.errorResponse(res, 401, res.__('No token provided'));
       }

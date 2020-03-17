@@ -10,27 +10,27 @@ export default class ResponceHandler {
  *
  *
  * @static
- * @param {Object} response
+ * @param {Object} res
  * @param {Object} status
  * @param {String} message
  * @param {Object} token
  * @returns {Object} token
  * @memberof ResponceHandler
  */
-  static signupResponse(response, status, message, token) {
-    return (response.status(status).json({ status, message, token, }));
+  static signupResponse(res, status, message, token) {
+    return (res.status(status).json({ status, message, token, }));
   }
 
   /**
  * @static
- * @param {Object} response
+ * @param {Object} res
  * @param {Object} status
  * @param {String} error
  * @returns {Object} error
  * @memberof ResponceHandler
  */
-  static errorResponse(response, status, error) {
-    return (response.status(status).json({ status, error }));
+  static errorResponse(res, status, error) {
+    return (res.status(status).json({ status, error }));
   }
 
   /**

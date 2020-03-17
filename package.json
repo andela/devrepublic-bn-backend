@@ -8,7 +8,7 @@
     "dev": "nodemon --exec babel-node src/index.js",
     "build": "rm -rf ./dist && babel -d ./dist ./src",
     "test": "npm run db:reset --env test && npx sequelize db:seed:undo:all --env test && npm run seed --env test && npm run test:unit",
-    "test:unit": "NODE_ENV=test nyc --require @babel/register  mocha --recursive './src/**/*.test.js' --timeout 20000 --exit",
+    "test:unit": "NODE_ENV=test nyc --require @babel/register  mocha --recursive './src/**/*.test.js' --timeout 2000 --exit",
     "db:migrate": "npx sequelize db:migrate --env test",
     "db:reset": "npx sequelize db:migrate:undo:all --env test && npm run db:migrate --env test",
     "create": "npx sequelize db:migrate",

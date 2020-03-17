@@ -159,5 +159,10 @@
 	"your manager posted a comment: %s": "votre manager a posté un commentaire: %s",
 	"Your Manager commented: %s": "Votre demandeur a commenté: %s",
 	"View comment": "Afficher le commentaire",
-	"your manager posted a comment": "votre manager a posté un commentaire"
+	"your manager posted a comment": "votre manager a posté un commentaire",
+	"that you requested has been sent made by": "que vous avez demandé a été envoyé par",
+	"you have opted out of email notifications":"vous avez désactivé les notifications par e-mail",
+	"you have opted in for email notifications": "vous avez activé les notifications par e-mail",
+	"A trip request to": "Une demande de voyage à",
+	"has been requested by": "a été demandé par"
 }

@@ -18,10 +18,10 @@ let otherManagerToken;
 describe('re-confirm request tests', () => {
   let clientSocket;
   const BASE_URL = `http://localhost:${server.address().port}`;
-  beforeEach((done) => {
+  beforeEach(() => {
     sinon.stub(sgMail, 'send').resolves({
       to: 'aime@amgil.com',
-      from: 'devrepublic.team@gmail.com',
+      from: 'devrepublic@gmail.com',
       subject: 'barefoot nomad',
       html: 'this is stubbing message'
     });
@@ -32,13 +32,12 @@ describe('re-confirm request tests', () => {
       },
       'force new connection': true,
     });
-
-    done();
+    // done();
   });
-  afterEach((done) => {
+  afterEach(() => {
     clientSocket.disconnect();
     sinon.restore();
-    done();
+    // done();
   });
 
   before((done) => {
@@ -137,12 +136,12 @@ describe('re-confirm request tests', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('request re-confirmed');
+        done();
       });
     clientSocket.on('notification', (data) => {
       expect(JSON.parse(data)).to.be.an('object');
       expect(JSON.parse(data).receiverId).to.equal('79660e6f-4b7d-4g21-81re-74f54jk91c8a');
       expect(JSON.parse(data).content).to.equal('the trip to gisenyi on 2020-12-01 that you requested has been rejected');
-      done();
     });
   });
 });

@@ -59,6 +59,7 @@ app.use((req, res, next) => {
   req.io = io;
   next();
 });
+
 app.use('/', welcome);
 app.use('/api-doc', swagger);
 app.use('/api/v1/auth', authRouter);

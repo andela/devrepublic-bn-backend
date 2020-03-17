@@ -1,5 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon';
+import sgMail from '@sendgrid/mail';
 import index from '../index';
 import { provideToken } from '../utils/tokenHandler';
 
@@ -12,6 +14,17 @@ let noManagerToken;
 
 const notSignupToken = provideToken('dewdwwdwd', false, 'ade@gmail.com');
 describe('CREATE A RETURN TRIP', () => {
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic@gmail.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   before((done) => {
     const loggedUser = {
       email: 'jeannette@andela.com',

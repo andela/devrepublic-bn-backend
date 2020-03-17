@@ -22,6 +22,49 @@
  *             description: Server Error.
  * */
 
+/**
+ * @swagger
+ * /api/v1/notifications/email-opt-out:
+ *   patch:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Notifications
+ *     name: optOutEmailNotifications
+ *     summary: enables a user to mark opt out for email notifications
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *     responses:
+ *       '200':
+ *             description: you have opted out of email notifications.
+ *       '500':
+ *             description: Server Error.
+ * */
+
+/**
+ * @swagger
+ * /api/v1/notifications/email-opt-in:
+ *   patch:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Notifications
+ *     name: optInEmailNotifications
+ *     summary: enables a user to mark opt in for email notifications
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *     responses:
+ *       '200':
+ *             description: you have opted in for email notifications.
+ *       '500':
+ *             description: Server Error.
+ * */
 
 /**
  * @swagger
