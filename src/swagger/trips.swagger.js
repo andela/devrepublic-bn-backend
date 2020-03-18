@@ -496,3 +496,28 @@
  *       '401':
  *         description: You are not authorized to perform this action
  */
+/**
+ * @swagger
+ * /api/v1/trips/most-travelled:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Trips
+ *     name: Most travelled destination
+ *     summary:  Users should be able to view the most travelled destination
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         schema:
+ *           type: string
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: Most travelled destination.
+ *       '401':
+ *         description: You are not authorized to perform this action
+ */
