@@ -1,4 +1,3 @@
-import localStorage from 'localStorage';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import { verifyToken } from '../utils/tokenHandler';
@@ -177,6 +176,27 @@ export default class protectRoutes {
     req.request = requestExist;
     req.managerDetails = managerDetails;
     next();
+  }
+
+  /**
+  * @description check if comment exists
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @returns {object} user
+   */
+  static async checkComment(req, res, next) {
+    const { user } = req;
+    const { commentId } = req.params;
+
+    const commentExist = await db.Comments.findOne({
+      where: { id: commentId, deleted: false },
+    });
+
+    return commentExist ? (user.id !== commentExist.commentOwner)
+      ? Response.success(res, 401, res.__('You are not authorised to delete this comment'))
+      : next()
+      : Response.errorResponse(res, 404, res.__('Comment not found'));
   }
 
   /**

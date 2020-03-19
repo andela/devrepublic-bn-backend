@@ -4,11 +4,10 @@ module.exports = {
     return queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
-        autoIncrement: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true
       },
-      commmentOwner: {
+      commentOwner: {
         type: Sequelize.STRING,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -31,6 +30,11 @@ module.exports = {
       },
       comment: {
         type: Sequelize.TEXT
+      },
+      deleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

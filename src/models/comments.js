@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Comments = sequelize.define('Comments', {
     requestId: DataTypes.STRING,
-    commmentOwner: DataTypes.STRING,
-    comment: DataTypes.TEXT
+    commentOwner: DataTypes.STRING,
+    comment: DataTypes.TEXT,
+    deleted: DataTypes.BOOLEAN
   }, {});
   Comments.associate = (models) => {
     Comments.belongsTo(models.Request, {
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     });
     Comments.belongsTo(models.User, {
-      foreignKey: 'commmentOwner',
+      foreignKey: 'commentOwner',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });

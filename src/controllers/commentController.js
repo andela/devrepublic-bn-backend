@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import db from '../models';
 import Response from '../utils/ResponseHandler';
 import notifService from '../services/notificationService';
@@ -25,8 +26,9 @@ export default class CommentController {
       const { email } = req.managerDetails;
       const newComment = await db.Comments.create({
         requestId,
-        commmentOwner: user.id,
+        commentOwner: user.id,
         comment,
+        id: uuid()
       });
       if (user.role === 'manager') {
         const notifyUser = await notifService.createNotif(req.request.userId, req.request.email, 'your manager posted a comment', '#');
@@ -49,6 +51,29 @@ export default class CommentController {
       }
       return Response.success(res, 200, res.__('Comment is successfully posted'), newComment);
     } catch (error) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} delete comment
+   */
+  static async deleteComment(req, res) {
+    try {
+      const { commentId } = req.params;
+      await db.Comments.update({
+        deleted: true
+      }, {
+        where: {
+          id: commentId
+        }
+      });
+
+      return Response.success(res, 200, res.__('Comment is successfully deleted'));
+    } catch (err) {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
   }

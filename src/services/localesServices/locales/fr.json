@@ -164,5 +164,9 @@
 	"you have opted out of email notifications":"vous avez désactivé les notifications par e-mail",
 	"you have opted in for email notifications": "vous avez activé les notifications par e-mail",
 	"A trip request to": "Une demande de voyage à",
-	"has been requested by": "a été demandé par"
+	"has been requested by": "a été demandé par",
+	"Comment not found": "Commentaire non trouvé",
+	"You are not authorised to delete this comment": "Vous n'êtes pas autorisé à supprimer ce commentaire",
+	"a comment is required with maximum 200 characters": "un commentaire est requis avec un maximum de 200 caractères",
+	"Comment is successfully deleted": "Le commentaire a bien été supprimé"
 }

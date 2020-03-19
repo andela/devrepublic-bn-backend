@@ -17,7 +17,6 @@ export const signupInputRules = [
     .withMessage('The email field must contain a valid email address'),
   check('password').exists().matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,30}/).withMessage('At least 8 characters include symbols, uppercase, lowercase and number'),
 ];
-
 export const changeRoles = [
   check('email').trim().exists().withMessage('The email is required')
     .isEmail()
@@ -138,4 +137,9 @@ export const searchQueryRules = [
 export const commentRules = [
   check('comment').exists().trim().isLength({ min: 1, max: 200 })
     .withMessage('a comment is required with maximum 200 characters')
+];
+
+export const commentIdRules = [
+  check('commentId').exists().trim().isLength({ min: 1, max: 200 })
+    .withMessage('a commentId is required with maximum 200 characters')
 ];
