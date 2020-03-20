@@ -66,11 +66,7 @@
                 body: parsedData.content,
                 icon: "./bareicon.png"
             })
-        });
-        socket.on('messageFromServer', (dataFromServer) => {
-        console.log(dataFromServer);
-        socket.emit('messageToServer', {data: 'this is comming from chat socket'})
-      }) 
+        }); 
     </script>
 </body>
 </html>
