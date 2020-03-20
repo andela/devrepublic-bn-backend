@@ -4,6 +4,8 @@ import db from '../models';
 import Response from '../utils/ResponseHandler';
 import uploadImage from '../services/uploadImageService';
 import findFacilityByLocation from '../utils/findFacility';
+import FacilityService from '../services/facilityService';
+import stringHelper from '../utils/stringHelper';
 /**
  * @description Facilities Controller
  * @class FacilitiesController
@@ -190,6 +192,26 @@ class FacilitiesController {
       return Response.success(res, 201, res.__('Booking created successfully'), newBooking);
     } catch (error) {
       return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+  * @description rate facility method
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} Facility with ratings
+  * @memberof FacilitiesController
+  */
+  static async rateFacility(req, res) {
+    const { user } = req;
+    const { facilityId } = req.params;
+    const { rating } = req.query;
+    try {
+      const result = await FacilityService.rateFacility(facilityId, user, rating);
+      return ((result === stringHelper.facilityNotFound) && Response.errorResponse(res, 404, res.__(result))) || ((result === stringHelper.notVisitedFacility) && Response.errorResponse(res, 403, res.__(result))) || ((typeof result === 'object') && Response.success(res, 200, res.__('facility rated'), result));
+    } catch (err) {
+      return Response.errorResponse(res, 500, err.message);
     }
   }
 }

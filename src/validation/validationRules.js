@@ -143,3 +143,9 @@ export const commentIdRules = [
   check('commentId').exists().trim().isLength({ min: 1, max: 200 })
     .withMessage('a commentId is required with maximum 200 characters')
 ];
+export const rateQueryRules = [
+  query('rating').not().isEmpty({ ignore_whitespace: true }).withMessage('the rating must be provided')
+    .bail()
+    .isInt({ min: 1, max: 5 })
+    .withMessage('the rating can only be an integer number less or equal to 5')
+];

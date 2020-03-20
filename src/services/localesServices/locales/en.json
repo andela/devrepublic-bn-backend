@@ -156,5 +156,13 @@
 	"Invalid value": "Invalid value",
 	"password can not be empty": "password can not be empty",
 	"email can not be empty": "email can not be empty",
-	"a comment is required with maximum 200 characters": "a comment is required with maximum 200 characters"
+	"a comment is required with maximum 200 characters": "a comment is required with maximum 200 characters",
+	"The firstname is required": "The firstname is required",
+	"First name should be only characters": "First name should be only characters",
+	"Last name should be only characters": "Last name should be only characters",
+	"the rating must be provided": "the rating must be provided",
+	"the rating can only be an integer number less or equal to 5": "the rating can only be an integer number less or equal to 5",
+	"facility not found": "facility not found",
+	"you haven't visited this facility yet": "you haven't visited this facility yet",
+	"facility rated": "facility rated"
 }

@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
+import sgMail from '@sendgrid/mail';
 import { uploader } from 'cloudinary';
 import index from '../index';
 
@@ -11,6 +12,9 @@ const {
 let token;
 let supplierToken;
 let unauthToken;
+let facilityId;
+let notVisitedFacilityId;
+let roomId;
 chai.use(chaiHttp);
 
 describe('TRAVEL ADMIN ROLE TESTS', () => {
@@ -73,6 +77,7 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
       .field('services', 'bar,casino,and massage facility')
       .field('amenities', 'free morning breakfast,and free daily dinner')
       .end((err, res) => {
+        facilityId = res.body.data.id;
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
         expect(res.body.message).to.equal('Facility created successfully');
@@ -90,11 +95,12 @@ describe('TRAVEL ADMIN ROLE TESTS', () => {
       .post('/api/v1/facilities/room')
       .set('token', token)
       .send({
-        facilityId: '5be72db7-5510-4a50-9f15-e23f103116d5',
+        facilityId,
         roomName: 'Kigali',
         type: 'single bed'
       })
       .end((err, res) => {
+        roomId = res.body.data.id;
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
         expect(res.body.message).to.equal('Room created successfully');
@@ -204,6 +210,7 @@ describe('SUPPLIER ROLE TESTS', () => {
       .field('amenities', 'free morning breakfast,and free daily dinner')
       .attach('image', 'src/tests/testFiles/barefoot.jpeg', 'barefoot.jpeg')
       .end((err, res) => {
+        notVisitedFacilityId = res.body.data.id;
         expect(res.status).to.equal(201);
         expect(res.body.status).to.equal(201);
         expect(res.body.message).to.equal('Facility created successfully');
@@ -229,6 +236,129 @@ describe('SUPPLIER ROLE TESTS', () => {
         expect(res.status).to.equal(400);
         expect(res.body.status).to.equal(400);
         expect(res.body.error).to.equal('facility already created');
+        done();
+      });
+  });
+});
+describe('RATE A FACILITY TESTS', () => {
+  let ratorToken, ratorRequest;
+  before((done) => {
+    chai
+      .request(index)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'jdev@andela.com',
+        password: 'Bien@BAR789'
+      })
+      .end((err, res) => {
+        ratorToken = res.body.data;
+        done();
+      });
+  });
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic@example.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
+  it('should create a request', (done) => {
+    chai
+      .request(index)
+      .post('/api/v1/trips/one-way')
+      .set('token', ratorToken)
+      .send({
+        destination: 'Kigali',
+        location: 'Nairobi',
+        departureDate: '2019-04-15',
+        reason: 'vacation',
+        gender: 'Male',
+        passportName: 'Jimmy Ntare',
+        role: 'requester'
+      })
+      .end((err, res) => {
+        ratorRequest = res.body.data.id;
+        expect(res.status).to.equal(201);
+        done();
+      });
+  });
+  it('should book a room', (done) => {
+    chai
+      .request(index)
+      .post('/api/v1/facilities/book')
+      .set('token', ratorToken)
+      .send({
+        facilityId,
+        roomId,
+        requestId: ratorRequest,
+        checkin: '2019-04-15',
+        checkout: '2019-05-14',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        done();
+      });
+  });
+  it('should return an error if the user want to give a rating which is not an integer and bigger than five', (done) => {
+    chai
+      .request(index)
+      .patch(`/api/v1/facilities/rate/${facilityId}?rating=7`)
+      .set('token', ratorToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.error[0]).to.equal('the rating can only be an integer number less or equal to 5');
+        done();
+      });
+  });
+  it('should return an error if facility is not found', (done) => {
+    chai
+      .request(index)
+      .patch('/api/v1/facilities/rate/5be72db7-5510-4a50-9f15-e3116d?rating=5')
+      .set('token', ratorToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.error).to.equal('facility not found');
+        done();
+      });
+  });
+  it('should not rate a facility a user hasn\'t visited', (done) => {
+    chai
+      .request(index)
+      .patch(`/api/v1/facilities/rate/${notVisitedFacilityId}?rating=5`)
+      .set('token', ratorToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.error).to.equal('you haven\'t visited this facility yet');
+        done();
+      });
+  });
+  it('should rate a facility if the user has visited it', (done) => {
+    chai
+      .request(index)
+      .patch(`/api/v1/facilities/rate/${facilityId}?rating=3`)
+      .set('token', ratorToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('facility rated');
+        expect(res.body.data.totalRating).to.equal(3);
+        expect(res.body.data.averageRating).to.equal(3);
+        done();
+      });
+  });
+  it('should change the facility rate if the user has rated before', (done) => {
+    chai
+      .request(index)
+      .patch(`/api/v1/facilities/rate/${facilityId}?rating=2`)
+      .set('token', ratorToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('facility rated');
+        expect(res.body.data.totalRating).to.equal(2);
+        expect(res.body.data.averageRating).to.equal(2);
         done();
       });
   });
