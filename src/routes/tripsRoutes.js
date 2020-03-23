@@ -16,10 +16,13 @@ router.post('/one-way', protectRoute.verifyUser, protectRoute.verifyRequester, p
 router.post('/return', protectRoute.verifyUser, protectRoute.verifyRequester, protectRoute.checkUserManager, rememberProfile, returnTripRules, validationResult, tripsController.createReturnRequest);
 router.post('/multi-city', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, multiCityTripRules, validationResult, tripsController.createMultiCityRequest);
 router.patch('/edit', protectRoute.verifyUser, protectRoute.verifyRequester, rememberProfile, requestRules, validationResult, tripsController.editRequest);
-router.get('/view', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
+router.get('/view-pending', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.availTripRequests);
 router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.confirmRequest);
 router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.rejectRequest);
 router.patch('/:requestId/approve', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.approveRequest);
 router.get('/search', protectRoute.verifyUser, searchQueryRules, validationResult, tripsController.requestSearch);
+
+router.get('/:requestId/view', protectRoute.verifyUser, tripsController.viewRequest);
+router.get('/view', protectRoute.verifyUser, tripsController.viewAllRequests);
 
 export default router;

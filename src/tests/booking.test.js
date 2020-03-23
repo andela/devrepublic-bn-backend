@@ -1,7 +1,7 @@
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../index';
+import app from '../index';
 import db from '../models';
 
 
@@ -19,7 +19,7 @@ describe('FACILITY BOOKING', () => {
       password: 'Bien@BAR789',
     };
     chai
-      .request(server)
+      .request(app)
       .post('/api/v1/auth/login')
       .send(loggedUser)
       .end((err, res) => {
@@ -30,7 +30,7 @@ describe('FACILITY BOOKING', () => {
 
   it('should book a room', (done) => {
     chai
-      .request(server)
+      .request(app)
       .post(bookingRoute)
       .set('token', token)
       .send({
@@ -48,7 +48,7 @@ describe('FACILITY BOOKING', () => {
   });
   it('should not book for a request does not exist or is not yours', (done) => {
     chai
-      .request(server)
+      .request(app)
       .post(bookingRoute)
       .set('token', token)
       .send({
@@ -66,7 +66,7 @@ describe('FACILITY BOOKING', () => {
   });
   it('should not book an unexisting room', (done) => {
     chai
-      .request(server)
+      .request(app)
       .post(bookingRoute)
       .set('token', token)
       .send({
@@ -85,7 +85,7 @@ describe('FACILITY BOOKING', () => {
 
   it('should not book a room with wrong checkin greater than checkout', (done) => {
     chai
-      .request(server)
+      .request(app)
       .post(bookingRoute)
       .set('token', token)
       .send({

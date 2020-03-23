@@ -428,4 +428,65 @@ export default class requestController {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} view specific trip request
+   */
+  static async viewRequest(req, res) {
+    try {
+      const { user } = req;
+      const { requestId } = req.params;
+      if (user.role === 'manager') {
+        const availableRequest = await db.Request.findOne({
+          where: {
+            id: requestId,
+            managerId: user.id
+          }
+        });
+        return !availableRequest
+          ? Response.errorResponse(res, 404, res.__('Request not found or not yours to manage'))
+          : Response.success(res, 200, res.__('Request found'), availableRequest);
+      }
+      if (user.role === 'requester') {
+        const Request = await db.Request.findOne({ where: { id: requestId, email: user.email } });
+        return !Request
+          ? Response.errorResponse(res, 404, res.__('Request not found or not yours'))
+          : Response.success(res, 200, res.__('Request found'), Request);
+      }
+      return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @param  {object} next
+   * @return {object} view all trip requests
+   */
+  static async viewAllRequests(req, res) {
+    try {
+      const { user } = req;
+      if (user.role === 'manager') {
+        const availableRequests = await db.Request.findAll({ where: { managerId: user.id } });
+        return availableRequests.length === 0
+          ? Response.errorResponse(res, 404, res.__('No trip requests available'))
+          : Response.success(res, 200, res.__('Requests found'), availableRequests);
+      }
+
+      if (user.role === 'requester') {
+        const Requests = await db.Request.findAll({ where: { email: user.email } });
+        return Requests.length === 0
+          ? Response.errorResponse(res, 404, res.__('Requests not found'))
+          : Response.success(res, 200, res.__('Requests found'), Requests);
+      }
+      return Response.errorResponse(res, 401, res.__('you are not authorised for this operation'));
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
 }
