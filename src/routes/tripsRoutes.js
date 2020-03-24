@@ -21,6 +21,7 @@ router.put('/:requestId/confirm', protectRoute.verifyUser, protectRoute.verifyMa
 router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.rejectRequest);
 router.patch('/:requestId/approve', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.approveRequest);
 router.get('/search', protectRoute.verifyUser, searchQueryRules, validationResult, tripsController.requestSearch);
+router.get('/stats', protectRoute.verifyUser, tripsController.TripStats);
 
 router.get('/:requestId/view', protectRoute.verifyUser, tripsController.viewRequest);
 router.get('/view', protectRoute.verifyUser, tripsController.viewAllRequests);

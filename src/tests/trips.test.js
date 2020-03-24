@@ -340,3 +340,40 @@ describe('VIEW REQUESTS', () => {
       });
   });
 });
+
+describe('TRIP STATS TESTS', () => {
+  it('should return statistics of all requestes for that specific manager', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/stats')
+      .set('token', managerToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Trips statistics');
+        expect(res.body.data.totalTripsNumber).to.equal(10);
+        expect(res.body.data.upCommingTrips).to.equal(6);
+        expect(res.body.data.pastYears).to.equal(4);
+        expect(res.body.data.statusStatistics.openRequests).to.equal(6);
+        expect(res.body.data.statusStatistics.approvedRequests).to.equal(2);
+        expect(res.body.data.statusStatistics.rejectedRequets).to.equal(2);
+        done();
+      });
+  });
+  it('should return statistics of all requestes for that specific requester', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/stats')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Trips statistics');
+        expect(res.body.data.totalTripsNumber).to.equal(7);
+        expect(res.body.data.upCommingTrips).to.equal(3);
+        expect(res.body.data.pastYears).to.equal(4);
+        expect(res.body.data.statusStatistics.openRequests).to.equal(3);
+        expect(res.body.data.statusStatistics.approvedRequests).to.equal(2);
+        expect(res.body.data.statusStatistics.rejectedRequets).to.equal(2);
+        done();
+      });
+  });
+});
