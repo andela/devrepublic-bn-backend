@@ -17,6 +17,7 @@ import notificationsRouter from './routes/notifications';
 import './config/passport';
 import { ioMiddleware } from './middlewares/io';
 
+
 dotenv.config();
 i18n.configure({
   locales: ['fr', 'en'],

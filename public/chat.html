@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Barefoot Nomad Chat</title>
+    </head>
+<body>
+    <div class='wrap'>
+        <h1 id="bn-header">Chat with users</h1>
+        <h2>Online Users</h2>
+        <ul class="users"></ul>
+        <h2>Messages</h2>
+        <div id="chat-messages"></div>
+        <div class="messageInput">
+          <input type="text" name="" id="txt" placeholder="write your message" value="">
+          <button id="sendButton">Send</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io({
+            transportOptions: {
+                polling: {
+                    extraHeaders: {
+                        token: localStorage.getItem("token")
+                    }
+                }
+            }
+        });
+      socket.on('messageFromServer', (dataFromServer) => {
+        console.log(dataFromServer);
+        socket.emit('messageToServer', {data: 'this is comming from chat.html'})
+      })
+
+      socket.on('onlineUsers', (usernames) => {
+        const usernamesParsed = JSON.parse(usernames)
+        usernamesParsed.map((username) => {
+          let usersContainer = document.querySelector('.users');
+          let node = document.createElement('li');
+          node.innerHTML = `${username}`
+          usersContainer.appendChild(node)
+        })
+      });
+      
+      socket.on('newUser', (usernames) => {
+        const currentUsers = JSON.parse(usernames)
+        const newUser = currentUsers[currentUsers.length - 1];
+        let usersContainer = document.querySelector('.users');
+        usersContainer.innerHTML = '';
+        currentUsers.map((username) => {
+          let node = document.createElement('li');
+          node.innerHTML = `${username}`
+          usersContainer.appendChild(node)
+        })
+      });
+      
+      socket.on('chatHistory', (messageData) => {
+        const parseMessages = JSON.parse(messageData); //there is an error in the console log with this line
+        parseMessages.map((messages) => {
+          const messagesContainer = document.querySelector('#chat-messages');
+          let messageNode = document.createElement('div');
+          let senderNode = document.createElement('h3')
+          let chatText = document.createElement('p')
+          senderNode.innerHTML = `${messages.userName}`;
+          chatText.innerHTML = `${messages.message}`;
+          messageNode.appendChild(senderNode);
+          messageNode.appendChild(chatText)
+          messagesContainer.appendChild(messageNode)
+        })
+      });
+
+      const sendButton = document.querySelector('#sendButton');
+      sendButton.addEventListener('click', () => {
+        let messageText = document.querySelector('#txt').value;
+        socket.emit('message', {message: messageText, token: localStorage.token})
+        document.querySelector('#txt').value = '';
+      })
+      
+      socket.on('sendMessage', (message) => {
+        const messagesContainer = document.querySelector('#chat-messages');
+        const messageInfo = JSON.parse(message);
+        let messageNode = document.createElement('div');
+        let senderNode = document.createElement('h3')
+        let chatText = document.createElement('p')
+        senderNode.innerHTML = `${messageInfo.senderFirstName} ${messageInfo.senderLastName}`;
+        chatText.innerHTML = messageInfo.message;
+        messageNode.appendChild(senderNode);
+        messageNode.appendChild(chatText)
+        messagesContainer.appendChild(messageNode)
+      });
+
+    </script>
+</body>
+</html>

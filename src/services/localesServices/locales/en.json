@@ -170,5 +170,6 @@
 	"Request found": "Request found",
 	"Requests not found": "Requests not found",
 	"Request not found or not yours to approve": "Request not found or not yours to approve",
-	"Trips statistics": "Trips statistics"
+	"Trips statistics": "Trips statistics",
+	"Request not found or not yours to manage": "Request not found or not yours to manage"
 }
