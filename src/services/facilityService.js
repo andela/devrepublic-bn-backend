@@ -55,4 +55,37 @@ export default class FacilityService {
     });
     return updatedFacility;
   }
+
+  /**
+   * @param  {Object} facilityId
+   * @param  {Object} user
+   * @param  {Object} feedback
+   * @returns {Object} NewFeedback
+   */
+  static async feedback(facilityId, user, feedback) {
+    const todayDate = new Date();
+    const facility = await db.Facilities.findByPk(facilityId);
+    if (!facility) {
+      return stringHelper.facilityNotFound;
+    }
+    const booking = await db.Bookings.findOne({
+      where: {
+        bookedBy: user.email,
+        facilityId,
+        checkin: {
+          [Sequelize.Op.lte]: todayDate
+        }
+      }
+    });
+    if (!booking) {
+      return stringHelper.notVisitedFacility;
+    }
+    const newFeedback = await db.Feedback.create({
+      id: uuid(),
+      feedback,
+      facilityId,
+      userId: user.id
+    });
+    return newFeedback;
+  }
 }

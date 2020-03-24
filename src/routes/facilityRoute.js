@@ -1,7 +1,12 @@
 import express from 'express';
 import FacilitiesController from '../controllers/facilitiesController';
 import protectRoute from '../middlewares/protectRoute';
-import { createFacilityRules, bookingRules, rateQueryRules } from '../validation/validationRules';
+import {
+  createFacilityRules,
+  bookingRules,
+  rateQueryRules,
+  feedbackRules
+} from '../validation/validationRules';
 import validationResult from '../validation/validationResult';
 import { multerUploads } from '../utils/multer';
 import alreadyLiked from '../utils/alreadyLiked';
@@ -15,5 +20,6 @@ router.patch('/like', protectRoute.verifyUser, protectRoute.verifyFacility, prot
 router.patch('/unlike', protectRoute.verifyUser, protectRoute.verifyFacility, protectRoute.checkIfUnliked, alreadyLiked, FacilitiesController.unlikeFacility);
 router.post('/book', protectRoute.verifyUser, protectRoute.verifyRequester, bookingRules, validationResult, FacilitiesController.bookFacility);
 router.patch('/rate/:facilityId', protectRoute.verifyUser, rateQueryRules, validationResult, FacilitiesController.rateFacility);
+router.post('/feedback/:facilityId', protectRoute.verifyUser, protectRoute.verifyRequester, feedbackRules, validationResult, FacilitiesController.facilityFeedback);
 
 export default router;

@@ -9,12 +9,7 @@ const {
   expect
 } = chai;
 
-let token;
-let supplierToken;
-let unauthToken;
-let facilityId;
-let notVisitedFacilityId;
-let roomId;
+let token, supplierToken, unauthToken, facilityId, notVisitedFacilityId, roomId, userRequest;
 chai.use(chaiHttp);
 
 describe('TRAVEL ADMIN ROLE TESTS', () => {
@@ -241,7 +236,7 @@ describe('SUPPLIER ROLE TESTS', () => {
   });
 });
 describe('RATE A FACILITY TESTS', () => {
-  let ratorToken, ratorRequest;
+  let ratorToken;
   before((done) => {
     chai
       .request(index)
@@ -281,7 +276,7 @@ describe('RATE A FACILITY TESTS', () => {
         role: 'requester'
       })
       .end((err, res) => {
-        ratorRequest = res.body.data.id;
+        userRequest = res.body.data.id;
         expect(res.status).to.equal(201);
         done();
       });
@@ -294,7 +289,7 @@ describe('RATE A FACILITY TESTS', () => {
       .send({
         facilityId,
         roomId,
-        requestId: ratorRequest,
+        requestId: userRequest,
         checkin: '2019-04-15',
         checkout: '2019-05-14',
       })
@@ -359,6 +354,89 @@ describe('RATE A FACILITY TESTS', () => {
         expect(res.body.message).to.equal('facility rated');
         expect(res.body.data.totalRating).to.equal(2);
         expect(res.body.data.averageRating).to.equal(2);
+        done();
+      });
+  });
+});
+describe('FACILITY FEEDBACK TESTS', () => {
+  let userToken;
+  beforeEach(() => {
+    sinon.stub(sgMail, 'send').resolves({
+      to: 'aime@amgil.com',
+      from: 'devrepublic@example.com',
+      subject: 'barefoot nomad',
+      html: 'this is stubbing message'
+    });
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
+  before((done) => {
+    chai
+      .request(index)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'jdev@andela.com',
+        password: 'Bien@BAR789'
+      })
+      .end((err, res) => {
+        userToken = res.body.data;
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+  it('should send an error message if the user doesn\'t enter a feedback', (done) => {
+    chai
+      .request(index)
+      .post(`/api/v1/facilities/feedback/${facilityId}`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.error[0]).to.equal('feedback is required');
+        done();
+      });
+  });
+  it('should send an error message if the facility doesn\'t exist', (done) => {
+    chai
+      .request(index)
+      .post('/api/v1/facilities/feedback/5be72db7-5510-4a50')
+      .set('token', userToken)
+      .send({
+        feedback: 'can you repaint your rooms'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.error).to.equal('facility not found');
+        done();
+      });
+  });
+  it('should send an error message if the user haven\'t visited the facility', (done) => {
+    chai
+      .request(index)
+      .post(`/api/v1/facilities/feedback/${notVisitedFacilityId}`)
+      .set('token', userToken)
+      .send({
+        feedback: 'can you repaint the rooms'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.error).to.equal('you haven\'t visited this facility yet');
+        done();
+      });
+  });
+  it('should save the feedback if the user has visited the facility', (done) => {
+    chai
+      .request(index)
+      .post(`/api/v1/facilities/feedback/${facilityId}`)
+      .set('token', userToken)
+      .send({
+        feedback: 'can you repaint your rooms'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        expect(res.body.message).to.equal('feedback saved successfully');
+        expect(res.body.data.feedback).to.equal('can you repaint your rooms');
+        expect(res.body.data.facilityId).to.equal(facilityId);
         done();
       });
   });

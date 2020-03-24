@@ -171,5 +171,8 @@
 	"Requests not found": "Requests not found",
 	"Request not found or not yours to approve": "Request not found or not yours to approve",
 	"Trips statistics": "Trips statistics",
-	"Request not found or not yours to manage": "Request not found or not yours to manage"
+	"Request not found or not yours to manage": "Request not found or not yours to manage",
+	"feedback is required": "feedback is required",
+	"feedback can't be longer than 300 character": "feedback can't be longer than 300 character",
+	"feedback saved successfully" : "feedback saved successfully"
 }
