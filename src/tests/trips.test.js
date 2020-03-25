@@ -377,3 +377,16 @@ describe('TRIP STATS TESTS', () => {
       });
   });
 });
+describe('MOST TRAVELLED DESTINATION TEST', () => {
+  it('should return the most travelled destinations', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/trips/most-travelled')
+      .set('token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Most travelled destinations');
+        done();
+      });
+  });
+});

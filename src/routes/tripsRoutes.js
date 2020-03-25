@@ -22,8 +22,7 @@ router.patch('/:requestId/reject', protectRoute.verifyUser, protectRoute.verifyM
 router.patch('/:requestId/approve', protectRoute.verifyUser, protectRoute.verifyManager, tripsController.approveRequest);
 router.get('/search', protectRoute.verifyUser, searchQueryRules, validationResult, tripsController.requestSearch);
 router.get('/stats', protectRoute.verifyUser, tripsController.TripStats);
-
 router.get('/:requestId/view', protectRoute.verifyUser, tripsController.viewRequest);
 router.get('/view', protectRoute.verifyUser, tripsController.viewAllRequests);
-
+router.get('/most-travelled', protectRoute.verifyUser, tripsController.mostTravelledDestinations);
 export default router;

@@ -516,4 +516,28 @@ export default class requestController {
       return Response.errorResponse(res, 500, res.__('server error'));
     }
   }
+
+  /**
+   * @description this function finds and displays most travelled destinations
+   * @param  {object} req
+   * @param  {object} res
+   * @return {object} most travelled destinations
+   */
+  static async mostTravelledDestinations(req, res) {
+    try {
+      const counting = await db.Request.findAll({
+        attributes: ['destination', [db.sequelize.fn('count', db.sequelize.col('destination')), 'count']],
+        group: ['Request.destination'],
+        raw: true,
+        order: db.sequelize.literal('count DESC'),
+        where: {
+          status: 'approved',
+          confirm: true
+        }
+      });
+      return Response.success(res, 200, res.__('Most travelled destinations'), { Destinations: counting });
+    } catch (err) {
+      return Response.errorResponse(res, 500, res.__('server error'));
+    }
+  }
 }

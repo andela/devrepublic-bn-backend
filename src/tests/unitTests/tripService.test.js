@@ -3,6 +3,7 @@ import sgMail from '@sendgrid/mail';
 import sinon from 'sinon';
 import TripsService from '../../services/tripServices';
 import stringHelper from '../../utils/stringHelper';
+import db from '../../models';
 
 const {
   expect
@@ -57,5 +58,20 @@ describe('APPROVE REQUEST SERVICE TEST', () => {
     expect(approvedRequest.managerId).to.equal('0119b84a-99a4-41c0-8a0e-6e0b6c385165');
 
     expect(approvedRequest.status).to.equal('approved');
+  });
+});
+describe('MOST TRAVELLED DESTINATION UNIT TEST', () => {
+  it('should return the most travelled destinations', async () => {
+    const counting = await db.Request.findAll({
+      attributes: ['destination', [db.sequelize.fn('count', db.sequelize.col('destination')), 'count']],
+      group: ['Request.destination'],
+      raw: true,
+      order: db.sequelize.literal('count DESC'),
+      where: {
+        status: 'approved',
+        confirm: true
+      }
+    });
+    expect(counting).to.be.an('array');
   });
 });
