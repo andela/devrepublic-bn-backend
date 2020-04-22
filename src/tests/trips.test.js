@@ -351,7 +351,7 @@ describe('TRIP STATS TESTS', () => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('Trips statistics');
         expect(res.body.data.totalTripsNumber).to.equal(10);
-        expect(res.body.data.upCommingTrips).to.equal(6);
+        expect(res.body.data.upCommingTrips).to.equal(5);
         expect(res.body.data.pastYears).to.equal(4);
         expect(res.body.data.statusStatistics.openRequests).to.equal(6);
         expect(res.body.data.statusStatistics.approvedRequests).to.equal(2);
